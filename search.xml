@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>模块和cmake</title>
+      <link href="/post/2136934485.html"/>
+      <url>/post/2136934485.html</url>
+      
+        <content type="html"><![CDATA[<p>首先需要指定Cmake的最低版本为3.28（3.28才支持扫描模块）</p><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.28</span>)</span><br><span class="line"><span class="keyword">project</span>(untitle)</span><br></pre></td></tr></table></figure><p>然后需要设置C++的标准为C++20（C++20才有模块），并启用了对C++模块的支持。</p><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">20</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_SCAN_FOR_MODULES <span class="keyword">ON</span>)</span><br></pre></td></tr></table></figure><p>创建了一个名为<code>simple_module</code>的库。<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_library</span>(simple_module</span><br><span class="line">)</span><br></pre></td></tr></table></figure><br>将几个<code>.cppm</code>文件作为C++模块添加到<code>simple_module</code>库中。<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_sources</span>(simple_module</span><br><span class="line">        PUBLIC</span><br><span class="line">        FILE_SET CXX_MODULES FILES</span><br><span class="line">        simple.cppm</span><br><span class="line">        simpe_1.cppm</span><br><span class="line">        simple_2.cppm</span><br><span class="line">)</span><br></pre></td></tr></table></figure><br>这行代码创建了一个名为<code>untitled1</code>的可执行文件，其主文件为<code>main.cpp</code>。</p><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(untitled1 main.cpp)</span><br></pre></td></tr></table></figure><p>最后，将<code>simple_module</code>库链接到<code>untitled1</code>可执行文件。</p><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_link_libraries</span>(untitled1 simple_module)</span><br></pre></td></tr></table></figure><p>完整代码如下</p><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.28</span>)</span><br><span class="line"><span class="keyword">project</span>(untitled1)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">20</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_SCAN_FOR_MODULES <span class="keyword">ON</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(simple_module</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_sources</span>(simple_module</span><br><span class="line">        PUBLIC</span><br><span class="line">        FILE_SET CXX_MODULES FILES</span><br><span class="line">        simple.cppm</span><br><span class="line">        simpe_1.cppm</span><br><span class="line">        simple_2.cppm</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(untitled1 main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(untitled1 simple_module)</span><br></pre></td></tr></table></figure><blockquote><p>注意，编译器需要支持对模块的扫描</p></blockquote>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>新精神分析视角下浅析《长日将尽》管家史密斯的人格</title>
       <link href="/post/670287620.html"/>
       <url>/post/670287620.html</url>
@@ -74,9 +87,9 @@
             
             <tag> 伍尔夫 </tag>
             
-            <tag> 小说 </tag>
-            
             <tag> 意识流 </tag>
+            
+            <tag> 小说 </tag>
             
         </tags>
       
@@ -103,9 +116,9 @@
             
             <tag> 伍尔夫 </tag>
             
-            <tag> 小说 </tag>
-            
             <tag> 意识流 </tag>
+            
+            <tag> 小说 </tag>
             
         </tags>
       
