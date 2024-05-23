@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Pycharm配Jupyter NoteBook</title>
+      <link href="/post/3576418838.html"/>
+      <url>/post/3576418838.html</url>
+      
+        <content type="html"><![CDATA[<p>配置：</p><ul><li>Mac</li><li>Pycharm 2024.1</li></ul><hr><p>首先，需要有Pycharm Professional（学生免费）。</p><p>然后点击左下角终端：</p><p><img src="/images/Pycharm配Jupyter.assets/image-20240523210445720.png" alt="image-20240523210445720"></p><p>命令行中输入<code>pip install jupyter</code>。</p><p>之后新建一个<code>Jupyter Notebook</code>文件，就可以愉快写代码了。</p><p><img src="/images/Pycharm配Jupyter.assets/image-20240523210534667.png" alt="image-20240523210534667"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 重生之我是程序员 </category>
+          
+          <category> Python笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学海泛舟 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>模块和cmake</title>
       <link href="/post/2136934485.html"/>
       <url>/post/2136934485.html</url>
