@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Macports常用指令</title>
+      <link href="/post/554039588.html"/>
+      <url>/post/554039588.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>如果要安装名为<code>portname</code>的端口，则在命令行中输入以下指令：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo port install portname</span><br></pre></td></tr></table></figure><p>如果想查看安装时的详细信息，则加上<code>-v</code>参数。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo port -v install portname</span><br></pre></td></tr></table></figure><p>如果安装失败了想要重装，在重新运行<code>sudo port install portname</code>之前，需要运行以下指令：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo port clean portname</span><br></pre></td></tr></table></figure><h1 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h1><p>如果想卸载名为<code>portname</code>的端口，则在命令行中输入以下指令：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo port uninstall portname</span><br></pre></td></tr></table></figure><p>如果想将安装<code>portname</code>时同时安装的那些依赖卸载，则加上<code>--follow-dependencies</code>参数：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo port uninstall --follow-dependents portname</span><br></pre></td></tr></table></figure><h1 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h1><p>如果要更新Macports或者安装的软件包，可以运行下面两条指令：</p><ol><li><code>sudo port selfupdate</code>：<ul><li>这个命令会更新MacPorts本身，即MacPorts的基础系统。</li><li>同时，它会同步ports树，即更新可用的软件包列表。（只是软件包列表，不是软件包本身）</li><li>如果检测到有新的MacPorts版本，它会自动升级已安装的MacPorts基础系统到最新版本。</li><li>使用<code>--no-sync</code>参数时，它只会检查并安装（如果有）新的MacPorts版本，而不会更新ports树。</li></ul></li><li><code>sudo port upgrade outdated</code>：<ul><li>这个命令会升级所有已安装的、有过时新版本的ports（软件包）及其依赖到MacPorts中可用的最新版本。</li><li>通常，会运行这个命令来更新所有有更新可用的ports（软件包）。</li><li>也可以选择性地升级特定的ports，但这通常不推荐，因为未升级的ports可能会导致软件错误。</li></ul></li></ol><p><code>ports</code>树就像一个图书馆的索引系统，而里面的<code>ports</code>是一本本具体的书</p><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>Macports指导手册：<a href="https://guide.macports.org">https://guide.macports.org</a></p><p>Macports端口信息：<a href="https://ports.macports.org/">https://ports.macports.org/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 重生之我是程序员 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学海泛舟 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Pycharm配Jupyter NoteBook</title>
       <link href="/post/3576418838.html"/>
       <url>/post/3576418838.html</url>
