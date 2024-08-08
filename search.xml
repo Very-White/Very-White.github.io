@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>体素、网格与点云</title>
+      <link href="/post/2370170588.html"/>
+      <url>/post/2370170588.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>网上的关于体素（Voxel）、网格（Mesh）和点云（Point Cloud）的资料比较分散，而它们又是三维重建中很基础且重要的内容。故写了一篇文章总结了一下网上的相关资料。</p><p><img src="/images/体素、网格与点云.assets/v2-5baf89ccc42a1ce346121266bbdacf1f_1440w.png" alt="什么是体素(Voxel)?"></p><blockquote><p>一个三维空间中的物体在计算机中可以有不同的表达形式，图a是用点云（Point Cloud）表达，图b是用体素（Voxel）表达，图c是用网格（Mesh）表达</p></blockquote><h1 id="体素"><a href="#体素" class="headerlink" title="体素"></a>体素</h1><p>二维的图片可以用一个个像素来表示，将二维图片看成一个$n\times n$的矩阵，则矩阵中存储的每一个数就是一个像素。如果这个矩阵仅存储0和1，那就有一张黑白的图片；如果这个矩阵每个数都是8位无符号数，那么就有了一张灰度图像。</p><p>三维中的物体也可以用同样的思想来表示，即将一个三维的物体看成$n\times n\times n$的矩阵，矩阵中存储的每一个数就是一个体素。同样的，这个体素可以只有1位，也可以是8位或32位数。</p><p><img src="/images/体素、网格与点云.assets/image-20240808143801248.png" alt="image-20240808143801248"></p><h1 id="网格"><a href="#网格" class="headerlink" title="网格"></a>网格</h1><p>多边形网格，也被称为“Mesh”，这里简称为网格，是计算机图形学中用于为各种不规则物体建立模型的一种数据结构。现实世界中的物体表面直观上看都是由曲面构成的，而在计算机里，曲面是由无数个小的多边形面片去组成的。Mesh既可以由三角形组成，也可以由其他平面形状如四边形，五边形等组成。而三角网格是最常用的一种。下面是几个由三角形网格表示的三维模型：</p><p><img src="/images/体素、网格与点云.assets/o_skull-surface.png" alt="img"></p><p><img src="/images/体素、网格与点云.assets/o_sphere-surface.png" alt="img"></p><p>三角面片在计算机中存储的时候只需要存储其的三个顶点就可以了，一般是将所有顶点的$(x,y,z)$坐标存为一个数组，然后每个面片就可以用三个数组索引来表示。</p><p>假设有这样的一个顶点数组：</p><div class="table-container"><table><thead><tr><th style="text-align:center">索引</th><th style="text-align:center">1</th><th style="text-align:center">2</th><th style="text-align:center">3</th><th style="text-align:center">4</th></tr></thead><tbody><tr><td style="text-align:center">坐标</td><td style="text-align:center">$(1,2,3)$</td><td style="text-align:center">$(4,5,6)$</td><td style="text-align:center">$(7,8,9)$</td><td style="text-align:center">$(10,11,12)$</td></tr></tbody></table></div><p>那么一个由点$(1,2,3)、(4,5,6)、(10,11,12)$的面片就可以以索引$1、2、4$来表示。</p><h1 id="点云"><a href="#点云" class="headerlink" title="点云"></a>点云</h1><p>点云就是点的集合，在最基础的形式中，它是一个包含多个三维坐标点$(x,y,z)$的集合。当然，也可以给这些点加上颜色信息、强度信息等附加信息。但它们本质都是一组点的集合，可以表示为$(\text{point}_1,\text{point}_2,\text{point}_3,\cdots)$。</p><p><img src="/images/体素、网格与点云.assets/v2-0ab74f0b4ba273d0a630263afaeffec9_1440w.jpg" alt="《三维点云处理》学习笔记（5）Deep Learning for Point Cloud - 知乎"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 重生之我是程序员 </category>
+          
+          <category> 计算机图形学 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学海泛舟 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《文化理论与大众文化导论》约翰·斯道雷</title>
       <link href="/post/3226699343.html"/>
       <url>/post/3226699343.html</url>
