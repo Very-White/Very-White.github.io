@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>在Pycharm中重命名项目</title>
+      <link href="/post/3715959065.html"/>
+      <url>/post/3715959065.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="噩梦伊始"><a href="#噩梦伊始" class="headerlink" title="噩梦伊始"></a>噩梦伊始</h1><p>在Pycharm中创建一个项目之后，我们可能对自己取的项目名称不满意：</p><p><img src="在pycharm中重命名项目.assets/image-20240904221248828.png" alt="image-20240904221248828"></p><p>比如，此时我想把名称A改为名称B。此时我们会发现，在Pycharm中有一个重命名项目的功能：</p><p><img src="在pycharm中重命名项目.assets/image-20240904221350510.png" alt="image-20240904221350510"></p><p>在执行完两个重构：重命名项目和重命名目录之后，可以发现如我们所愿，项目和目录名称都变了。</p><p><img src="在pycharm中重命名项目.assets/image-20240904221506234.png" alt="image-20240904221506234"></p><p>但这时如果运行原来的程序，会直接报错运行出错：</p><p><img src="在pycharm中重命名项目.assets/image-20240904221654579.png" alt="image-20240904221654579"></p><h1 id="匆忙逃窜"><a href="#匆忙逃窜" class="headerlink" title="匆忙逃窜"></a>匆忙逃窜</h1><p>这是因为，目录名称改了，但是工作目录的名称没改。也就是运行配置没改。</p><p>此时就需要编辑配置：</p><p><img src="在pycharm中重命名项目.assets/image-20240904221638157.png" alt="image-20240904221638157"></p><p><img src="在pycharm中重命名项目.assets/image-20240904221719165.png" alt="image-20240904221719165"></p><p>发现有三个地方需要更改：</p><ol><li>需要将第一个解释器改为<code>~/PycharmProjects/B/.venv/bin.python</code></li><li>需要更改脚本路径为<code>/Users/wanhuabai/PycharmProjects/B/.venv/bin.python</code></li><li>需要更改工作目录为<code>/Users/wanhuabai/PycharmProjects/B</code></li></ol><p>第二三项可以直接点击旁边的文件夹图标进行更改，而第一项的修改比较麻烦。</p><p>首先进入设置，改掉Python解释器的路径。在这个界面点击全部显示。</p><p><img src="在pycharm中重命名项目.assets/image-20240904222247329.png" alt="image-20240904222247329"></p><p>先移除解释器：</p><p><img src="在pycharm中重命名项目.assets/image-20240904222331858.png" alt="image-20240904222331858"></p><p>然后再添加解释器：</p><p><img src="在pycharm中重命名项目.assets/image-20240904222354808.png" alt="image-20240904222354808"></p><p>更改完这个之后运行配置中的解释器也会跟着改变。现在就可以正常运行项目了：</p><p><img src="在pycharm中重命名项目.assets/image-20240904222459668.png" alt="image-20240904222459668"></p><h1 id="重获新生"><a href="#重获新生" class="headerlink" title="重获新生"></a>重获新生</h1><p>但此时还没完，因为现在打开终端，会发现找不到虚拟环境中的<code>pip</code>。</p><p><img src="在pycharm中重命名项目.assets/image-20240904222758867.png" alt="image-20240904222758867"></p><p>同时查看<code>VIRTUAL_ENV</code>环境变量，会发现它没有变化：</p><p><img src="在pycharm中重命名项目.assets/image-20240904222842882.png" alt="image-20240904222842882"></p><p>这是因为这个环境变量的地址是硬编码在<code>./.venv/bin/activate</code>等文件中的，需要手动进行替换。打开文件，可以发现这里的路径还是没更改项目名称前的路径名。</p><p><img src="在pycharm中重命名项目.assets/image-20240904223043500.png" alt="image-20240904223043500"></p><p>使用<code>Pycharm</code>的在文件中替换的功能：</p><p><img src="在pycharm中重命名项目.assets/image-20240904223027304.png" alt="image-20240904223027304"></p><p>将<code>./.venv/bin/</code>下所有错误的路径都替换掉：</p><p><img src="在pycharm中重命名项目.assets/image-20240904223242875.png" alt="image-20240904223242875"></p><p>一键替换全部之后。再重新打开终端，可以发现一切都正常了：</p><p><img src="在pycharm中重命名项目.assets/image-20240904223350052.png" alt="image-20240904223350052"></p><p>至此整个重命名项目的过程就结束了，推荐用<code>anaconda</code>或者<code>miniconda</code>来管理环境，就不会遇到<code>.venv</code>那么折腾的报错了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 重生之我是程序员 </category>
+          
+          <category> Python笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学海泛舟 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>体素、网格与点云</title>
       <link href="/post/2370170588.html"/>
       <url>/post/2370170588.html</url>
