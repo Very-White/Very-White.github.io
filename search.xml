@@ -4,6 +4,228 @@
   
     
     <entry>
+      <title>Pycharm设置运行配置</title>
+      <link href="/post/1176275894.html"/>
+      <url>/post/1176275894.html</url>
+      
+        <content type="html"><![CDATA[<p>Pycharm中运行python程序的时候不会调用<code>source ~/.bashrc</code>，所以有很多环境变量可能没有。</p><p>所以可以提前开一个终端，然后将所有环境变量保存下来</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env &gt; ./environment.env</span><br></pre></td></tr></table></figure><p>然后再在Pycharm运行配置中填入<code>.env</code>文件的路径。方便的加载环境变量。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 重生之我是程序员 </category>
+          
+          <category> Python笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学海泛舟 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110668.html"/>
+      <url>/post/2800110668.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110670.html"/>
+      <url>/post/2800110670.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110667.html"/>
+      <url>/post/2800110667.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110666.html"/>
+      <url>/post/2800110666.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110664.html"/>
+      <url>/post/2800110664.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110676.html"/>
+      <url>/post/2800110676.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110677.html"/>
+      <url>/post/2800110677.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110675.html"/>
+      <url>/post/2800110675.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110674.html"/>
+      <url>/post/2800110674.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110673.html"/>
+      <url>/post/2800110673.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110672.html"/>
+      <url>/post/2800110672.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110669.html"/>
+      <url>/post/2800110669.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110671.html"/>
+      <url>/post/2800110671.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110665.html"/>
+      <url>/post/2800110665.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2024.pdf</title>
+      <link href="/post/2800110678.html"/>
+      <url>/post/2800110678.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>在pycharm中重命名项目</title>
       <link href="/post/3715959065.html"/>
       <url>/post/3715959065.html</url>
