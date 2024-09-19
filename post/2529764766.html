@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>从0开始配置mindtorch环境 | A blog</title><meta name="author" content="Ruo"><meta name="copyright" content="Ruo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文的linux（昇腾）服务器是一个刚安装好Ubuntu20.04 LST的裸机，具体的信息如下：  Distributor ID: Ubuntu Description:    Ubuntu 20.04.5 LTS Release:        20.04 Codename:       focal NPU：910A  本文将会一步步展示如何完整配置一个完整的，可以运行mindtorch（0.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从0开始配置mindtorch环境">
+<meta property="og:url" content="https://ranruo.xyz/post/2529764766.html">
+<meta property="og:site_name" content="A blog">
+<meta property="og:description" content="本文的linux（昇腾）服务器是一个刚安装好Ubuntu20.04 LST的裸机，具体的信息如下：  Distributor ID: Ubuntu Description:    Ubuntu 20.04.5 LTS Release:        20.04 Codename:       focal NPU：910A  本文将会一步步展示如何完整配置一个完整的，可以运行mindtorch（0.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ranruo.xyz/img/head_protrait.jpg">
+<meta property="article:published_time" content="2024-09-19T09:00:10.000Z">
+<meta property="article:modified_time" content="2024-09-19T09:00:11.111Z">
+<meta property="article:author" content="Ruo">
+<meta property="article:tag" content="学海泛舟">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ranruo.xyz/img/head_protrait.jpg"><link rel="shortcut icon" href="/img/head_protrait.jpg"><link rel="canonical" href="https://ranruo.xyz/post/2529764766.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从0开始配置mindtorch环境',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-19 17:00:11'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my_css.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/head_protrait.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="A blog"><span class="site-name">A blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">从0开始配置mindtorch环境</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-19T09:00:10.000Z" title="发表于 2024-09-19 17:00:10">2024-09-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-19T09:00:11.111Z" title="更新于 2024-09-19 17:00:11">2024-09-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%87%8D%E7%94%9F%E4%B9%8B%E6%88%91%E6%98%AF%E7%A8%8B%E5%BA%8F%E5%91%98/">重生之我是程序员</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%87%8D%E7%94%9F%E4%B9%8B%E6%88%91%E6%98%AF%E7%A8%8B%E5%BA%8F%E5%91%98/linux/">linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="从0开始配置mindtorch环境"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>本文的linux（昇腾）服务器是一个刚安装好Ubuntu20.04 LST的裸机，具体的信息如下：</p>
+<ul>
+<li>Distributor ID: Ubuntu</li>
+<li>Description:    Ubuntu 20.04.5 LTS</li>
+<li>Release:        20.04</li>
+<li>Codename:       focal</li>
+<li><strong>NPU：910A</strong></li>
+</ul>
+<p>本文将会一步步展示如何完整配置一个完整的，可以运行mindtorch（0.3.0）的环境。</p>
+<h1 id="要安装的依赖"><a href="#要安装的依赖" class="headerlink" title="要安装的依赖"></a>要安装的依赖</h1><p>为了配置一个可以运行mindtorch的环境，需要安装以下的依赖：</p>
+<ol>
+<li>Miniconda：用于管理Python环境</li>
+<li>Python</li>
+<li>NPU固件与驱动</li>
+<li>Cann软件包：昇腾AI处理器配套软件包</li>
+<li>Mindspore</li>
+<li>Mindtorch</li>
+</ol>
+<p>下面逐个来安装</p>
+<p>参考链接：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/671950495">Miniconda安装</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.hiascend.com/document/detail/zh/canncommercial/80RC22/softwareinst/instg/instg_0003.html?Mode=PmIns&amp;OS=Ubuntu&amp;Software=cannToolKit">Cann安装</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mindspore.cn/install#安装python">Mindspore安装</a></li>
+<li><a target="_blank" rel="noopener" href="https://mindtorch.readthedocs.io/zh-cn/latest/docs/Install.html">Mindtorch安装</a></li>
+</ol>
+<h1 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h1><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>首先需要找到一个文件夹，用于放置安装包，本文选择在<code>~/packages</code>下放置安装包。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~/</span><br><span class="line">mkdir packages</span><br><span class="line">cd packages</span><br></pre></td></tr></table></figure>
+<h2 id="Miniconda"><a href="#Miniconda" class="headerlink" title="Miniconda"></a>Miniconda</h2><p>这里下载最新的Miniconda。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">切换到你放置安装包的文件夹中</span></span><br><span class="line">cd ~/packages</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载最新的安装包</span></span><br><span class="line">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(arch).sh</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执行安装脚本</span></span><br><span class="line">sh Miniconda3-latest-Linux-$(arch).sh</span><br></pre></td></tr></table></figure>
+<p>然后按照安装脚本里的提示安装即可。一直回车，直至让选择yes/no（是否安装），选择yes，再次回车，第二次让选择yes/no（决定是否在启动时进入base环境），选择yes，至此Miniconda安装完毕。</p>
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><p>重新打开一个终端窗口，确定能在行前看到（base）的字样。这样就说明成功安装了conda并激活了conda的环境：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(base) shuziren@ubuntu:~$</span><br></pre></td></tr></table></figure>
+<p>然后用conda创建一个虚拟环境：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n iplap python==3.10 -y</span><br></pre></td></tr></table></figure>
+<p>这创建了一个Python版本为3.10的，名为iplap的虚拟环境。然后就可以激活这个虚拟环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate iplap</span><br></pre></td></tr></table></figure>
+<h2 id="NPU固件与驱动"><a href="#NPU固件与驱动" class="headerlink" title="NPU固件与驱动"></a>NPU固件与驱动</h2><h3 id="安装依赖-1"><a href="#安装依赖-1" class="headerlink" title="安装依赖"></a>安装依赖</h3><p>执行命令安装所需依赖：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install -y dkms gcc linux-header-$(uname -r)</span><br></pre></td></tr></table></figure>
+<p>暂时跳过了<code>linux-header-$(uname -r)</code>，因为没有对应版本的。</p>
+<h3 id="准备安装包"><a href="#准备安装包" class="headerlink" title="准备安装包"></a>准备安装包</h3><p>然后需要安装两个东西，一个是驱动，一个是固件。可以参考：<a target="_blank" rel="noopener" href="https://www.hiascend.com/document/detail/zh/canncommercial/80RC2/softwareinst/instg/instg_0001.html?Mode=PmIns&amp;OS=Ubuntu&amp;Software=cannToolKit">华为官方文档</a></p>
+<p>这里安装的是Cann 8.0rc2的固件和驱动。</p>
+<p>在这个网站：<a target="_blank" rel="noopener" href="https://www.hiascend.com/hardware/firmware-drivers/community?product=4&amp;model=10&amp;cann=7.0.0.alpha003&amp;driver=1.0.21.alpha，找到两个包：">https://www.hiascend.com/hardware/firmware-drivers/community?product=4&amp;model=10&amp;cann=7.0.0.alpha003&amp;driver=1.0.21.alpha，找到两个包：</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Ascend-hdk-910-npu-driver 23.0.0 linux-aarch64.run</span><br><span class="line">Ascend-hdk-910-npu-firmware 7.1.0.3.220.run</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/从0开始配置mindtorch环境.assets/image-20240915102613515.png" alt="image-20240915102613515"></p>
+<h3 id="添加HwHiAiUser"><a href="#添加HwHiAiUser" class="headerlink" title="添加HwHiAiUser"></a>添加HwHiAiUser</h3><p>为了安装固件和驱动，需要新添加一个名为HwHiAiUser的用户，在root用户模式下，用如下命令新加一个用户：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd HwHiAiUser</span><br><span class="line">useradd -g HwHiAiUser -d /home/HwHiAiUser -m HwHiAiUser -s /bin/bash</span><br></pre></td></tr></table></figure>
+<p>然后需要将自己的用户（我这里是shuziren）添加到HwHiAiUser组中：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -a -G HwHiAiUser shuziren</span><br></pre></td></tr></table></figure>
+<h3 id="安装软件包"><a href="#安装软件包" class="headerlink" title="安装软件包"></a>安装软件包</h3><p><a target="_blank" rel="noopener" href="https://www.hiascend.com/document/detail/zh/canncommercial/80RC22/softwareinst/instg/instg_0003.html?Mode=PmIns&amp;OS=Ubuntu&amp;Software=cannToolKit">参考链接</a></p>
+<p>给软件包加上执行权限：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x Ascend-hdk-910-npu-driver 23.0.0 linux-aarch64.run</span><br><span class="line">chmod +x Ascend-hdk-910-npu-firmware 7.1.0.3.220.run</span><br></pre></td></tr></table></figure>
+<p>然后在安装前进行软件包的自检</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./Ascend-hdk-910-npu-driver 23.0.0 linux-aarch64.run --check</span><br><span class="line">./Ascend-hdk-910-npu-firmware 7.1.0.3.220.run --check</span><br></pre></td></tr></table></figure>
+<p>最后在<mark>root</mark>用户下进行安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./Ascend-hdk-910-npu-driver 23.0.0 linux-aarch64.run --full --install-for-all</span><br><span class="line">./Ascend-hdk-910-npu-firmware 7.1.0.3.220.run --full</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果显示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ERROR]The list of missing tools: lspci,ifconfig,</span><br></pre></td></tr></table></figure>
+<p>则安装一下软件包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install -y net-tools pciutils</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ol>
+<li><p>若系统出现如下关键回显信息，则表示驱动（driver）安装成功。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Driver package installed successfully!</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若系统出现如下关键回显信息，表示固件安装成功。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Firmware package installed successfully! Reboot now or after driver installation for the installation/upgrade to take effect</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="重启系统"><a href="#重启系统" class="headerlink" title="重启系统"></a>重启系统</h3><p>然后需要重启一下系统：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<p>最后用<code>npu-smi info</code>检查一下是否安装成功了。</p>
+<h2 id="Cann软件包"><a href="#Cann软件包" class="headerlink" title="Cann软件包"></a>Cann软件包</h2><p>然后给需要使用Cann的用户，比如我这是<code>shuziren</code>，安装Cann软件包。<mark>现在不是用root用户，而是用需要使用Cann的用户登录。</mark></p>
+<h3 id="安装依赖-2"><a href="#安装依赖-2" class="headerlink" title="安装依赖"></a>安装依赖</h3><p>首先要安装依赖：</p>
+<ol>
+<li><p>执行如下命令，安装软件包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y gcc g++ make cmake libsqlite3-dev zlib1g-dev libssl-dev libffi-dev net-tools</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查系统是否安装满足版本要求的Python开发环境（支持Python3.7.<em>x</em>至3.10.<em>x</em>）。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 --version</span><br><span class="line">pip3 --version #如果没装需要装一下</span><br></pre></td></tr></table></figure>
+<p>符合要求则执行下一步。</p>
+</li>
+<li><p>执行如下命令安装所需的Python第三方库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install attrs cython numpy==1.24 decorator sympy cffi pyyaml pathlib2 psutil protobuf==3.20 scipy requests absl-py --user</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="准备安装包-1"><a href="#准备安装包-1" class="headerlink" title="准备安装包"></a>准备安装包</h3><p>在<a target="_blank" rel="noopener" href="https://www.hiascend.com/developer/download/community/result?module=cann&amp;cann=8.0.RC2.beta1">官网</a>上找到8.0.RC2.beta1版本的安装包，对应服务器上的芯片的版本（例如我这里是910，就选择了-910，并且我是aarch64的版本的）。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Ascend-cann-kernels-910_8.0.Rc2_linux.run</span><br><span class="line">Ascend-cann-toolkit_8.0.Rc2_linux-aarch64.run</span><br></pre></td></tr></table></figure>
+<p>可以用<code>wget</code>来下载：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O Ascend-cann-kernels-910_8.0.RC2_linux.run https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.0.RC2/Ascend-cann-kernels-910_8.0.RC2_linux.run?response-content-type=application/octet-stream</span><br><span class="line">wget -O Ascend-cann-toolkit_8.0.RC2_linux-aarch64.run https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.0.RC2/Ascend-cann-toolkit_8.0.RC2_linux-aarch64.run?response-content-type=application/octet-stream</span><br></pre></td></tr></table></figure>
+<h3 id="安装前检查"><a href="#安装前检查" class="headerlink" title="安装前检查"></a>安装前检查</h3><p>在安装前运行check检查一下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chmod +x ./Ascend-cann-kernels-910_8.0.RC2_linux.run</span><br><span class="line">./Ascend-cann-kernels-910_8.0.RC2_linux.run --check</span><br><span class="line"></span><br><span class="line">chmod +x Ascend-cann-toolkit_8.0.RC2_linux-aarch64.run</span><br><span class="line">./Ascend-cann-toolkit_8.0.RC2_linux-aarch64.run --check</span><br></pre></td></tr></table></figure>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>先在<code>~/</code>下创建一个名为Ascend的文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./Ascend-cann-toolkit_8.0.RC2_linux-aarch64.run --install</span><br><span class="line">./Ascend-cann-kernels-910_8.0.RC2_linux.run --install</span><br></pre></td></tr></table></figure>
+<p>然后添加一下环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;source ~/Ascend/ascend-toolkit/set_env.sh&#x27; &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
+<h2 id="安装Mindspore"><a href="#安装Mindspore" class="headerlink" title="安装Mindspore"></a>安装Mindspore</h2><p>激活之前创建的conda环境后，先安装几个软件包：</p>
+<p>还需要pip安装几个包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pip uninstall te topi hccl -y</span><br><span class="line">pip install sympy</span><br><span class="line">pip install ~/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl</span><br><span class="line">pip install ~/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl</span><br></pre></td></tr></table></figure>
+<p>然后用如下指令就安装Mindspore：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export MS_VERSION=2.3.1</span><br><span class="line">pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/$&#123;MS_VERSION&#125;/MindSpore/unified/aarch64/mindspore-$&#123;MS_VERSION/-/&#125;-cp310-cp310-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://repo.huaweicloud.com/repository/pypi/simple</span><br></pre></td></tr></table></figure>
+<p>然后验证一下是否安装成功：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &quot;import mindspore;mindspore.set_context(device_target=&#x27;Ascend&#x27;);mindspore.run_check()&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="安装Mindtorch"><a href="#安装Mindtorch" class="headerlink" title="安装Mindtorch"></a>安装Mindtorch</h2><p>安装最新版本的mindtorch：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://openi.pcl.ac.cn/OpenI/MSAdapter.git</span><br><span class="line">cd MSAdapter</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ranruo.xyz">Ruo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ranruo.xyz/post/2529764766.html">https://ranruo.xyz/post/2529764766.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ranruo.xyz" target="_blank">A blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E6%B5%B7%E6%B3%9B%E8%88%9F/">学海泛舟</a></div><div class="post_share"><div class="social-share" data-image="/img/head_protrait.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/1176275894.html" title="Pycharm设置运行配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Pycharm设置运行配置</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/3576418838.html" title="Pycharm配Jupyter NoteBook"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-23</div><div class="title">Pycharm配Jupyter NoteBook</div></div></a></div><div><a href="/post/554039588.html" title="Macports常用指令"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-04</div><div class="title">Macports常用指令</div></div></a></div><div><a href="/post/1176275894.html" title="Pycharm设置运行配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-12</div><div class="title">Pycharm设置运行配置</div></div></a></div><div><a href="/post/1240948986.html" title="Ubuntu配置C++20环境"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-19</div><div class="title">Ubuntu配置C++20环境</div></div></a></div><div><a href="/post/1909324461.html" title="mac用ssh连linux服务器"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-19</div><div class="title">mac用ssh连linux服务器</div></div></a></div><div><a href="/post/2370170588.html" title="体素、网格与点云"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-08</div><div class="title">体素、网格与点云</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/head_protrait.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruo</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A6%81%E5%AE%89%E8%A3%85%E7%9A%84%E4%BE%9D%E8%B5%96"><span class="toc-number">1.</span> <span class="toc-text">要安装的依赖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-number">2.</span> <span class="toc-text">安装依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">2.1.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Miniconda"><span class="toc-number">2.2.</span> <span class="toc-text">Miniconda</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python"><span class="toc-number">2.3.</span> <span class="toc-text">Python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NPU%E5%9B%BA%E4%BB%B6%E4%B8%8E%E9%A9%B1%E5%8A%A8"><span class="toc-number">2.4.</span> <span class="toc-text">NPU固件与驱动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96-1"><span class="toc-number">2.4.1.</span> <span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">2.4.2.</span> <span class="toc-text">准备安装包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0HwHiAiUser"><span class="toc-number">2.4.3.</span> <span class="toc-text">添加HwHiAiUser</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">2.4.4.</span> <span class="toc-text">安装软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%90%AF%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.4.5.</span> <span class="toc-text">重启系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cann%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">2.5.</span> <span class="toc-text">Cann软件包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96-2"><span class="toc-number">2.5.1.</span> <span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%AE%89%E8%A3%85%E5%8C%85-1"><span class="toc-number">2.5.2.</span> <span class="toc-text">准备安装包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D%E6%A3%80%E6%9F%A5"><span class="toc-number">2.5.3.</span> <span class="toc-text">安装前检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.5.4.</span> <span class="toc-text">安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Mindspore"><span class="toc-number">2.6.</span> <span class="toc-text">安装Mindspore</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Mindtorch"><span class="toc-number">2.7.</span> <span class="toc-text">安装Mindtorch</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/2529764766.html" title="从0开始配置mindtorch环境">从0开始配置mindtorch环境</a><time datetime="2024-09-19T09:00:10.000Z" title="发表于 2024-09-19 17:00:10">2024-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/1176275894.html" title="Pycharm设置运行配置">Pycharm设置运行配置</a><time datetime="2024-09-12T07:00:13.000Z" title="发表于 2024-09-12 15:00:13">2024-09-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/3715959065.html" title="在pycharm中重命名项目">在pycharm中重命名项目</a><time datetime="2024-09-04T14:40:03.000Z" title="发表于 2024-09-04 22:40:03">2024-09-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/2370170588.html" title="体素、网格与点云">体素、网格与点云</a><time datetime="2024-08-08T07:00:12.000Z" title="发表于 2024-08-08 15:00:12">2024-08-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/3226699343.html" title="《文化理论与大众文化导论》约翰·斯道雷">《文化理论与大众文化导论》约翰·斯道雷</a><time datetime="2024-07-06T10:00:11.000Z" title="发表于 2024-07-06 18:00:11">2024-07-06</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruo</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
