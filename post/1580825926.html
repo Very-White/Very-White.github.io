@@ -1,0 +1,1260 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>信号与系统 | A blog</title><meta name="author" content="Ruo"><meta name="copyright" content="Ruo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="复数基础基础概念复数表示形式复数的标准形式为$a+bi$ 指数表示复数可以用指数形式表示，形式为：  z &#x3D; re^{i\theta}三角形式复数的三角形式是：  z &#x3D; r(\cos \theta + i\sin \theta)辅角和模$r$ 是复数的模（实数），$\theta$ 是复数的辐角（主值通常在 $[-\pi, \pi]$ 或 $[0, 2\pi]$ 范围内） 复数的模定义为：  r">
+<meta property="og:type" content="article">
+<meta property="og:title" content="信号与系统">
+<meta property="og:url" content="https://ranruo.xyz/post/1580825926.html">
+<meta property="og:site_name" content="A blog">
+<meta property="og:description" content="复数基础基础概念复数表示形式复数的标准形式为$a+bi$ 指数表示复数可以用指数形式表示，形式为：  z &#x3D; re^{i\theta}三角形式复数的三角形式是：  z &#x3D; r(\cos \theta + i\sin \theta)辅角和模$r$ 是复数的模（实数），$\theta$ 是复数的辐角（主值通常在 $[-\pi, \pi]$ 或 $[0, 2\pi]$ 范围内） 复数的模定义为：  r">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ranruo.xyz/img/head_protrait.jpg">
+<meta property="article:published_time" content="2024-09-19T10:00:10.000Z">
+<meta property="article:modified_time" content="2024-09-19T10:00:10.659Z">
+<meta property="article:author" content="Ruo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ranruo.xyz/img/head_protrait.jpg"><link rel="shortcut icon" href="/img/head_protrait.jpg"><link rel="canonical" href="https://ranruo.xyz/post/1580825926.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '信号与系统',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-19 18:00:10'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my_css.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/head_protrait.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="A blog"><span class="site-name">A blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">信号与系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-19T10:00:10.000Z" title="发表于 2024-09-19 18:00:10">2024-09-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-19T10:00:10.659Z" title="更新于 2024-09-19 18:00:10">2024-09-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%87%8D%E7%94%9F%E4%B9%8B%E6%88%91%E6%98%AF%E7%A8%8B%E5%BA%8F%E5%91%98/">重生之我是程序员</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%87%8D%E7%94%9F%E4%B9%8B%E6%88%91%E6%98%AF%E7%A8%8B%E5%BA%8F%E5%91%98/%E7%A8%8B%E5%BA%8F%E5%91%98%E4%B9%9F%E5%BE%97%E4%B8%8A%E8%AF%BE/">程序员也得上课</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="信号与系统"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="复数基础"><a href="#复数基础" class="headerlink" title="复数基础"></a>复数基础</h1><h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="复数表示形式"><a href="#复数表示形式" class="headerlink" title="复数表示形式"></a>复数表示形式</h3><p>复数的标准形式为$a+bi$</p>
+<h4 id="指数表示"><a href="#指数表示" class="headerlink" title="指数表示"></a>指数表示</h4><p>复数可以用指数形式表示，形式为：</p>
+<script type="math/tex; mode=display">
+z = re^{i\theta}</script><h4 id="三角形式"><a href="#三角形式" class="headerlink" title="三角形式"></a>三角形式</h4><p>复数的三角形式是：</p>
+<script type="math/tex; mode=display">
+z = r(\cos \theta + i\sin \theta)</script><h3 id="辅角和模"><a href="#辅角和模" class="headerlink" title="辅角和模"></a>辅角和模</h3><p>$r$ 是复数的模（实数），$\theta$ 是复数的辐角（主值通常在 $[-\pi, \pi]$ 或 $[0, 2\pi]$ 范围内）</p>
+<p>复数的模定义为：</p>
+<script type="math/tex; mode=display">
+r = |z| = \sqrt{a^2 + b^2}</script><h3 id="相位"><a href="#相位" class="headerlink" title="相位"></a>相位</h3><p>若$z=a+bi$，相位的定义为$arctan(\frac b a)$。</p>
+<h3 id="共轭"><a href="#共轭" class="headerlink" title="共轭"></a>共轭</h3><p>复数的共轭定义为：</p>
+<script type="math/tex; mode=display">
+z^* = a - bi</script><p>其中，$z = a + bi$ 是复数的标准形式。<br>共轭运算具有以下性质：</p>
+<ul>
+<li><p>$z \cdot z^* = |z|^2$</p>
+</li>
+<li><p>$(z_1 \cdot z_2)^<em> = z_1^</em> \cdot z_2^*$</p>
+</li>
+<li><p>$(z^<em>)^</em> = z$</p>
+</li>
+<li><p>$z+z^*=2Re\{z\}$  (Real)</p>
+</li>
+<li><p>$z-z^*=2Im\{z\}i$​​  (Imaginary)</p>
+<blockquote>
+<p>这里$Im\{z\}$是不包含$i$的</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h2><script type="math/tex; mode=display">
+e^{ix} = \cos(x) + i\sin(x)</script><h2 id="计算技巧"><a href="#计算技巧" class="headerlink" title="计算技巧"></a>计算技巧</h2><p>若$z=\frac{z_1}{z_2}$，则$|z|=\frac{|z_1|}{|z_2|}$​，$arg(z)=arg(z_1)-arg(z_2)$。$arg$的意思是辅角。</p>
+<h1 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h1><h2 id="什么是信号？"><a href="#什么是信号？" class="headerlink" title="什么是信号？"></a>什么是信号？</h2><p><strong>信号是信息的载体</strong>，它携带着有关某些现象、过程或数据的情报。信号可以是自然界中的物理现象，也可以是电子设备产生的电信号。<strong>信号可以是随时间变化的，也可以是随空间变化的。</strong>在信号处理中，通常关注的是随时间变化的信号。</p>
+<p>信号的分类：连续时间信号，离散时间信号，确知信号，随机信号。</p>
+<h2 id="什么是系统？"><a href="#什么是系统？" class="headerlink" title="什么是系统？"></a>什么是系统？</h2><p><strong>系统是接收输入信号，根据某种规则或操作进行处理，并产生输出信号的实体</strong>。在信号处理中，系统可以是物理设备，如放大器、滤波器，也可以是数学模型或算法，如傅里叶变换、数字信号处理器（DSP）中的程序。</p>
+<p>系统的分类：线性系统、非线性系统、时不变系统、时变系统</p>
+<h2 id="信号与系统中的信号能量与功率公式描述"><a href="#信号与系统中的信号能量与功率公式描述" class="headerlink" title="信号与系统中的信号能量与功率公式描述"></a>信号与系统中的信号能量与功率公式描述</h2><p>在信号与系统中，信号的能量和功率是描述信号特性的两个重要参数。它们分别反映了信号的整体强度和平均强度。</p>
+<h3 id="无限区间上的信号能量"><a href="#无限区间上的信号能量" class="headerlink" title="无限区间上的信号能量"></a>无限区间上的信号能量</h3><p>信号能量是指在整个信号持续时间内信号所做的功。对于连续信号，能量可以通过信号在整个时间轴上的积分来计算；对于离散信号，则通过求和来计算。</p>
+<ul>
+<li><p><strong>连续信号</strong>的能量公式：</p>
+<script type="math/tex; mode=display">
+E = \int_{-\infty}^{\infty} |x(t)|^2 dt</script><p>其中 $x(t)$ 是连续时间信号，而 $E$ 是信号的总能量。</p>
+</li>
+<li><p><strong>离散信号</strong>的能量公式：</p>
+<script type="math/tex; mode=display">
+E = \sum_{n=-\infty}^{\infty} |x[n]|^2</script><p>其中 $x[n]$ 是离散时间信号，$E$ 是信号的总能量。</p>
+</li>
+</ul>
+<p>能量信号的能量是有限的，且其平均功率为零。</p>
+<h3 id="无限区间上的信号功率"><a href="#无限区间上的信号功率" class="headerlink" title="无限区间上的信号功率"></a>无限区间上的信号功率</h3><p>信号功率是指信号在单位时间内做功的平均值。与能量不同，功率是一个时间平均的概念，适用于能量无限的信号，即功率信号。</p>
+<ul>
+<li><p><strong>连续信号</strong>的功率公式：</p>
+<script type="math/tex; mode=display">
+P = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt</script><p>其中 $P$ 是信号的平均功率。</p>
+</li>
+<li><p><strong>离散信号</strong>的功率公式：</p>
+<script type="math/tex; mode=display">
+P = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{n=-N}^{N} |x[n]|^2</script><p>其中 $P$ 是信号的平均功率。</p>
+</li>
+</ul>
+<h3 id="信号处理中的信号分类"><a href="#信号处理中的信号分类" class="headerlink" title="信号处理中的信号分类"></a>信号处理中的信号分类</h3><p>在信号处理领域，根据信号能量和功率的特性，信号可以分为以下三类：</p>
+<ol>
+<li>能量信号是指其能量是有限的，而功率无限的信号</li>
+<li>功率信号是指其功率是有限的，而能量无限的信号。</li>
+<li>能量和功率都是无限的信号。</li>
+</ol>
+<h2 id="信号与系统中的自变量变换"><a href="#信号与系统中的自变量变换" class="headerlink" title="信号与系统中的自变量变换"></a>信号与系统中的自变量变换</h2><h3 id="时移"><a href="#时移" class="headerlink" title="时移"></a>时移</h3><p>位置变换，也称为时间平移，是指将信号在时间轴上左移或右移。如果信号 $ x(t) $ 经过位置变换 $ \tau $ 后，新的信号为 $ x(t - \tau) $。</p>
+<ul>
+<li>当 $ \tau &gt; 0 $ 时，信号向右平移。</li>
+<li>当 $ \tau &lt; 0 $ 时，信号向左平移。<h3 id="时间反转"><a href="#时间反转" class="headerlink" title="时间反转"></a>时间反转</h3>设原始信号为 $ x(t) $，经过镜像变换后得到的新信号为 $ y(t) $。镜像变换的数学表达式可以表示为：<script type="math/tex; mode=display">
+y(t) = x(-t)</script>即，新信号 $ y(t) $ 是原始信号 $ x(t) $​ 在时间轴上的镜像。</li>
+</ul>
+<h3 id="尺度变换"><a href="#尺度变换" class="headerlink" title="尺度变换"></a>尺度变换</h3><p>尺度变换，也称为时间缩放，是指改变信号的时间尺度。如果信号 $ x(t) $ 经过尺度变换 $ \alpha $ 后，新的信号为 $ x(\alpha t) $。</p>
+<ul>
+<li>当 $ \alpha &gt; 1 $ 时，信号被“压缩”，时间轴上的事件变得“快”。</li>
+<li>当 $ 0 &lt; \alpha &lt; 1 $ 时，信号被“拉伸”，时间轴上的事件变得“慢”。</li>
+</ul>
+<h3 id="奇信号和偶信号"><a href="#奇信号和偶信号" class="headerlink" title="奇信号和偶信号"></a>奇信号和偶信号</h3><p>奇信号：一个奇信号满足条件：$ x(-t) = -x(t) $。奇信号在时间轴上关于原点对称。</p>
+<p>偶信号：一个偶信号满足条件：$ x(-t) = x(t) $。偶信号在时间轴上关于y轴对称</p>
+<h4 id="信号的分解"><a href="#信号的分解" class="headerlink" title="信号的分解"></a>信号的分解</h4><p>任何一个信号都可以唯一地分解为一个奇信号和一个偶信号的和。设原始信号为 $ x(t) $，它可以分解为：</p>
+<ul>
+<li>偶部分：$ x_{\text{even}}(t) = \frac{x(t) + x(-t)}{2} $</li>
+<li>奇部分：$ x_{\text{odd}}(t) = \frac{x(t) - x(-t)}{2} $<br>这样，原始信号 $ x(t) $ 可以表示为偶部分和奇部分的和：</li>
+</ul>
+<script type="math/tex; mode=display">
+x(t) = x_{\text{even}}(t) + x_{\text{odd}}(t)</script><h1 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h1><p>本课程主要研究复指信号与正弦信号</p>
+<h2 id="连续时间复指数信号与正弦信号"><a href="#连续时间复指数信号与正弦信号" class="headerlink" title="连续时间复指数信号与正弦信号"></a>连续时间复指数信号与正弦信号</h2><h3 id="复指信号"><a href="#复指信号" class="headerlink" title="复指信号"></a>复指信号</h3><script type="math/tex; mode=display">
+x(t)=C \mathrm{e}^{a t}</script><h4 id="实指数信号"><a href="#实指数信号" class="headerlink" title="实指数信号"></a>实指数信号</h4><p>当$C$和$a$都是实数的时候，$x(t)$​​称为实指数信号。</p>
+<h4 id="周期复指数信号"><a href="#周期复指数信号" class="headerlink" title="周期复指数信号"></a>周期复指数信号</h4><p>$a$​为纯虚数的时候该复指数信号为周期复指数信号。</p>
+<script type="math/tex; mode=display">
+x(t)=\mathrm{e}^{\mathrm{j} \omega_{0} t}</script><p>基波周期 $T_{0}=\frac{2 \pi}{\left|\omega_{0}\right|}$​</p>
+<h4 id="一般复指数信号"><a href="#一般复指数信号" class="headerlink" title="一般复指数信号"></a>一般复指数信号</h4><script type="math/tex; mode=display">
+\begin{array}{l}
+C=|C| \mathrm{e}^{\mathrm{j} \theta}\\
+a=r+\mathrm{j} \omega_{0}
+\end{array}</script><h3 id="正弦信号"><a href="#正弦信号" class="headerlink" title="正弦信号"></a>正弦信号</h3><script type="math/tex; mode=display">
+x(t)=A \cos \left(\omega_{0} t+\phi\right)</script><h3 id="转换关系"><a href="#转换关系" class="headerlink" title="转换关系"></a>转换关系</h3><p>复指信号可以通过欧拉公式转换为正弦信号。欧拉公式为：</p>
+<script type="math/tex; mode=display">
+    e^{j\theta} = \cos\theta + j\sin\theta</script><p>因此，<strong>复指信号可以写为：</strong></p>
+<script type="math/tex; mode=display">
+    x(t) = A (\cos(2\pi ft + \phi) + j\sin(2\pi ft + \phi))</script><p><strong>要将 $ \cos(\omega t) $ 和 $ \sin(\omega t) $ 转换为 $ e^{j\omega t} $ 的形式，我们可以使用欧拉公式（Euler’s formula）：</strong></p>
+<script type="math/tex; mode=display">
+\cos(\omega t) = \frac{1}{2}(e^{j\omega t} + e^{-j\omega t})</script><script type="math/tex; mode=display">
+\sin(\omega t) = \frac{1}{2j}(e^{j\omega t} - e^{-j\omega t})</script><h3 id="谐波关系"><a href="#谐波关系" class="headerlink" title="谐波关系"></a>谐波关系</h3><script type="math/tex; mode=display">
+\left\{\varphi_{k}(t)\right\}=\left\{\mathrm{e}^{\mathrm{j} k \omega_{0} t}\right\}, \quad k=0, \pm 1, \pm 2 \cdots \cdots</script><p>该集合中的每个信号都是周期的，它们的频率分别为  $k \omega_{0}$  ，都是  $\omega_{0}$​  的整数倍，因而称它们是成谐波关系的。各次谐波的周期分别为  $T_{k}=2 \pi /\left|k \omega_{0}\right|$ , 它们的公共周期是  $T_{0}=2 \pi /\left|\omega_{0}\right|_{\text {。 }}$ </p>
+<h2 id="离散时间复指数信号与正弦信号"><a href="#离散时间复指数信号与正弦信号" class="headerlink" title="离散时间复指数信号与正弦信号"></a>离散时间复指数信号与正弦信号</h2><p>离散时间正弦信号的一般形式为：</p>
+<script type="math/tex; mode=display">
+x[n]=A \cos \left(\omega_{0} n+\phi\right)</script><p>离散时间复指数信号：</p>
+<script type="math/tex; mode=display">
+x[n] = C \alpha^{n}=|C||\alpha|^{n} \cos \left(\omega_{0} n+\theta\right)+\mathrm{j}|C \| \alpha|^{n} \sin \left(\omega_{0} n+\theta\right)</script><p>离散时间复指数序列 $ x[n] = e^{j\omega_0 n} $ 是周期性的，当且仅当 $ \omega_0 $ 是 $ 2\pi $ 的有理数倍，即 $ \omega_0 = \frac{2\pi k}{N} $​</p>
+<h3 id="谐波关系-1"><a href="#谐波关系-1" class="headerlink" title="谐波关系"></a>谐波关系</h3><script type="math/tex; mode=display">
+\phi_{k}[n]=\mathrm{e}^{\mathrm{j} k(2 \pi / N) n}, \quad k=0, \pm 1, \cdots</script><p>谐波信号公共周期为$N$，基波频率为$2\pi/N$</p>
+<p>与连续时间下的谐波信号不同的是，在这组信号中，仅有N个互不相同的周期复指数信号。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\phi_{k+N}[n] & =\mathrm{e}^{\mathrm{j}(k+N)(2 \pi / N) n} \\
+& =\mathrm{e}^{\mathrm{j} k(2 \pi / N) n} \mathrm{e}^{\mathrm{j} 2 \pi n}=\phi_{k}[n]
+\end{aligned}</script><h2 id="信号比较-e-j-omega-0-t-与-e-j-omega-0-n"><a href="#信号比较-e-j-omega-0-t-与-e-j-omega-0-n" class="headerlink" title="信号比较: $e^{j\omega_0 t}$ 与 $e^{j\omega_0 n}$"></a>信号比较: $e^{j\omega_0 t}$ 与 $e^{j\omega_0 n}$</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>$e^{j\omega_0 t}$</th>
+<th>$e^{j\omega_0 n}$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频率差异</td>
+<td>$\omega_0$ 不同，信号不同</td>
+<td>==频差 $2\pi$ 的整数倍时，信号相同==</td>
+</tr>
+<tr>
+<td>周期性</td>
+<td>对任何 $\omega_0$ 信号都是周期的</td>
+<td>==仅当 $\frac{2\pi}{\omega_0}=\frac{N}{m}$ 时，信号是周期的==</td>
+</tr>
+<tr>
+<td>基波频率</td>
+<td>基波频率 $\omega_0$</td>
+<td>基波频率 $\omega_0 / m$</td>
+</tr>
+<tr>
+<td>基波周期</td>
+<td>$T_0=\frac{2\pi}{\omega_0}$</td>
+<td>基波周期 $N=m \cdot \frac{2\pi}{\omega_0}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="离散时间单位脉冲与单位阶跃序列"><a href="#离散时间单位脉冲与单位阶跃序列" class="headerlink" title="离散时间单位脉冲与单位阶跃序列"></a>离散时间单位脉冲与单位阶跃序列</h2><p>单位脉冲序列，通常表示为 $ \delta[n] $。它是一个离散信号，仅在 $ n = 0 $ 时为1，其余时刻均为0。数学上可以表示为：</p>
+<script type="math/tex; mode=display">
+\delta[n] =
+\begin{cases}
+1, & \text{if } n = 0 \\
+0, & \text{otherwise}
+\end{cases}</script><p>单位阶跃序列，通常表示为 $ u[n] $，是一个离散信号，当 $ n \geq 0 $ 时为1，当 $ n &lt; 0 $ 时为0。数学上可以表示为：</p>
+<script type="math/tex; mode=display">
+u[n] =
+\begin{cases}
+1, & \text{if } n \geq 0 \\
+0, & \text{if } n < 0
+\end{cases}</script><p>两个函数之间的关系：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+\delta[n]=u[n]-u[n-1]\\
+u[n]=\sum_{m=-\infty}^{n} \delta[m]
+\end{array}</script><p>离散时间单位脉冲是离散时间单位阶跃的一次差分，离散时间阶跃是单位样本的求和函数。</p>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><p>单位脉冲序列可以用于一个信号在n=0时的值的采样。</p>
+<script type="math/tex; mode=display">
+x[n] \delta[n]=x[0] \delta[n]</script><p>更一般的：</p>
+<script type="math/tex; mode=display">
+x[n] \delta\left[n-n_{0}\right]=x\left[n_{0}\right] \delta\left[n-n_{0}\right]</script><h2 id="连续时间单位阶跃与单位冲激函数"><a href="#连续时间单位阶跃与单位冲激函数" class="headerlink" title="连续时间单位阶跃与单位冲激函数"></a>连续时间单位阶跃与单位冲激函数</h2><p>单位阶跃函数，通常表示为 $ u(t) $，是一个在 $ t = 0 $ 时从0瞬间跳变到1的函数。</p>
+<script type="math/tex; mode=display">
+u(t) =
+\begin{cases}
+0, & \text{if } t < 0 \\
+1, & \text{if } t \geq 0
+\end{cases}</script><p>单位冲激函数，通常表示为 $ \delta(t) $，是一个理想化的函数，它在 $ t = 0 $ 时无限大，而在其他时间点为零，且其总面积为1。单位冲激函数是通过对单位阶跃函数求导得到的。</p>
+<blockquote>
+<p>单位冲激函数应该看成一种理想化的东西。任何真实的物理系统都会有惯性存在,因此不可能对输入做出瞬时的响应。因此,如果一个足够窄的脉冲加到这样的系统上, 该系统的响应就不会受脉冲持续期或脉冲的形状细节而有明显的影响,于是,所关注的脉冲的主要特性就是该脉冲的一种总的综合效果,也就是它的面积。</p>
+</blockquote>
+<script type="math/tex; mode=display">
+\delta(t)=\frac{\mathrm{d} u(t)}{\mathrm{d} t}</script><p>单位阶跃函数是单位冲激函数的积分</p>
+<script type="math/tex; mode=display">
+u(t)=\int_{-\infty}^{t} \delta(\tau) \mathrm{d} \tau</script><h3 id="性质-1"><a href="#性质-1" class="headerlink" title="性质"></a>性质</h3><script type="math/tex; mode=display">
+x(t) \delta(t) = x(0) \delta(t)</script><p>这意味着在t=0时刻，$x(t)$与$\delta(t)$的乘积等于$x(0)$与$\delta(t)$的乘积。</p>
+<p>类似地，当连续时间信号$x(t)$与时间平移的冲激函数$\delta(t-t_0)$相乘时，结果为：</p>
+<script type="math/tex; mode=display">
+x(t) \delta(t-t_0) = x(t_0) \delta(t-t_0)</script><p>当对$x(t)$与$\delta(t)$的乘积在整个时间轴上积分时，我们得到：</p>
+<script type="math/tex; mode=display">
+\int_{-\infty}^{\infty} \delta(t) x(t) \mathrm{d} t = x(0) \int_{-\infty}^{\infty} \delta(t) \mathrm{d} t = x(0)</script><p>这说明冲激函数在整个时间轴上的积分等于1，因此积分的结果就是信号在t=0时的值。换句话说，我们可以在t=0时提取信号的样本值。</p>
+<p>同样，对$x(t)$与$\delta(t-t_0)$​的乘积在整个时间轴上积分时，结果是：</p>
+<script type="math/tex; mode=display">
+\int_{-\infty}^{\infty} \delta(t-t_0) x(t) \mathrm{d} t = x(t_0)</script><h1 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h1><h2 id="不同的联结方式"><a href="#不同的联结方式" class="headerlink" title="不同的联结方式"></a>不同的联结方式</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/Users/wanhuabai/Library/Application Support/typora-user-images/image-20240304170341897.png" alt="image-20240304170341897"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/Users/wanhuabai/Library/Application Support/typora-user-images/image-20240304170359782.png" alt="image-20240304170359782"></p>
+<h2 id="系统的六个性质"><a href="#系统的六个性质" class="headerlink" title="系统的六个性质"></a>系统的六个性质</h2><p>系统具有以下六个主要性质：</p>
+<ol>
+<li><strong>因果性（Causality）</strong>：<ul>
+<li><strong>因果性是指系统的输出仅依赖于当前时刻及过去的输入信号，而与未来的输入信号无关</strong>。一个因果系统不可能在输入信号到达之前产生输出。<ul>
+<li>所有的无记忆系统都是因果的,因为输出仅仅对当前的输入值做出响应。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><mark>线性</mark>（Linearity）</strong>：<ul>
+<li><strong>系统的线性包括叠加性和齐次性</strong>。<script type="math/tex; mode=display">
+\begin{aligned}
+a x_{1}(t)+b x_{2}(t) & \rightarrow a y_{1}(t)+b y_{2}(t) \\
+a x_{1}[n]+b x_{2}[n] & \rightarrow a y_{1}[n]+b y_{2}[n]
+\end{aligned}</script></li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><strong><mark>时不变性</mark>（Time-Invariance）</strong>：<ul>
+<li><strong>时不变性是指系统的特性不随时间改变</strong>。如果一个输入信号经过系统后产生了一定的输出，那么将这个输入信号沿时间轴平移，输出信号也会做相同的平移。</li>
+<li>以下是以连续时间系统为例，检验系统时不变性的步骤：<ol>
+<li>令输入为 $x_1(t)$ ，根据系统描述确定对应输出 $y_1(t)$；</li>
+<li>将输入变为 $x_2(t)$，再根据系统描述确定输出 $y_2(t)$；</li>
+<li>令 $x_2(t) = x_1(t - t_0)$，根据自变量变换，检验 $y_2(t)$ 是否等于 $y_1(t - t_0)$。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>稳定性（Stability）</strong>：<ul>
+<li><strong>系统的稳定性是指当输入信号有界时，输出信号也必须是有界的</strong>。一个稳定的系统不会因为输入信号的变化而产生无限大的输出。</li>
+</ul>
+</li>
+<li><strong>记忆性（Memory）</strong>：<ul>
+<li><strong>系统的记忆性指的是系统的输出不仅取决于当前时刻的输入，还可能取决于过去的输入值</strong>。无记忆系统（即时系统）的输出<strong><mark>仅与当前输入有关</mark></strong>，而记忆系统（动态系统）的输出则与过去和现在的输入都有关。</li>
+</ul>
+</li>
+<li><strong>可逆性（Reversibility）或不可逆性（Irreversibility）</strong>：<ul>
+<li><strong>可逆性是指如果一个系统在给定的输入下产生特定的输出，那么从输出可以唯一地确定输入。</strong>不可逆性则意味着不同的输入可能导致相同的输出，因此不能从输出反推出唯一的输入。</li>
+</ul>
+</li>
+</ol>
+<h1 id="卷积和卷积积分"><a href="#卷积和卷积积分" class="headerlink" title="卷积和卷积积分"></a>卷积和卷积积分</h1><h2 id="卷积和"><a href="#卷积和" class="headerlink" title="卷积和"></a>卷积和</h2><p>任意一个序列表示成一串移位的单位脉冲序列$\delta[n-k]$​的线性组合</p>
+<script type="math/tex; mode=display">
+x[n]=\sum_{k=-\infty}^{+\infty} x[k] \delta[n-k]</script><p>在线性时不变系统中，$x[n]$的响应$y[n]$就可以表示为两个离散信号 $ x[n] $ 和 $ h[n] $ 的卷积和：</p>
+<script type="math/tex; mode=display">
+y[n] = \sum_{k=-\infty}^{\infty} x[k] \cdot h[n-k]</script><p>卷积步骤：</p>
+<ol>
+<li><strong>翻转</strong>：将 $ h[n] $ 翻转，得到 $ h[-k] $。</li>
+<li><strong>移位</strong>：将翻转后的 $ h[-k] $ 向右移位 $ n $个单位，得到 $ h[n-k] $。</li>
+<li><strong>相乘</strong>：将 $ x[k] $ 与 $ h[n-k] $ 相乘。</li>
+<li><strong>求和</strong>：对所有可能的 $ k $​ 值进行求和。</li>
+</ol>
+<p>性质：</p>
+<script type="math/tex; mode=display">
+x[n]=x[n] * \delta[n]\\
+x\left[n-n_{0}\right]=x[n] * \delta\left[n-n_{0}\right]</script><h2 id="卷积积分"><a href="#卷积积分" class="headerlink" title="卷积积分"></a>卷积积分</h2><p>连续时间冲激函数也有筛选性质</p>
+<script type="math/tex; mode=display">
+x(t)=\int_{-\infty}^{+\infty} x(\tau) \delta(t-\tau) \mathrm{d} \tau</script><p>在线性时不变系统中，$x[n]$的响应$y[n]$就可以由连续时间信号 $ x(t) $ 和 $ h(t) $ 的卷积积分表示：</p>
+<script type="math/tex; mode=display">
+y(t) = \int_{-\infty}^{\infty} x(\tau) \cdot h(t-\tau) \, d\tau</script><p>卷积步骤：</p>
+<ol>
+<li><strong>翻转</strong>：将 $ h(t) $ 翻转，得到 $ h(-\tau) $。</li>
+<li><strong>移位</strong>：将翻转后的 $ h(-\tau) $ 沿时间轴向右移动 $t$，得到 $ h(t-\tau) $。</li>
+<li><strong>相乘</strong>：将 $ x(\tau) $ 与 $ h(t-\tau) $ 相乘。</li>
+<li><strong>积分</strong>：对 $ \tau $ 从 $ -\infty $ 到 $ \infty $​ 进行积分。</li>
+</ol>
+<p>性质：</p>
+<script type="math/tex; mode=display">
+x(t)=x(t) * \delta(t)\\
+x\left(t-t_{0}\right)=x(t) * \delta\left(t-t_{0}\right)</script><h2 id="线性时不变系统的性质"><a href="#线性时不变系统的性质" class="headerlink" title="线性时不变系统的性质"></a>线性时不变系统的性质</h2><p><mark>一个线性时不变系统的特性可以完全由它的冲激响应来决定</mark>。要特别强调的是,一般来说这个结论仅对线性时不变系统成立。下面还有几个卷积运算的最基本和最重要的性质。</p>
+<h2 id="交换律"><a href="#交换律" class="headerlink" title="交换律"></a>交换律</h2><script type="math/tex; mode=display">
+\begin{array}{l}
+x[n] * h[n]=h[n] * x[n]=\sum_{k=-\infty}^{+\infty} h[k] x[n-k]\\
+x(t) * h(t)=h(t) * x(t)=\int_{-\infty}^{+\infty} h(\tau) x(t-\tau) \mathrm{d} \tau
+\end{array}</script><p>一个输入为 $x[n]$ 且单位冲激响应为 $h[n]$ 的线性时不变系统（LTI系统）的输出，与输入为 $h[n]$ 且单位冲激响应为 $x[n]$ 的输出，是完全一样的。</p>
+<h2 id="分配律"><a href="#分配律" class="headerlink" title="分配律"></a>分配律</h2><script type="math/tex; mode=display">
+\begin{array}{l}
+x[n] *\left(h_{1}[n]+h_{2}[n]\right)=x[n] * h_{1}[n]+x[n] * h_{2}[n]\\
+x(t) *\left[h_{1}(t)+h_{2}(t)\right]=x(t) * h_{1}(t)+x(t) * h_{2}(t)
+\end{array}</script><p>由于卷积运算的分配律,线性时不变系统的并联可以用一个单一的线性时不变系统来代替,而该系统的单位冲激响应就是并联时各个单位冲激响应的和。同时，线性时不变系统对两个输人和的响应一定等于系统对单个输入响应的和</p>
+<h2 id="结合律"><a href="#结合律" class="headerlink" title="结合律"></a>结合律</h2><script type="math/tex; mode=display">
+\begin{array}{l}
+x[n] *\left(h_{1}[n] * h_{2}[n]\right)=\left(x[n] * h_{1}[n]\right) * h_{2}[n]\\
+x(t) *\left[h_{1}(t) * h_{2}(t)\right]=\left[x(t) * h_{1}(t)\right] * h_{2}(t)
+\end{array}</script><p>只要关注的是整个系统的冲激响应, 它们的级联次序就是无关紧要的。</p>
+<p>值得特别强调的是,线性时不变系统级联的特性,其总系统响应与系统级联次序无关这一点对这样一类系统是很特别的。相比之下,<strong>一般来说非线性系统的级联,要想不改变总的响应,其级联次序就不能改变</strong>。</p>
+<h2 id="有记忆和无记忆线性时不变系统"><a href="#有记忆和无记忆线性时不变系统" class="headerlink" title="有记忆和无记忆线性时不变系统"></a>有记忆和无记忆线性时不变系统</h2><p>对一个离散时间线性时不变系统来说,系统无记忆性的条件是:</p>
+<script type="math/tex; mode=display">
+h[n]=K \delta[n]</script><p>对于连续时间线性时不变系统来说，条件是：</p>
+<script type="math/tex; mode=display">
+h(t)=K \delta(t)</script><h2 id="线性时不变系统的可逆性"><a href="#线性时不变系统的可逆性" class="headerlink" title="线性时不变系统的可逆性"></a>线性时不变系统的可逆性</h2><p>离散线性时不变系统，具有可逆性需要满足</p>
+<script type="math/tex; mode=display">
+h(t) * h_{1}(t)=\delta(t)</script><p>连续线性时不变系统，具有可逆性需要满足</p>
+<script type="math/tex; mode=display">
+h[n] * h_{1}[n]=\delta[n]</script><h2 id="线性时不变系统的因果性"><a href="#线性时不变系统的因果性" class="headerlink" title="线性时不变系统的因果性"></a>线性时不变系统的因果性</h2><p>离散线性时不变系统，具有因果性需要满足</p>
+<script type="math/tex; mode=display">
+h[n]=0, \quad n<0</script><p>连续线性时不变系统，具有因果性需要满足</p>
+<script type="math/tex; mode=display">
+h(t)=0, \quad t<0</script><h2 id="线性时不变系统的稳定性"><a href="#线性时不变系统的稳定性" class="headerlink" title="线性时不变系统的稳定性"></a>线性时不变系统的稳定性</h2><p>离散：</p>
+<script type="math/tex; mode=display">
+\sum_{k=-\infty}^{+\infty}|h[k]|<\infty</script><p>连续：</p>
+<script type="math/tex; mode=display">
+\int_{-\infty}^{+\infty}|h(\tau)| \mathrm{d} \tau<\infty</script><h1 id="用微分和差分方程描述的因果线性时不变系统"><a href="#用微分和差分方程描述的因果线性时不变系统" class="headerlink" title="用微分和差分方程描述的因果线性时不变系统"></a>用微分和差分方程描述的因果线性时不变系统</h1><h2 id="线性常系数微分方程"><a href="#线性常系数微分方程" class="headerlink" title="线性常系数微分方程"></a>线性常系数微分方程</h2><p>考虑一个一阶微分方程</p>
+<script type="math/tex; mode=display">
+\frac{\mathrm{d} y(t)}{\mathrm{d} t}+2 y(t)=x(t)</script><p>关于诸如这样的微分方程,很重要的一点是:<strong>它们所给出的是该系统的一种隐含的特性</strong>，一般来说,为了求解一个微分方程,必须给定一个或多个附加条件。</p>
+<p>$y(t)$​一般都是由一个特解和一个齐次解(即输入置于零时该微分方程的解)所组成。该齐次解往往称为系统的自然响应，特解称为受迫响应。</p>
+<p><strong>如果附加条件是初始松弛条件，该式所描述的系统就是线性时不变的,而且是因果的</strong></p>
+<blockquote>
+<p>初始松弛条件：$\text { 若 } t&lt;t_{0} \text { 时 } x(t)=0 \text {, 那么 } t&lt;t_{0} \text { 时 } y(t)=0$​。所以就可以得到$y(t_0)=0$</p>
+</blockquote>
+<p>一个N阶线性常系数微分方程由如下方程给出：</p>
+<script type="math/tex; mode=display">
+\sum_{k=0}^{N} a_{k} \frac{\mathrm{d}^{k} y(t)}{\mathrm{d} t^{k}}=\sum_{k=0}^{M} b_{k} \frac{\mathrm{d}^{k} x(t)}{\mathrm{d} t^{k}}</script><p>$y(t)$的解也分成自然响应和受迫响应两部分，其中自然响应为下面齐次方程的解</p>
+<script type="math/tex; mode=display">
+\sum_{k=0}^{N} a_{k} \frac{\mathrm{d}^{k} y(t)}{\mathrm{d} t^{k}}=0</script><h2 id="线性常系数差分方程"><a href="#线性常系数差分方程" class="headerlink" title="线性常系数差分方程"></a>线性常系数差分方程</h2><script type="math/tex; mode=display">
+\sum_{k=0}^{N} a_{k} y[n-k]=\sum_{k=0}^{M} b_{k} x[n-k]</script><p>在初始松弛条件下, 由该式描述的系统就是线性时不变的,并且是因果的。$y(t)$也是由一个特解和一个齐次解组成。</p>
+<p><strong>但对于离散时间的情况还有另一种方式求解</strong></p>
+<p>上式可以被写成递归方程的形式：</p>
+<script type="math/tex; mode=display">
+y[n]=\frac{1}{a_{0}}\left\{\sum_{k=0}^{M} b_{k} x[n-k]-\sum_{k=1}^{N} a_{k} y[n-k]\right\}</script><ul>
+<li>$N=0$的时候$y[n]$是以前的输入值和当前输入值的显函数。其称为非递归方程。</li>
+<li>如果式的$N≥1$,该差分方程就是递归的,相应于这个方程的线性时不变系统再与初始松弛条件结合在一起,一定有无限长的单位脉冲响应。这类系统通常就称为无限脉冲响应系统。</li>
+</ul>
+<h2 id="方框图"><a href="#方框图" class="headerlink" title="方框图"></a>方框图</h2><p>由线性常系数差分和微分方程描述的系统的一个重要的特点是:能以很简单而且很自然的方式用若干基本运算的方框图互联来表示。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/Users/wanhuabai/Library/Application Support/typora-user-images/image-20240321145938793.png" alt="image-20240321145938793"></p>
+<h1 id="奇异函数"><a href="#奇异函数" class="headerlink" title="奇异函数"></a>奇异函数</h1><p>虽然,通常一个函数或者信号总是用它在自变量每一点的值来定义的,<strong>但是单位冲激主要考虑的不是在每个$t$​值时它怎么样,而是在卷积的意义下它有何作为</strong>。</p>
+<p>冲激函数的定义有两种：</p>
+<ol>
+<li>$x(t)=x(t) * \delta(t)$​</li>
+<li>$ g(0)=\int_{-\infty}^{+\infty} g(\tau) \delta(\tau) \mathrm{d} \tau$</li>
+</ol>
+<h2 id="单位冲激偶和其他奇异函数"><a href="#单位冲激偶和其他奇异函数" class="headerlink" title="单位冲激偶和其他奇异函数"></a>单位冲激偶和其他奇异函数</h2><h3 id="单位冲激偶"><a href="#单位冲激偶" class="headerlink" title="单位冲激偶"></a>单位冲激偶</h3><p>单位冲激是一类称为奇异函数的信号中的一种,其中每一种信号都是借助于它在卷积运算中的特性来定义的。</p>
+<p>单位冲激偶是这个系统的单位冲激响应,记为$u_1(t)$。其是单位冲激函数的导数</p>
+<script type="math/tex; mode=display">
+y(t)=\frac{\mathrm{d} x(t)}{\mathrm{d} t}</script><p>$k$次导数就可以表示为</p>
+<script type="math/tex; mode=display">
+u_{k}(t)=\underbrace{u_{1}(t) * \cdots * u_{1}(t)}_{k \text { 次 }}</script><p>性质：</p>
+<ul>
+<li>$\int_{-\infty}^{+\infty} u_{1}(\tau) \mathrm{d} \tau=0$</li>
+<li>$-g^{\prime}(0)=\int_{-\infty}^{+\infty} g(\tau) u_{1}(\tau) \mathrm{d} \tau$</li>
+</ul>
+<h3 id="单位斜坡函数"><a href="#单位斜坡函数" class="headerlink" title="单位斜坡函数"></a>单位斜坡函数</h3><p>单位斜坡函数表示如下：</p>
+<script type="math/tex; mode=display">
+u_{-2}(t)=t u(t)</script><p>和$x(t)$做卷积就相当于对$x(t)$积分两次。</p>
+<p>高阶积分的定义如下：</p>
+<script type="math/tex; mode=display">
+u_{-k}(t)=\underbrace{u(t) * \cdots * u(t)}_{k \text { 次 }}=\int_{-\infty}^{t} u_{-(k-1)}(\tau) \mathrm{d} \tau</script><p>可以得到：</p>
+<script type="math/tex; mode=display">
+u_{-k}(t)=\frac{t^{k-1}}{(k-1) !} u(t)</script><p>不像$\delta(t)$的各阶导数那样,单位冲激的连续多次积分仍是在每个$t$值都有定义的函数</p>
+<h3 id="delta-t-和-u-t-的另一种表示"><a href="#delta-t-和-u-t-的另一种表示" class="headerlink" title="$\delta(t)$和$u(t)$的另一种表示"></a>$\delta(t)$和$u(t)$的另一种表示</h3><script type="math/tex; mode=display">
+\begin{array}{l}
+\delta(t)=u_{0}(t) \\
+u(t)=u_{-1}(t)
+\end{array}</script><h1 id="周期信号的傅里叶级数表示"><a href="#周期信号的傅里叶级数表示" class="headerlink" title="周期信号的傅里叶级数表示"></a>周期信号的傅里叶级数表示</h1><p>周期信号的傅里叶级数表示是用复指数作基本信号的线性组合表示信号。</p>
+<blockquote>
+<p>这些基本信号应该有两个性质：</p>
+<ol>
+<li>由这些基本信号能够构成相当广泛的一类有用信号</li>
+<li>线性时不变系统对每一个基本信号的响应应该十分简单,以使系统对任意输入信号的响应有一个很方便的表示式</li>
+</ol>
+</blockquote>
+<p>一个线性时不变系统对复指数信号的响应也是一个复指数信号。</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+\mathrm{e}^{s t} \longrightarrow H(s) \mathrm{e}^{s t} \\
+z^{n} \longrightarrow H(z) z^{n}
+\end{array}</script><p>$H(s)/H(z)$称为特征值，$e^{st}/z^n$​称为特征函数</p>
+<p>其中：</p>
+<script type="math/tex; mode=display">
+H(s)=\int_{-\infty}^{+\infty} h(\tau) \mathrm{e}^{-s \tau} \mathrm{d} \tau</script><script type="math/tex; mode=display">
+H(z)=\sum_{k=-\infty}^{+\infty} h[k] z^{-k}</script><p>如果一个线性时不变系统的输入能够表示成复指数的线性组合,那么系统的输出也能够表示成相同复指数信号的线性组合。</p>
+<p>对连续时间：</p>
+<script type="math/tex; mode=display">
+x(t)=\sum_{k} a_{k} \mathrm{e}^{s_{k} t}</script><p>那么输出就是</p>
+<script type="math/tex; mode=display">
+y(t)=\sum_{k} a_{k} H\left(s_{k}\right) \mathrm{e}^{s_{k} t}</script><p>对离散时间：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+x[n]=\sum_{k} a_{k} z_{k}^{n}\\
+y[n]=\sum_{k} a_{k} H\left(z_{k}\right) z_{k}^{n}
+\end{array}</script><h2 id="连续时间周期信号的傅里叶级数表示"><a href="#连续时间周期信号的傅里叶级数表示" class="headerlink" title="连续时间周期信号的傅里叶级数表示"></a>连续时间周期信号的傅里叶级数表示</h2><p>一个周期信号表示成下式（也称为综合公式）的形式,就称为傅里叶级数表示。</p>
+<script type="math/tex; mode=display">
+x(t)=\sum_{k=-\infty}^{+\infty} a_{k} \mathrm{e}^{\mathrm{j} k \omega_{0} t}=\sum_{k=-\infty}^{+\infty} a_{k} \mathrm{e}^{\mathrm{j} k(2 \pi / T) t}</script><p>其中的系数通过下式（也称为分析公式）确定：</p>
+<script type="math/tex; mode=display">
+a_{k}=\frac{1}{T} \int_{T} x(t) \mathrm{e}^{-\mathrm{j} k \omega_{0} t} \mathrm{~d} t</script><blockquote>
+<p>$\vec a_n$（成分）代表是$\vec x(t)$在$\vec e^{jnw_0t}$上的投影。</p>
+</blockquote>
+<p>特别当$k=0$时，$a_0$就是$x(t)$​在一个周期内的平均值</p>
+<script type="math/tex; mode=display">
+a_{0}=\frac{1}{T} \int_{T} x(t) \mathrm{d} t</script><h3 id="傅里叶级数的收敛"><a href="#傅里叶级数的收敛" class="headerlink" title="傅里叶级数的收敛"></a>傅里叶级数的收敛</h3><p>有两类周期信号可以由傅里叶级数表示：(充分条件)</p>
+<ol>
+<li><p>在一个周期内能量有限的信号。</p>
+<script type="math/tex; mode=display">
+\int_{T}|x(t)|^{2} \mathrm{~d} t<\infty</script></li>
+<li><p>满足狄利赫利条件的信号。这组条件除了在某些对$x(t)$不连续的孤立的$t$值外,保证$x(t)$等于它的傅里叶级数表示;而在那些$x(t)$不连续的点上, 的无穷级数收敛于不连续点两边值的平均值。</p>
+<ol>
+<li><p>在任何周期内，$x(t)$绝对可积</p>
+<script type="math/tex; mode=display">
+\int_{T}|x(t)| \mathrm{d} t<\infty</script></li>
+<li><p>在任意有限区间内，$x(t)$​具有有限个起伏变化（最大值和最小值数目有限）</p>
+</li>
+<li><p>在$x(t)$​的任何有限区间内，只有有限个不连续点，而且在这些不连续点上，函数是有限值。</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>收敛于傅里叶级数的意思是，原来信号和它的傅里叶级数表示之间没有任何能量上的差别。因此,两者从所有实际目的来看可以认为是一样的。因为只是在孤立点上有差异，所以在卷积的意义下，两者的特性是一样的<strong>从线性时不变系统分析的角度来看,两个信号完全是一致的</strong>。</p>
+<h4 id="吉伯斯现象"><a href="#吉伯斯现象" class="headerlink" title="吉伯斯现象"></a>吉伯斯现象</h4><p>不连续信号$x(t)$​，在接近不连续点处将呈现高频起伏和超量。</p>
+<h2 id="连续时间傅里叶级数性质"><a href="#连续时间傅里叶级数性质" class="headerlink" title="连续时间傅里叶级数性质"></a>连续时间傅里叶级数性质</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/Users/wanhuabai/Library/Application Support/typora-user-images/image-20240323123202816.png" alt="image-20240323123202816"></p>
+<blockquote>
+<ol>
+<li>若$x(t)$为偶函数，其傅里叶级数系数也为偶；如果$x(t)$是奇函数，则其傅里叶系数也为奇</li>
+</ol>
+</blockquote>
+<h2 id="离散时间周期信号的傅里叶级数表示"><a href="#离散时间周期信号的傅里叶级数表示" class="headerlink" title="离散时间周期信号的傅里叶级数表示"></a>离散时间周期信号的傅里叶级数表示</h2><p><strong>一个离散时间周期信号的傅里叶级数是有限项级数</strong>,而在连续时间周期信号情况下是一个无穷级数。其结果就是在离散时间情况下不存在数学上的收敛问题。</p>
+<p>分析公式和频谱系数分别如下：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+x[n] & =\sum_{k=\langle N\rangle} a_{k} \mathrm{e}^{j k \omega_{0} n}=\sum_{k=\langle N\rangle} a_{k} \mathrm{e}^{j k(2 \pi / N) n} \\
+a_{k} & =\frac{1}{N} \sum_{n=\langle N\rangle} x[n] \mathrm{e}^{-\mathrm{j} k \omega_{0} n}=\frac{1}{N} \sum_{n=\langle N\rangle} x[n] \mathrm{e}^{-\mathrm{j} k(2 \pi / N) n}
+\end{aligned}</script><p>其中傅里叶级数系数与连续时间的不同之处在于$a_k$的值以$N$为周期</p>
+<script type="math/tex; mode=display">
+a_{k}=a_{k+N}</script><p>有时把$a_k$也看成定义在全部$k$值上的一个序列,而在傅里叶级数表示式中仅仅利用其中某$N$​个连续序列值。</p>
+<p>与连续时间情况相比,这里不存在任何收敛问题,也没有吉伯斯现象。任何离散时间周期序列$x[n]$完全是由有限个参数(即$N$个)来表征的,这就是在一个周期内的$N$​个序列值。</p>
+<h2 id="离散傅里叶级数性质"><a href="#离散傅里叶级数性质" class="headerlink" title="离散傅里叶级数性质"></a>离散傅里叶级数性质</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/Users/wanhuabai/Library/Application Support/typora-user-images/image-20240324110345003.png" alt="image-20240324110345003"></p>
+<p>与连续时间情况相比有重要差别的几个性质：</p>
+<h3 id="相乘"><a href="#相乘" class="headerlink" title="相乘"></a>相乘</h3><script type="math/tex; mode=display">
+x[n] y[n] \stackrel{\mathcal{F S}}{\longleftrightarrow} d_{k}=\sum_{l=\langle N\rangle} a_{l} b_{k-l}</script><p>除了求和变量现在要限制在N个连续的样本区间以外,上式就类似于卷积的定义。这种类型的运算称为两个周期的傅里叶系数序列之间的周期卷积,而求和变量从$-\infty$到$\infty$的这种卷积和的形式有时就称为非周期卷积,以区别于周期卷积。</p>
+<h3 id="一次差分"><a href="#一次差分" class="headerlink" title="一次差分"></a>一次差分</h3><script type="math/tex; mode=display">
+x[n]-x[n-1] \stackrel{\mathcal{F S}}{\longleftrightarrow}\left(1-\mathrm{e}^{-\mathrm{j} k(2 \pi / N)}\right) a_{k}</script><p>在求一次差分的傅里叶级数系数比求原序列的傅里叶系数更容易时,常常使用这个性质。</p>
+<h3 id="离散时间周期的帕斯瓦尔定理"><a href="#离散时间周期的帕斯瓦尔定理" class="headerlink" title="离散时间周期的帕斯瓦尔定理"></a>离散时间周期的帕斯瓦尔定理</h3><script type="math/tex; mode=display">
+\frac{1}{N} \sum_{n=\langle N\rangle}|x[n]|^{2}=\sum_{k=\langle N\rangle}\left|a_{k}\right|^{2}</script><p>帕斯瓦尔定理再一次表明: 一个周期信号的平均功率等于它的所有谐波分量的平均功率之和。上式右边的求和可以在任何k的N个相继值上进行。</p>
+<h2 id="傅里叶级数与线性时不变系统"><a href="#傅里叶级数与线性时不变系统" class="headerlink" title="傅里叶级数与线性时不变系统"></a>傅里叶级数与线性时不变系统</h2><p>复指数信号的线性组合的响应具有特别简单的形式。</p>
+<p>具体而言, 在连续时间情况下, 若  $x(t)=\mathrm{e}^{s t}$  是一个连续时间线性时不变系统的输入， 那么其输出就为  $y(t)=H(s) \mathrm{e}^{s t}$ 。$H(s)=\int_{-\infty}^{+\infty} h(\tau) \mathrm{e}^{-s \tau} \mathrm{d} \tau$</p>
+<p>在离散时间情况下， 若  $x[n]=z^{n}$  是一个离散时间线性时不变系统的输入，那么其输出就为  $y[n]=   H(z) z^{n}$, $H(z)=\sum_{k=-\infty}^{+\infty} h[k] z^{-k}$。</p>
+<p>当$s$或$z$是一般复数时,$H(s)$和$H(z)$就称为该系统的系统函数。但当$Re\{s\}=0(s=jw)$的时候，$H(jw)$就称为该系统的频率响应；当$|z|=1(z=e^{jw})$的时候，$H(e^{jw})$​被称为该系统的频率响应。</p>
+<p>==注意：任何离散时间频率响应$H(e^{jw})$都是周期的，周期为$2\pi$==</p>
+<p>连续时间的情况下，在$x(t)$​为周期信号的时候，其傅里叶表示为：</p>
+<script type="math/tex; mode=display">
+x(t)=\sum_{k=-\infty}^{+\infty} a_{k} \mathrm{e}^{j k \omega_{0} t}</script><p>输出为：</p>
+<script type="math/tex; mode=display">
+y(t)=\sum_{k=-\infty}^{+\infty} a_{k} H\left(\mathrm{j} k \omega_{0}\right) \mathrm{e}^{j k \omega_{0} t}</script><p>离散时间情况下，在$x[n]$为一个周期信号，其傅里叶表示为</p>
+<script type="math/tex; mode=display">
+x[n]=\sum_{k=\langle N\rangle} a_{k} \mathrm{e}^{\mathrm{j} k(2 \pi / N) n}</script><p>输出为：</p>
+<script type="math/tex; mode=display">
+y[n]=\sum_{k=\langle N\rangle} a_{k} H\left(\mathrm{e}^{\mathrm{j} 2 \pi k / N}\right) \mathrm{e}^{\mathrm{j} k(2 \pi / N) n}</script><p>应该注意,对于上面两个输出这样的表示式,若使其有意义,<strong>频率响应 $H(jw)$和 $H(e^{jw})$​就必须是有明确定义,而且是有限的。</strong></p>
+<h2 id="滤波"><a href="#滤波" class="headerlink" title="滤波"></a>滤波</h2><p>改变一个信号中各频率分量的相对大小,或者全部消除某些频率分量之类的要求,常常是颇受关注的,这样一种过程称为滤波(filter)。</p>
+<ul>
+<li><p>用于改变频谱形状的线性时不变系统往往称为<strong>频率成形滤波器</strong>。</p>
+</li>
+<li><p>专门设计成基本上无失真地通过某些频率,而显著地衰减掉或消除掉另一些频率的系统称为<strong>频率选择性滤波器</strong>。</p>
+<ul>
+<li><p>一个低通滤波器就是通过低频(即在$w =0$附近的频率),而衰减或阻止较高频率的滤波器。</p>
+</li>
+<li><p>一个高通滤波器就是通过高频而衰减或阻止较低频率的滤波器</p>
+</li>
+<li><p>带通滤波器就是通过某一频带范围,而衰减掉既高于又低于所要通过的这段频带的滤波器。</p>
+<blockquote>
+<p>截止频率是在通带和阻带内频率的边界。理想频率选择性滤波器无失真地通过一组频率上的复指数信号,并全部阻止掉所有其他频率的信号。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><ul>
+<li><p>$y(t)=\mathrm{d} x(t) / \mathrm{d} t$​：增强边缘的连续的频率成型滤波器</p>
+</li>
+<li><p>$R C \frac{\mathrm{d} v_{c}(t)}{\mathrm{d} t}+v_{c}(t)=v_{\mathrm{s}}(t)$​：当将$v_c(t)$作为输出的时候是低通滤波器；当将电阻两端的电压$v_r(t)$​作为输出的时候是高通滤波器。</p>
+<blockquote>
+<p>代入$v_s(t)=e^{jwt}$,$v_c(t)=H(jw)e^{jwt}$就可以得到$H(jw)$​的表达式</p>
+</blockquote>
+</li>
+<li><p>$y[n]-ay[n-1]=x[n]$：递归离散时间滤波器。当$0&lt;a&lt;1$的时候，是一个低通滤波器；当$-1&lt;a&lt;0$时是高通滤波器。</p>
+<blockquote>
+<p>代入$x[n]=e^{jwn}$和$y[n]=H(e^{jw})e^{jwn}$就可以得到$H(e^{jw})$的表达式</p>
+</blockquote>
+</li>
+<li><p>$y[n]=\frac{1}{N+M+1} \sum_{k=-N}^{M} x[n-k]$：非递归离散时间低通滤波器。</p>
+</li>
+<li>$y[n]=\frac{x[n]-x[n-1]}{2}$​：非递归离散时间高通滤波器。</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>傅里叶级数最重要的性质之一是复指数特征函数性质的一个直接结果,这就是:若一个周期信号加到一个线性时不变系统上,那么输出也一定是周期的,且与输入信号的周期相同;并且, 输出的每一个傅里叶系数就是对应的输入傅里叶系数乘以复指数,该复指数的值是相应于傅里叶系数的那个频率的函数。</p>
+<h1 id="连续时间傅里叶变换"><a href="#连续时间傅里叶变换" class="headerlink" title="连续时间傅里叶变换"></a>连续时间傅里叶变换</h1><p>当广泛的一类信号,其中包括全部有限能量的信号,也能够经由复指数信号的线性组合来表示。对周期信号而言,这些复指数基本信号构造单元全是成诸波关系的;而对非周期信号,它们则是在频率上无限小地靠近的。</p>
+<p>因此,作为线性组合表示所取的形式是一个积分,而不是求和。在这种表示中所得到的系数谱称为傅里叶变换;而利用这些系数将信号表示为复指数信号线性组合的综合积分式本身则称为傅里叶逆变换。</p>
+<p>在一个周期信号的傅里叶级数表示中,当周期增加时,基波频率就减小,成谐波关系的各分量在频率上愈趋靠近。当周期变成无穷大时,这些频率分量就形成了一个连续域,从而傅里叶级数的求和也就变成了一个积分。</p>
+<p><strong>在建立非周期信号的傅里叶变换时,可以把非周期信号当成一个周期信号在周期任意大时的极限来看待</strong>,并且研究这个周期信号傅里叶级数表示式的极限特性。</p>
+<h2 id="非周期信号傅里叶变换表示"><a href="#非周期信号傅里叶变换表示" class="headerlink" title="非周期信号傅里叶变换表示"></a>非周期信号傅里叶变换表示</h2><script type="math/tex; mode=display">
+x(t)=\frac{1}{2 \pi} \int_{-\infty}^{+\infty} X(\mathrm{j} \omega) \mathrm{e}^{\mathrm{j} \omega t} \mathrm{~d} \omega</script><script type="math/tex; mode=display">
+X(\mathrm{j} \omega)=\int_{-\infty}^{+\infty} x(t) \mathrm{e}^{-\mathrm{j} \omega t} \mathrm{~d} t</script><p>这两个公式被称为傅里叶变换对，$X(j\omega)$称为$x(t)$的傅里叶变换或傅里叶积分，一式被称为傅里叶逆变换。一个非周期信号$x(t)$的变换$X(j\omega)$通常称为$x(t)$的频谱。</p>
+<p>一个周期信号$\tilde{x}(t)$的傅里叶系数$a_k$能够利用$\tilde{x}(t)$的一个周期内信号的傅里叶变换的等间隔样本来表示。$\tilde{x}(t)$的傅里叶系数正比于一个周期内的$\tilde{x}(t)$信号傅里叶变换的样本。</p>
+<script type="math/tex; mode=display">
+a_{k}=\left.\frac{1}{T} X(\mathrm{j} \omega)\right|_{\omega=k \omega_{0}}</script><blockquote>
+<p>这里的$X(j\omega)$是非周期函数$x(t)$的傅里叶变换</p>
+</blockquote>
+<h3 id="傅里叶变换的收敛"><a href="#傅里叶变换的收敛" class="headerlink" title="傅里叶变换的收敛"></a>傅里叶变换的收敛</h3><p>从导出过程看，$x(t)$​的傅里叶变换是否存在的条件应该和傅里叶级数收敛所要求的那一组条件一样。</p>
+<ol>
+<li>$x(t)$能量有限：$\int_{-\infty}^{+\infty}|x(t)|^{2} \mathrm{~d} t&lt;\infty$</li>
+<li>狄利赫利条件。这组条件充分保证了$\tilde x(t)$在不连续点外，在任何其他$t$上都等于$x(t)$，而在不连续点处其等于$x(t)$在不连续点两边值的平均值。<ul>
+<li>$x(t)$绝对可积：$\int_{-\infty}^{+\infty}|x(t)| \mathrm{d} t&lt;\infty$</li>
+<li>在任何有限区间内,$x(t)$​只有有限个最大值和最小值</li>
+<li>在任何有限区间内,$x(t)$有有限个不连续点,并且在每个不连续点都必须是有限值</li>
+</ul>
+</li>
+</ol>
+<p>傅里叶变换的收敛也会呈现出吉伯斯现象。</p>
+<h3 id="傅里叶现象的对偶性"><a href="#傅里叶现象的对偶性" class="headerlink" title="傅里叶现象的对偶性"></a>傅里叶现象的对偶性</h3><p>矩形脉冲信号$x(t)=\left\{\begin{array}{ll}<br>1, &amp; |t|<T_{1} \\
+0, & |t|>T_{1}<br>\end{array}\right.$的傅里叶变换为：</p>
+<script type="math/tex; mode=display">
+X(\mathrm{j} \omega)=\int_{-T_{1}}^{T_{1}} \mathrm{e}^{-\mathrm{j} \omega t} \mathrm{~d} t=2 \frac{\sin \omega T_{1}}{\omega}</script><p>而傅里叶变换为$X(\mathrm{j} \omega)=\left\{\begin{array}{ll}<br>1, &amp; |\omega|<W \\
+0, & |\omega|>W<br>\end{array}\right.$重组的$x(t)$为：</p>
+<script type="math/tex; mode=display">
+x(t)=\frac{1}{2 \pi} \int_{-W}^{W} \mathrm{e}^{\mathrm{j} \omega t} \mathrm{~d} \omega=\frac{\sin W t}{\pi t}</script><p>可以用sinc函数$\operatorname{sinc}(\theta)=\frac{\sin \pi \theta}{\pi \theta}$可以简化两个表达式：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\frac{2 \sin \omega T_{1}}{\omega} & =2 T_{1} \operatorname{sinc}\left(\frac{\omega T_{1}}{\pi}\right) \\
+\frac{\sin W t}{\pi t} & =\frac{W}{\pi} \operatorname{sinc}\left(\frac{W t}{\pi}\right)
+\end{aligned}</script><h4 id="sa函数和sinc函数"><a href="#sa函数和sinc函数" class="headerlink" title="sa函数和sinc函数"></a>sa函数和sinc函数</h4><script type="math/tex; mode=display">
+sa(x)=\frac {sinx}{x}</script><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/v2-95002ac0136e621ab2d9107294af3528_720w.jpg" alt="【笔记】信号与系统：Sa函数的积分 - 知乎"></p>
+<script type="math/tex; mode=display">
+sinc(x)=\frac{sin(\pi x)}{\pi x}</script><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://ts1.cn.mm.bing.net/th/id/R-C.0c11589c5b18197000743693ba8c8035?rik=sWrQSR7shE3FMA&amp;riu=http%3a%2f%2felectron6.phys.utk.edu%2foptics421%2fmodules%2fm5%2fimages%2fsinc.gif&amp;ehk=l6%2bP1pqDLIQn62Nhgn13Gy4d0UotpLpdpDPk94Q2ZFg%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0" alt="Diffraction"></p>
+<h2 id="周期信号的傅里叶变换"><a href="#周期信号的傅里叶变换" class="headerlink" title="周期信号的傅里叶变换"></a>周期信号的傅里叶变换</h2><p>其实对于周期信号也能够建立傅里叶变换表示。这样就可以在统一框架内考虑周期和非周期信号。</p>
+<p>周期信号$x(t)=\sum_{k=-\infty}^{+\infty} a_{k} \mathrm{e}^{\mathrm{j} k \omega_{0} t}$的傅里叶变换为：</p>
+<script type="math/tex; mode=display">
+X(\mathrm{j} \omega)=\sum_{k=-\infty}^{+\infty} 2 \pi a_{k} \delta\left(\omega-k \omega_{0}\right)</script><blockquote>
+<p>这里的$X(j\omega)$是周期函数的傅里叶变换</p>
+</blockquote>
+<p>也就有$e^{jk\omega_0t}\leftrightarrow 2\pi \delta \left( \omega-k\omega _{0}\right) $​。</p>
+<h2 id="傅里叶变换的性质"><a href="#傅里叶变换的性质" class="headerlink" title="傅里叶变换的性质"></a>傅里叶变换的性质</h2><p>$x(t)$和$X(j\omega)$的傅里叶变换可以用这一对符号表示。</p>
+<script type="math/tex; mode=display">
+x(t) \stackrel{\mathcal{F}}{\longleftrightarrow} X(\mathrm{j} \omega)</script><p>性质：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240407131615921.png" alt="image-20240407131615921"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240407131644819.png" alt="image-20240407131644819"></p>
+<blockquote>
+<p>时域卷积和<a href="#傅里叶级数与线性时不变系统">傅里叶级数与线性时不变系统</a>的对应：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+y(t) &=\dfrac{1}{2\pi }\int ^{+\infty }_{-\infty }X\left( j\omega \right) H\left( j\omega \right) e^{j\omega t}d\omega \\
+&=\dfrac{1}{2\pi }\int ^{+\infty }_{-\infty }2\pi \sum ^{+\infty }_{k=-\infty }a_{k}\delta \left( \omega -k\omega _{0}\right) H\left( j\omega \right) e^{j\omega t}d\omega \\
+&=\sum ^{+\infty }_{k=-\infty }a_{k}\int _{-\infty }^{+\infty }\delta \left( \omega -k\omega _{0}\right) H\left( j\omega \right) e^{j\omega t}d\omega \\
+&=\sum ^{+\infty }_{k=-\infty }a_{k}H\left( jk\omega _{0}\right) e^{jk\omega _{0}\cdot t}
+\end{aligned}</script><p>对偶性补充：</p>
+<script type="math/tex; mode=display">
+若x(t) \stackrel{\mathcal{F}}{\longleftrightarrow} X(\mathrm{j} \omega)\\
+则X(jt)\stackrel{\mathcal{F}}{\longleftrightarrow} 2\pi x(-\omega)</script></blockquote>
+<p>基本傅里叶变换对：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240407131709647.png" alt="image-20240407131709647"></p>
+<h2 id="由线性常系数微分方程表征的系统"><a href="#由线性常系数微分方程表征的系统" class="headerlink" title="由线性常系数微分方程表征的系统"></a>由线性常系数微分方程表征的系统</h2><p>一类特别重要而有用的连续时间线性时不变系统是其输入输出满足如下形式的线性常系数微分方程的系统：</p>
+<script type="math/tex; mode=display">
+\sum_{k=0}^{N} a_{k} \frac{\mathrm{d}^{k} y(t)}{\mathrm{d} t^{k}}=\sum_{k=0}^{M} b_{k} \frac{\mathrm{d}^{k} x(t)}{\mathrm{d} t^{k}}</script><p>频率响应可以表征一个线性时不变系统。求这个系统的频率响应有两个方式：</p>
+<ol>
+<li><p>一是依赖复指数信号是线性时不变系统的特征函数这一事实。若$x(t)=e^{jwt}$，则$y(t)=H(j\omega)e^{jwt}$。代入微分方程即可求解。</p>
+</li>
+<li><p>根据卷积性质，可以得到：</p>
+<script type="math/tex; mode=display">
+H(\mathrm{j} \omega)=\frac{Y(\mathrm{j} \omega)}{X(\mathrm{j} \omega)}=\frac{\sum_{k=0}^{M} b_{k}(\mathrm{j} \omega)^{k}}{\sum_{k=0}^{N} a_{k}(\mathrm{j} \omega)^{k}}</script><p>傅里叶变换方法将一个微分方程表征的线性时不变系统问题演变为直接的代数问题。</p>
+<blockquote>
+<p>[!Note]</p>
+<p>注意这里的$Y(jw)$对应的反而是$x(t)$的微分项的系数</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="离散时间傅里叶变换"><a href="#离散时间傅里叶变换" class="headerlink" title="离散时间傅里叶变换"></a>离散时间傅里叶变换</h1><p>在连续时间和离散时间信号分析中存在着很多相类似的地方，然而,也有一些重大的差别。</p>
+<h2 id="离散时间非周期信号傅里叶变换"><a href="#离散时间非周期信号傅里叶变换" class="headerlink" title="离散时间非周期信号傅里叶变换"></a>离散时间非周期信号傅里叶变换</h2><p>$x[n]$是一个非周期函数。那么就有下面这对公式：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+x[n] & =\frac{1}{2 \pi} \int_{2 \pi} X\left(\mathrm{e}^{\mathrm{j} \omega}\right) \mathrm{e}^{\mathrm{j} \omega n} \mathrm{~d} \omega \\
+X\left(\mathrm{e}^{\mathrm{j} \omega}\right) & =\sum_{n=-\infty}^{+\infty} x[n] \mathrm{e}^{-\mathrm{j} \omega n}
+\end{aligned}</script><p>$X(e^{jw})$是离散时间傅里叶变换，其的周期为$2\pi$。上面的式子是综合公式（其只涉及在一个频率区间内积分），而下面的式子是分析公式。</p>
+<p>并且还有：</p>
+<script type="math/tex; mode=display">
+a_{k}=\frac{1}{N} X\left(\mathrm{e}^{\mathrm{j} k \omega_{0}}\right)=\frac 1 N X(e^{jw})|_{\omega=k\omega_0}</script><p>也就是一个周期信号$\tilde x[n]$的傅里叶系数$a_k$可以用一个有限长序列$x[n]$的傅里叶变换的等间隔样本来表示。</p>
+<h3 id="离散时间傅里叶变换的收敛问题"><a href="#离散时间傅里叶变换的收敛问题" class="headerlink" title="离散时间傅里叶变换的收敛问题"></a>离散时间傅里叶变换的收敛问题</h3><p><strong>分析公式因为涉及无穷项求和，所以有收敛的条件</strong>：</p>
+<ol>
+<li>绝对可和：$\sum_{n=-\infty}^{+\infty}|x[n]|&lt;\infty$</li>
+<li>或能量有限：$\sum_{n=-\infty}^{+\infty}|x[n]|^{2}&lt;\infty$</li>
+</ol>
+<p>综合公式因为是在有限的积分区间内进行，所以一般不存在收敛问题。并且也<strong>没有吉伯斯现象</strong>。</p>
+<h2 id="离散时间周期信号傅里叶变换"><a href="#离散时间周期信号傅里叶变换" class="headerlink" title="离散时间周期信号傅里叶变换"></a>离散时间周期信号傅里叶变换</h2><script type="math/tex; mode=display">
+\begin{align}
+x[n] &= \sum_{k=\langle N\rangle} a_{k} \mathrm{e}^{\mathrm{j} k(2 \pi / N) n} \\
+X\left(\mathrm{e}^{\mathrm{j} \omega}\right) &= \sum_{k=-\infty}^{+\infty} 2 \pi a_{k} \delta\left(\omega-\frac{2 \pi k}{N}\right) = \sum_{k=-\infty}^{+\infty} 2 \pi a_{k} \delta\left(\omega-k\omega_0\right)
+\end{align}</script><h2 id="傅里叶变换的性质-1"><a href="#傅里叶变换的性质-1" class="headerlink" title="傅里叶变换的性质"></a>傅里叶变换的性质</h2><p>离散时间傅里叶变换的性质：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240411163041632.png" alt="image-20240411163041632"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240411163148977.png" alt="image-20240411163148977"></p>
+<blockquote>
+<ol>
+<li><p>时域相乘等于在频域上做周期卷积：</p>
+<script type="math/tex; mode=display">
+x_{1}[n] x_{2}[n]\stackrel{\mathcal{F}}{\longleftrightarrow}\frac{1}{2 \pi} X_{1}\left(\mathrm{e}^{\mathrm{j} \omega}\right) \otimes X_{2}\left(\mathrm{e}^{\mathrm{j} \omega}\right)</script></li>
+<li><p>对偶性补充：（离散时间傅里叶级数的对偶）</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+x[n] \stackrel{\mathcal{F}}{\longleftrightarrow} a_{k} \\
+a_{n} \stackrel{\mathcal{F}}{\longleftrightarrow} \frac{1}{N} x[-k] \\
+\end{array}</script></li>
+</ol>
+</blockquote>
+<p>离散时间傅里叶变换变换对：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240411163242744.png" alt="image-20240411163242744"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240411163259260.png" alt="image-20240411163259260"></p>
+<h2 id="对偶性"><a href="#对偶性" class="headerlink" title="对偶性"></a>对偶性</h2><p>对离散时间傅里叶变换而言,分析公式和综合公式之间却不存在相应的对偶性。但存在以下两种对偶性：</p>
+<ul>
+<li><p>离散时间公式的对偶性</p>
+<p>若$f[k]$是$g[n]$的傅里叶级数系数：</p>
+<script type="math/tex; mode=display">
+f[k]=\frac{1}{N} \sum_{n=\langle N\rangle} g[n] \mathrm{e}^{-\mathrm{j} k(2 \pi / N) n}</script><p>那么，$(1 / N) g[-k]$就相当于 $f[n]$​的傅里叶级数的系数序列：</p>
+<script type="math/tex; mode=display">
+f[n]=\sum_{k=\langle N\rangle} \frac{1}{N} g[-k] \mathrm{e}^{\mathrm{j} k(2 \pi / N) n}</script></li>
+<li><p>离散时间傅里叶变换和连续时间傅里叶级数之间的对偶性</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+x[n] & =\frac{1}{2 \pi} \int_{2 \pi} X\left(\mathrm{e}^{\mathrm{j} \omega}\right) \mathrm{e}^{\mathrm{j} \omega n} \mathrm{~d} \omega \\
+X\left(\mathrm{e}^{\mathrm{j} \omega}\right) & =\sum_{n=-\infty}^{+\infty} x[n] \mathrm{e}^{-\mathrm{j} \omega n} \\
+x(t) & =\sum_{k=-\infty}^{+\infty} a_{k} \mathrm{e}^{\mathrm{j} k \omega_{0} t} \\
+a_{k} & =\frac{1}{T} \int_{T} x(t) \mathrm{e}^{-\mathrm{j} k \omega_{0} t} \mathrm{~d} t
+\end{aligned}</script><p>由式子2和式子3，可以看出一个离散时间信号$x[n]$的傅里叶变换$X(e^{j\omega})$，是以$x[-n]$为傅里叶级数的连续时间信号。</p>
+<p>由式子1和4，可以看出傅里叶变换为$X(e^{j\omega})$的离散时间信号$x[n]$，是连续时间信号$-X(e^{-jw})$​的傅里叶级数系数。</p>
+<blockquote>
+<p>因为$X(e^{j\omega})$的周期为$2\pi$，所以$\omega_0=1$。</p>
+</blockquote>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240421172220243.png" alt="image-20240421172220243"></p>
+<h2 id="由线性常系数差分方程表征的系统"><a href="#由线性常系数差分方程表征的系统" class="headerlink" title="由线性常系数差分方程表征的系统"></a>由线性常系数差分方程表征的系统</h2><p>对一个线性时不变系统而言,其输出$y[n]$和输入$x[n]$之间的线性常系数差分方程一般具有如下形式:</p>
+<script type="math/tex; mode=display">
+\sum_{k=0}^{N} a_{k} y[n-k]=\sum_{k=0}^{M} b_{k} x[n-k]</script><p>频率响应$H(e^{j\omega})$解法也有两种：</p>
+<ol>
+<li><p>利用复指数是线性时不变系统特征函数这一事实来求。也就是将$y[n]$和$x[n]$代入上式中。</p>
+</li>
+<li><p>或者通过下式求解。（<strong>注意分母和分子</strong>）</p>
+<script type="math/tex; mode=display">
+H\left(\mathrm{e}^{\mathrm{j} \omega}\right)=\frac{Y\left(\mathrm{e}^{\mathrm{j} \omega}\right)}{X\left(\mathrm{e}^{\mathrm{j} \omega}\right)}=\frac{\sum_{k=0}^{M} b_{k} \mathrm{e}^{-\mathrm{j} k \omega}}{\sum_{k=0}^{N} a_{k} \mathrm{e}^{-\mathrm{j} k \omega}}</script></li>
+</ol>
+<h1 id="信号与系统的时域和频域特性"><a href="#信号与系统的时域和频域特性" class="headerlink" title="信号与系统的时域和频域特性"></a>信号与系统的时域和频域特性</h1><p>对于一个系统,既从频域又从时域方面提出或限定了一定的特性要求,而往往这些又是互相矛盾的要求。所以,在系统设计和分析中,将时域特性与频域特性联系起来并给以权衡考虑是很必要的。</p>
+<h2 id="傅里叶变换的模和相位表示"><a href="#傅里叶变换的模和相位表示" class="headerlink" title="傅里叶变换的模和相位表示"></a>傅里叶变换的模和相位表示</h2><p>一般来说,傅里叶变换是复数值的,并且可以用它的模和相位来表示。</p>
+<ul>
+<li>连续时间傅里叶变换$X(\mathrm{j} \omega)$的模-相表示是$X(\mathrm{j} \omega)=|X(\mathrm{j} \omega)| \mathrm{e}^{\mathrm{j} \nless X(\mathrm{j} \omega)}$​。</li>
+<li>离散时间傅里叶变换$X(e^{\mathrm{j} \omega})$的模-相表示是$X\left(\mathrm{e}^{\mathrm{j} \omega}\right)=\left|X\left(\mathrm{e}^{\mathrm{j} \omega}\right)\right| \mathrm{e}^{\mathrm{j} \nless X\left(\mathrm{e}^{\mathrm{j} \omega}\right)}$</li>
+</ul>
+<p>以连续时间傅里叶变换为例,模$\left|X(jw)\right|$所描述的是一个信号的基本频率含量,也即给出的是组成$x(t)$的各复指数信号<strong>相对振幅</strong>的信息。相位角$\nless X(\mathrm{j} \omega)$不影响各个频率分量的大小,但提供的是有关这些复指数信号的<strong>相对相位信息</strong>。==由$\nless X(\mathrm{j} \omega)$所代表的相位关系对信号$x(t)$的本质属性有显著的影响.==</p>
+<h3 id="线性时不变系统频率响应的模和相位表示"><a href="#线性时不变系统频率响应的模和相位表示" class="headerlink" title="线性时不变系统频率响应的模和相位表示"></a>线性时不变系统频率响应的模和相位表示</h3><p>连续时间中一个线性时不变系统的输入和输出的傅里叶变换关联如下：</p>
+<script type="math/tex; mode=display">
+Y(\mathrm{j} \omega)=H(\mathrm{j} \omega) X(\mathrm{j} \omega)</script><p>$Y(jw)$的模-相表示就如下：</p>
+<script type="math/tex; mode=display">
+|Y(\mathrm{j} \omega)|=|H(\mathrm{j} \omega)||X(\mathrm{j} \omega)|\\
+\nless Y(\mathrm{j} \omega)=\nless H(\mathrm{j} \omega)+\nless X(\mathrm{j} \omega)</script><p>如果,系统对输入的改变是以一种有意义的方式进行的,那么这种在模和相位上的变化可能都是我们所希望的;否则,就是不希望有的。在后一种情况下, 上两个式子的影响一般称为<strong>幅度和相位失真</strong>。</p>
+<blockquote>
+<p>[!NOTE] </p>
+<ol>
+<li>具有整数斜率的线性相位就相应于$x[n]$一个整数样本的移位。</li>
+<li>如果输入信号傅里叶变换的模通过一个系统时都没有改变，这样的系统一般称为全通系统。</li>
+</ol>
+</blockquote>
+<h3 id="理想频率选择性滤波器的时域特性"><a href="#理想频率选择性滤波器的时域特性" class="headerlink" title="理想频率选择性滤波器的时域特性"></a>理想频率选择性滤波器的时域特性</h3><h4 id="连续时间"><a href="#连续时间" class="headerlink" title="连续时间"></a>连续时间</h4><p>一个连续时间理想低通滤波器具有如下形式的频率响应：</p>
+<script type="math/tex; mode=display">
+H(j \omega)=\left\{\begin{array}{ll}
+1, & |\omega| \leqslant \omega_{c} \\
+0, & |\omega|>\omega_{c}
+\end{array}\right.</script><p>其的单位冲击响应为：</p>
+<script type="math/tex; mode=display">
+h(t)=\frac{\sin \omega_{c} t}{\pi t}</script><h4 id="离散时间"><a href="#离散时间" class="headerlink" title="离散时间"></a>离散时间</h4><p>一个离散时间理想低通滤波器具有如下形式的频率响应：</p>
+<script type="math/tex; mode=display">
+H\left(\mathrm{e}^{\mathrm{j} \omega}\right)=\left\{\begin{array}{ll}
+1, & |\omega| \leqslant \omega_{c} \\
+0, & \omega_{c}<|\omega| \leqslant \pi
+\end{array}\right.</script><p>单位脉冲响应为：</p>
+<script type="math/tex; mode=display">
+h[n]=\frac{\sin \omega_{c} n}{\pi n}</script><p>尽管从频域滤波的角度看，理想滤波器的频率特性是最好的，但它们的时域特性并不是最佳的。</p>
+<ol>
+<li>理想滤波器是非因果系统，因而是物理不可实现的</li>
+<li>$h(t)$存在振荡。</li>
+</ol>
+<h1 id="采样"><a href="#采样" class="headerlink" title="采样"></a>采样</h1><p>在一定条件下,一个连续时间信号完全可以用该信号在等时间间隔点上的值或样本来表示,并且可以用这些样本值把该信号全部恢复出来。</p>
+<p>采样的概念使人们想到一种极富吸引力并广泛使用的方法,就是利用离散时间系统技术来实现连续时间系统并处理连续时间信号:可以利用采样先把一个连续时间信号变换为一个离散时间信号,再用一个离散时间系统将该离散时间信号进行处理,之后再把它变换回到连续时间中。</p>
+<h2 id="采样定理"><a href="#采样定理" class="headerlink" title="采样定理"></a>采样定理</h2><p>如果一个信号是<strong>带限</strong>的(即它的傅里叶变换在某一有限频带范围以外均为零),并且它的<strong>样本取得足够密</strong>(相对于信号中的最高频率而言),那么这些<strong>样本值就能唯一地用来表征这一信号</strong>,并且能从这些样本中把信号完全恢复出来。这一结果就是采样定理。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240422165023666.png" alt="image-20240422165023666"></p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>在采样定理中, 采样频率必须大于$2 \omega_{M}$，该频率 $2 \omega_{M}$一般称为奈奎斯特率。</p>
+</blockquote>
+<h3 id="冲激串采样"><a href="#冲激串采样" class="headerlink" title="冲激串采样"></a>冲激串采样</h3><p>要表示一个连续时间信号在均匀间隔上的采样，可以通过周期冲激串去乘待采样的连续时间信号$x(t)$。这也叫<strong>冲激串采样</strong>：</p>
+<script type="math/tex; mode=display">
+p(t)=\sum_{n=-\infty}^{+\infty} \delta(t-n T)</script><h3 id="零阶保持采样"><a href="#零阶保持采样" class="headerlink" title="零阶保持采样"></a>零阶保持采样</h3><p>产生和传输窄而幅度大的脉冲(这就很近似于冲激)都是相当困难的,因此以所谓零阶保持的方式来产生采样信号往往更方便些。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240422165813107.png" alt="image-20240422165813107"></p>
+<p>$x_0(t)$就是$x(t)$采样后的信号。这里$H_{0}(\mathrm{j} \omega)=\mathrm{e}^{-\mathrm{j} \omega T / 2}\left[\frac{2 \sin (\omega T / 2)}{\omega}\right]$，$p(t)$就是一个周期冲激串。</p>
+<p>而将采样后的$x_0(t)$恢复，需要将其再通过一个线性时不变系统$r$，并且：</p>
+<script type="math/tex; mode=display">
+H_{r}(\mathrm{j} \omega)=\frac{\mathrm{e}^{\mathrm{j} \omega T / 2} H(\mathrm{j} \omega)}{\frac{2 \sin (\omega T / 2)}{\omega}}</script><p>并且,实质上它就代表了一种可能的(虽然肯定很粗糙)样本值之间的内插。（$H(j\omega)$是一个理想低通滤波器的频率响应。）</p>
+<h2 id="内插"><a href="#内插" class="headerlink" title="内插"></a>内插</h2><p><strong>内插(也就是用一连续信号对一组样本值的拟合)是一个由样本值来重建某一函数的常用过程</strong>,这一重建结果既可以是近似的,也可以是完全准确的。</p>
+<p>利用理想低通滤波器的单位冲激响应的内插通常称为<strong>带限内插</strong>。因为这种内插,只要$x(t)$​是带限的,而采样频率又满足采样定理中的条件,就实现了信号的真正重建。</p>
+<h2 id="欠采样的效果-混叠现象"><a href="#欠采样的效果-混叠现象" class="headerlink" title="欠采样的效果:混叠现象"></a>欠采样的效果:混叠现象</h2><p>在前面的讨论中，<strong>我们假定了采样频率足够高</strong>，因此满足采样定理中的条件。当 $ \omega_{s} &gt; 2\omega_{M}$ 时，采样信号的频谱是由 $x(t)$ 的频谱重复组成的，这正是采样定理的基础。</p>
+<p>然而，当 $\omega_{s} &lt; 2\omega_{M}$ 时，$x(t)$的频谱 $X(j\omega)$ 不再在 $X_{p}(j\omega)$中重复，因此利用低通滤波也无法将 $x(t)$ 从采样信号中恢复出来。</p>
+<p>显然被重建的信号 $x_{r}(t)$ 将不会等于 $x(t)$。然而原始信号 $x(t)$ 和利用带限内插得到的 $x_{r}(t)$ <strong>在那些采样瞬时总是相等的</strong>。</p>
+<h1 id="通信系统"><a href="#通信系统" class="headerlink" title="通信系统"></a>通信系统</h1><p>将某一个载有信息的信号嵌入另一个信号中的过程称为<strong>调制</strong>；而将这个载有信息的信号提取出来的过程称为<strong>解调</strong>。</p>
+<p>调制技术不仅能够将信息嵌入可以有效传输的信号中,而且还能够把频谐重叠的多个信号通过称为<strong>复用</strong>的概念在同一信道上同时传输。</p>
+<h2 id="复指数与正弦幅度调制"><a href="#复指数与正弦幅度调制" class="headerlink" title="复指数与正弦幅度调制"></a>复指数与正弦幅度调制</h2><p>很多通信系统都建立在正弦幅度调制的基础上，在这里一个复指数信号或正弦信号$c(t)$的振幅被载有信息的信号$x(t)$​相乘(或调制)。其有两种常用形式，一是载波信号为<strong>复指数</strong>，另一种是载波信号为<strong>正弦</strong>的。</p>
+<h3 id="复指数载波的幅度调制"><a href="#复指数载波的幅度调制" class="headerlink" title="复指数载波的幅度调制"></a>复指数载波的幅度调制</h3><p>载波信号$c(t)$为复指数：</p>
+<script type="math/tex; mode=display">
+c(t)=\mathrm{e}^{\mathrm{j}\left(\omega_{c} t+\theta_{c}\right)}</script><p>这里$\omega_c$被称为载波频率，为方便起见，下面的$\theta_c=0$。那么已调信号$y(t)$就是：</p>
+<script type="math/tex; mode=display">
+y(t)=x(t) \mathrm{e}^{\mathrm{j} \omega_{c} t}</script><p>这相当于在频域上做频移：</p>
+<script type="math/tex; mode=display">
+Y(\mathrm{j} \omega)=X\left(\mathrm{j} \omega-\mathrm{j} \omega_{c}\right)</script><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240508092232583.png" alt="image-20240508092232583"></p>
+<h3 id="正弦载波的幅度调制"><a href="#正弦载波的幅度调制" class="headerlink" title="正弦载波的幅度调制"></a>正弦载波的幅度调制</h3><p>载波信号$c(t)$为正弦：</p>
+<script type="math/tex; mode=display">
+c(t)=\cos \left(\omega_{c} t+\theta_{c}\right)</script><p>再次让$\theta_c=0$。那么已调信号$y(t)$的频谱就是：</p>
+<script type="math/tex; mode=display">
+Y(\mathrm{j} \omega)=\frac{1}{2}\left[X\left(\mathrm{j} \omega-\mathrm{j} \omega_{c}\right)+X\left(\mathrm{j} \omega+\mathrm{j} \omega_{c}\right)\right]</script><p>在图上看，就是：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240508092714037.png" alt="image-20240508092714037"></p>
+<p>图中可以注意到，以 $+\omega_{c}$ 和 $-\omega_{c}$ 为中心都有一个原始信号频谱形状的重复。结果只要 $\omega_{M} &lt; \omega_{c}$（可保证左右都不越过$x=0$的线），就能从$y(t)$中恢复出$x(t)$；否则这两个重复的频谱将会有重叠，也就无法恢复。</p>
+<h2 id="正弦幅度调制的解调"><a href="#正弦幅度调制的解调" class="headerlink" title="正弦幅度调制的解调"></a>正弦幅度调制的解调</h2><p>解调有两种常用的方法，分别是<strong>同步解调</strong>和<strong>非同步解调</strong>。同步解调指的是发射机和接收机在相位上是同步的，而非同步解调指的是它们在相位上不同步。</p>
+<h3 id="同步解调"><a href="#同步解调" class="headerlink" title="同步解调"></a>同步解调</h3><p>假设已调信号如下（$\omega_{M} &lt; \omega_{c}$）：</p>
+<script type="math/tex; mode=display">
+y(t)=x(t) \cos \omega_{c} t</script><p>则解调需要对$y(t)$乘一个$\cos\omega_c$，然后再通过一个低通滤波器。</p>
+<script type="math/tex; mode=display">
+w(t)=y(t) \cos \omega_{c} t=x(t) \cos ^{2} \omega_{c} t=\frac{1}{2} x(t)+\frac{1}{2} x(t) \cos 2 \omega_{c} t</script><p>对$\omega (t)$应用低通滤波器，从而消除掉第二项，保留第一项。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240508094534153.png" alt="image-20240508094534153"></p>
+<h3 id="非同步解调"><a href="#非同步解调" class="headerlink" title="非同步解调"></a>非同步解调</h3><p>在上述同步解调中，解调器载波在相位上与调制器载波是同相的。但如果$\theta_{c} \neq \phi_{c}$​，那么考虑下面两个式子。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+y(t) & =\mathrm{e}^{\mathrm{j}\left(\omega_{c} t+\theta_{c}\right)} x(t) \\
+w(t) & =\mathrm{e}^{-\mathrm{j}\left(\omega_{c} t+\phi_{c}\right)} y(t)
+\end{aligned}</script><p>则$\omega(t)$将有一个复振幅因子$\cos \left(\theta_{c}-\phi_{c}\right)$:</p>
+<script type="math/tex; mode=display">
+w(t)=\mathrm{e}^{\mathrm{j}\left(\boldsymbol{\theta}_{c}-\phi_{c}\right)} x(t)=x(t) \cos \left(\omega_{c} t+\theta_{c}\right) \cos \left(\omega_{c} t+\phi_{c}\right)=\frac{1}{2} \cos \left(\theta_{c}-\phi_{c}\right) x(t)+\frac{1}{2} x(t) \cos \left(2 \omega_{c} t+\theta_{c}+\phi_{c}\right)</script><p>虽然可以不同相，但是要求两个振荡器之间的相位关系必须在全部时间内保持不变。</p>
+<p>还有另一种非同步解调叫包络检波器。通过跟踪已调信号$y(t)$的包络线来恢复信号$x(t)$。</p>
+<h2 id="频分多路复用"><a href="#频分多路复用" class="headerlink" title="频分多路复用"></a>频分多路复用</h2><p>如果有频谱互相重叠的单个声音信号，可以利用正弦幅度调制把它们的频谱在频率上进行搬移，使这些已调信号的频谱不再重叠。这样，就<strong>能够在同一个宽带信道上同时传输这些信号</strong>。这就是<strong>频分多路复用</strong>。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240508104125985.png" alt="image-20240508104125985"></p>
+<h2 id="单边带正弦幅度调制"><a href="#单边带正弦幅度调制" class="headerlink" title="单边带正弦幅度调制"></a>单边带正弦幅度调制</h2><p>在上面的频分多路复用系统中，每一个信号的频谱都在正和负的频率上重复,因此已调信号占据的带宽是原始信号的2倍。这一点在频带的利用上是不经济的。<strong>利用正弦载波，在已调信号中有冗余度，利用一种称为单边带调制的技术,可以把这个冗余度除掉。</strong>（上、下两个边带都保留的称为双边带调制）</p>
+<p>单边带信号可以通过以下几种方法获得：</p>
+<ol>
+<li><strong>应用带通或高通滤波器</strong>：<ul>
+<li>使用锐截止的带通或高通滤波器，滤除掉中不需要的边带。</li>
+</ul>
+</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240508123739116.png" alt="image-20240508123739116"></p>
+<ol>
+<li><strong>采用移相技术</strong>：<ul>
+<li>通过移相技术来滤除一个边带，同时保留另一个边带。</li>
+</ul>
+</li>
+</ol>
+<h2 id="用脉冲串进行载波的幅度调制"><a href="#用脉冲串进行载波的幅度调制" class="headerlink" title="用脉冲串进行载波的幅度调制"></a>用脉冲串进行载波的幅度调制</h2><h3 id="脉冲串载波调制"><a href="#脉冲串载波调制" class="headerlink" title="脉冲串载波调制"></a>脉冲串载波调制</h3><p>前几节讨论的幅度调制利用的是正弦载波。<strong>另一类重要的幅度调制技术利用的载波信号是一个脉冲串。</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240508122929077-5142695.png" alt="image-20240508122929077"></p>
+<p>因为 $ c(t) $ 是周期的，周期为 $ T $，所以 $ C(\mathrm{j} \omega) $ 就是由在频域中相隔 $ 2 \pi / T $ 的冲激所组成的，即</p>
+<script type="math/tex; mode=display">
+ C(\mathrm{j} \omega)=2 \pi \sum_{k=-\infty}^{-\infty} a_{k} \delta\left(\omega-k \omega_{\mathrm{c}}\right)</script><p>其中：</p>
+<script type="math/tex; mode=display">
+a_{k}=\frac{\sin \left(k \omega_{c} \Delta / 2\right)}{\pi k}</script><p>最后得到$Y(j\omega)$：</p>
+<script type="math/tex; mode=display">
+Y(\mathrm{j} \omega)=\sum_{k=-\infty}^{+\infty} a_{k} X\left(\mathrm{j}\left(\omega-k \omega_{c}\right)\right)</script><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240508123627921.png" alt="image-20240508123627921"></p>
+<p>可以用低通滤波器将原信号$x(t)$恢复。</p>
+<h3 id="时分多路复用"><a href="#时分多路复用" class="headerlink" title="时分多路复用"></a>时分多路复用</h3><p>频分多路复用是为每一路信号指定不同的频率间隔,而<strong>时分多路复用则是为每一路信号指定不同的时间间隔</strong>。</p>
+<p>对每一路信号从复合信号中解复用,是通过时间控制门的办法来选择与每一路信号有关的特定时隙来完成的。</p>
+<h1 id="拉普拉斯变换"><a href="#拉普拉斯变换" class="headerlink" title="拉普拉斯变换"></a>拉普拉斯变换</h1><p>连续时间傅里叶变换提供了将信号表示成形如 $e^{s t},s=j\omega$ 的复指数信号的线性组合。然而,特征函数性质及其他很多结果对任意$s$值都是适用的,而并不是将它仅限于纯虚数的情况。这样的看法就导致了连续时间傅里叶变换的推广，称为拉普拉斯变换。</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>（双边）拉普拉斯变换的定义如下：</p>
+<script type="math/tex; mode=display">
+X(s) \triangleq \int_{-\infty}^{+\infty} x(t) \mathrm{e}^{-s t} \mathrm{~d} t</script><blockquote>
+<p>通常，使上式收敛的$s$值的范围被称为拉普拉斯变换的收敛域（Region of Convergence），简称ROC。</p>
+</blockquote>
+<p>其中复变量$s=\sigma+j\omega$。可以将拉普拉斯变换表示为算子$\mathcal{L}\{x(t)\}$的形式，而将$x(t)$和$X(s)$之间的关系记为：</p>
+<script type="math/tex; mode=display">
+x(t) \stackrel{L}{\longleftrightarrow} X(s)</script><p>当$s=j\omega$的时候就是傅里叶变换。并且还可以将拉普拉斯变换看为$x(t)$乘一个实指数信号以后的傅里叶变换：</p>
+<script type="math/tex; mode=display">
+X(\sigma+\mathrm{j} \omega)=\int_{-\infty}^{+\infty}\left[x(t) \mathrm{e}^{-\sigma t}\right] \mathrm{e}^{-\mathrm{j} \omega t} \mathrm{~d} t</script><h3 id="有理拉普拉斯变换"><a href="#有理拉普拉斯变换" class="headerlink" title="有理拉普拉斯变换"></a>有理拉普拉斯变换</h3><p>对于有理拉普拉斯变换来说：</p>
+<ul>
+<li>因为在分子多项式的那些根上 $X(s)=0$，故称其为 $X(s)$ 的零点</li>
+<li>分母多项式的那些根上 $X(s)$ 变成无界的，故称分母多项式的根为 $X(s)$ 的极点。</li>
+</ul>
+<p>在有限平面内，$X(s)$ 的零点和极点，除了一个常数因子外可以完全表征 $X(s)$ 的代数表示式。通过$s$平面内的极点和零点的 $X(s)$ 的表示就称为 $X(s)$ 的零-极点图。</p>
+<p><strong>然而，$X(s)$ 的代数表示式本身并不能确认该拉普拉斯变换的收敛域。</strong>除了一个常数因子外，一个有理拉普拉斯变换的完全表征是由该变换的零-极点图与它的收敛域一起组成的。</p>
+<h2 id="收敛域"><a href="#收敛域" class="headerlink" title="收敛域"></a>收敛域</h2><p>两个很不相同的信号能够有完全相同的$X(s)$代数表示式，因此它们的拉普拉斯变换只有靠收敛域才能区分。</p>
+<p>收敛域有一系列的性质：</p>
+<ol>
+<li><p>$X(s)$ 的收敛域在 $s$ 平面内由平行于 $j\omega$ 轴的带状区域所组成。</p>
+</li>
+<li><p>对有理拉普拉斯变换来说,收敛域内不包括任何极点。</p>
+</li>
+<li><p>如果 $x(t)$ 是有限持续期的，并且是绝对可积的，那么收敛域就是整个 $s$ 平面。</p>
+</li>
+<li><p>如果 $x(t)$ 是右边信号，并且 $\mathcal{Re}\{s\}=\sigma_{0}$ 这条线位于收敛域内，那么 $\mathcal{R}\{s\}&gt;\sigma_{0}$ 的全部 $s$​ 值都一定在收敛域内。</p>
+<blockquote>
+<p>若在某有限时间 $T_{1}$ 之前，$x(t)=0$，则称该信号为右边信号。</p>
+</blockquote>
+</li>
+<li><p>如果 $x(t)$ 是左边信号，并且 $\mathcal{Re}\{s\}=\sigma_{0}$ 这条线位于收敛域内，那么 $\mathcal{Re}\{s\}&lt;\sigma_{0}$ 的全部 $s$​ 值也一定在收敛域内。</p>
+<blockquote>
+<p>若在某有限时间 $T_{2}$ 之后，$x(t)=0$，则称该信号为左边信号。</p>
+</blockquote>
+</li>
+<li><p>如果 $x(t)$ 是双边信号，并且 $\mathcal{Re}\{s\}=\sigma_{0}$ 这条线位于收敛域内，那么收敛域就一定是 ${s}$ 平面的两条带状区域组成，直线 ${\mathcal{Re}}\{s\} =\sigma_{0}$​ 位于带中。</p>
+<blockquote>
+<p>可将 $x(t)$ 分为右边信号 $x_R(t)$ 和左边信号 $x_L(t)$ 之和，$x(t)$ 的拉普拉斯变换的收敛域就是使得 $x_R(t)$ 和 $x_L(t)$ 的拉普拉斯变换都收敛的区域。</p>
+<p>如果这两个半平面在没有重叠，那么即使 $x_R(t)$ 和 $x_S(t)$ 的拉普拉斯变换存在，$x(t)$ 的拉普拉斯变换也不存在。</p>
+</blockquote>
+</li>
+<li><p>如果 $x(t)$​ 的拉普拉斯变换 $X(s)$​ 是有理的，那么它的收敛域是由极点所界定，或者延伸到无穷远。此外，在收敛域内不包含 $X(s)$​ 的任何极点。</p>
+</li>
+<li><p>如果 $x(t)$ 的拉普拉斯变换 $X(s)$ 是有理的，那么如果 $x(t)$ 是右边信号，其收敛域位于 $s$ 平面上最右边极点的右边；如果 $x(t)$ 是左边信号，其收敛域位于 $s$​ 平面上最左边极点的左边。</p>
+</li>
+</ol>
+<h2 id="拉普拉斯逆变换"><a href="#拉普拉斯逆变换" class="headerlink" title="拉普拉斯逆变换"></a>拉普拉斯逆变换</h2><p>拉普拉斯逆变换为：</p>
+<script type="math/tex; mode=display">
+x(t)=\frac{1}{2 \pi \mathrm{j}} \int_{\sigma-\mathrm{j} \infty}^{\sigma+\mathrm{j} \infty} X(s) \mathrm{e}^{s t} \mathrm{~d} s</script><p>上式，积分路径是在平面内对应于满足 $\text{Re}(s) = \sigma$ 的所有点的这条直线，该直线平行于 $j\omega$ 轴。</p>
+<p>然而,对于有理变换,求其拉普拉斯逆变换不必直接计算上式，而可以像求傅里叶逆变换所做的那样，采用部分分式展开的办法，求出每一项的逆变换后再相加：</p>
+<script type="math/tex; mode=display">
+X(s)=\sum_{i=1}^{m} \frac{A_{i}}{s+a_{i}}</script><h2 id="零-极点图"><a href="#零-极点图" class="headerlink" title="零-极点图"></a>零-极点图</h2><p>一个有理拉普拉斯变换可以因式分解成：</p>
+<script type="math/tex; mode=display">
+X(s)=M \frac{\prod_{i=1}^{R}\left(s-\beta_{i}\right)}{\prod_{j=1}^{P}\left(s-\alpha_{j}\right)}</script><p>为了求取 $X(s)$ 在 $s = s_1$ 的值，乘积中的每一项都可用一个从零点或极点到 $s_1$ 点的向量来表示。那么：</p>
+<ul>
+<li>$X(s_1)$ 的模就是各零点向量（从各个零点到 $s_1$ 的向量）长度乘积的 $M$ 倍被各极点向量（从各个极点到 $s_1$ 的向量）长度的积相除。（极点用$\times$表示）</li>
+<li>复数 $X(s_1)$ 的相角则是这些零点向量相角的和减去这些极点向量相角的和。如果在上式中比例因子 $M$ 是负的，则对应有一个附加相角 $\pi$。（零点用$\circ$表示）</li>
+</ul>
+<h2 id="性质-2"><a href="#性质-2" class="headerlink" title="性质"></a>性质</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240514145930976.png" alt="image-20240514145930976"></p>
+<blockquote>
+<p>细节：</p>
+<ol>
+<li>线性性质：<ul>
+<li>$R_1$和$R_2$的交可以为空，那么$X(s)$就没有收敛域，$x(t)$不存在拉普拉斯变换。</li>
+<li>$X(s)$的收敛域有可能比这个交更大。</li>
+</ul>
+</li>
+<li>时域尺度变换：<ul>
+<li>对于 $0 &lt; a &lt; 1$，$X(s)$ 的收敛域要变为原来的 $a$ 倍。</li>
+<li>对于 $a &gt; 1$，收敛域要扩展为原来的 $a$ 倍。</li>
+<li>若 $a$ 为负，收敛域就要进行倒置再加一个尺度变换。</li>
+</ul>
+</li>
+<li>共轭：<ul>
+<li>若 $x(t)$ 为实函数，并且若 $X(s)$ 有一个极点或零点在 $s = s_0$，即如果 $X(s)$ 在 $s = s_0$ 无界或为零，那么 $X(s)$ 也一定有一个复数共轭的 $s = s^*_0$ 的极点或零点</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h2 id="拉普拉斯变换对"><a href="#拉普拉斯变换对" class="headerlink" title="拉普拉斯变换对"></a>拉普拉斯变换对</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240517131034195.png" alt="image-20240517131034195"></p>
+<h2 id="拉普拉斯变换与线性时不变系统"><a href="#拉普拉斯变换与线性时不变系统" class="headerlink" title="拉普拉斯变换与线性时不变系统"></a>拉普拉斯变换与线性时不变系统</h2><p>对于线性时不变系统，拉普拉斯变换的作用直接来自于卷积性质。根据这一性质就可以得到，一个线性时不变系统输入和输出的拉普拉斯变换是通过乘以系统单位冲激响应的拉普拉斯变换联系起来的：</p>
+<script type="math/tex; mode=display">
+Y(s)=H(s)X(s)</script><p>当 $s=\mathrm{j} \omega$ 时, $H(s)$ 就是这个线性时不变系统的频率响应。在拉普拉斯变换中，称 $H(s)$ 为<strong>系统函数</strong>或<strong>转移函数</strong>。</p>
+<h3 id="因果性"><a href="#因果性" class="headerlink" title="因果性"></a>因果性</h3><p>对于一个因果线性时不变系统，其单位冲激响应在$t&lt;0$时为零，因此是一个右边信号，<strong>其系统函数的收敛域是某个右半平面</strong>。</p>
+<p><strong>位于最右边极点的右边的收敛域并不保证系统是因果的</strong>，它只保证单位冲激响应是右边的。然而，对于一个具有<strong>有理</strong>系统函数的系统来说，系统的因果性就等效于收敛域位于最右边极点的右边的右半平面。</p>
+<p>如果系统的单位冲激响应在$t&gt;0, h(t) =0$，就说该系统是反因果的。同样：</p>
+<ul>
+<li>$h(t)$是左边信号，系统函数 $H(s)$的收敛域就必须是某个左半平面。</li>
+<li>如果 $H(s)$是<strong>有理</strong>的，那么收敛域位于最左边极点的左边就等效于系统是反因果的。</li>
+</ul>
+<h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>一个线性时不变系统的稳定性等效于它的单位冲激响应是绝对可积的，这时单位冲激响应的傅里叶变换收敛。则，当且仅当系统函数$H(s)$的收敛域包括$jw$轴，即$Re\{s\}=0$时，一个线性时不变系统就是稳定的。</p>
+<p>稳定性可以很简单地用极点的位置来表征：</p>
+<ul>
+<li>这个系统若是因果的，且有有理系统函数 $H(s)$，收敛域就在最右边极点的右边</li>
+<li>这个系统若<strong>同时</strong>是稳定的，$H(s)$ 的最右边的极点就必须位于 $\mathrm{j} \omega$ 轴的左边。</li>
+</ul>
+<h3 id="由线性常系数微分方程表征的线性时不变系统"><a href="#由线性常系数微分方程表征的线性时不变系统" class="headerlink" title="由线性常系数微分方程表征的线性时不变系统"></a>由线性常系数微分方程表征的线性时不变系统</h3><p>拉普拉斯变换的性质也能用来直接求得一个由线性常系统微分方程所表征系统的系统函数。考虑如下形式的线性常系数微分方程：</p>
+<script type="math/tex; mode=display">
+\sum_{k=0}^{N} a_{k} \frac{\mathrm{d}^{k} y(t)}{\mathrm{d} t^{k}}=\sum_{k=0}^{M} b_{k} \frac{\mathrm{d}^{k} x(t)}{\mathrm{d} t^{k}}</script><p>那么：</p>
+<script type="math/tex; mode=display">
+H(s)=\frac{\left\{\sum_{k=0}^{M} b_{k} s^{k}\right\}}{\left\{\sum_{k=0}^{N} a_{k} s^{k}\right\}}</script><h3 id="巴特沃斯滤波器"><a href="#巴特沃斯滤波器" class="headerlink" title="巴特沃斯滤波器"></a>巴特沃斯滤波器</h3><p>一个$N$ 阶低通巴特沃思滤波器频率响应的模平方是：</p>
+<script type="math/tex; mode=display">
+|B(\mathrm{j} \omega)|^{2}=\frac{1}{1+\left(\mathrm{j} \omega / \mathrm{j} \omega_{c}\right)^{2 N}}</script><p> 它具有如下性质：</p>
+<script type="math/tex; mode=display">
+B(s) B(-s)=\frac{1}{1+\left(s / \mathrm{j} \omega_{c}\right)^{2 N}}</script><p>$B(s)$的极点为：</p>
+<script type="math/tex; mode=display">
+s_{p}=\omega_{c} \exp \left(\mathrm{j}\left[\frac{\pi(2 k+1)}{2 N}+\pi / 2\right]\right)</script><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240523152403227.png" alt="image-20240523152403227"></p>
+<p>极点的性质为：</p>
+<ol>
+<li>在 $s$ 平面内，半径为 $\omega_{c}$ 的圆上，有 $2N$ 个极点在角度上呈等分割配置。</li>
+<li>极点永远不会位于 $\mathrm{j}\omega$ 轴上，当 $N$ 为奇数时，在 $\sigma$ 轴上有极点；$N$ 为偶数时则没有。</li>
+<li>相邻极点之间的角度差是 $\frac{\pi}{N}$ 弧度。</li>
+</ol>
+<h3 id="方框图表示"><a href="#方框图表示" class="headerlink" title="方框图表示"></a>方框图表示</h3><p>两个系统并联，总系统的系统函数$H(s)=H_1(s)+H_2(s)$。</p>
+<p>两个系统级联，总系统的系统函数$H(s)=H_1(s)H_2(s)$。</p>
+<h2 id="单边拉普拉斯变换"><a href="#单边拉普拉斯变换" class="headerlink" title="单边拉普拉斯变换"></a>单边拉普拉斯变换</h2><p>单边拉普拉斯变换在分析具有非零初始条件的(即系统最初不是松弛的)，由线性常系数微分方程所描述的因果系统时有很大的价值。</p>
+<p>一个连续时间信号 $x(t)$的单边拉普拉斯变换 $\chi(s)$ 定义为:</p>
+<script type="math/tex; mode=display">
+\chi(s) \triangleq \int_{0^{-}}^{\infty} x(t) \mathrm{e}^{-s t} \mathrm{~d} t</script><p>简化的符号表示为：$x(t) \stackrel{\mathcal U \mathcal{L}}{\longleftrightarrow} X(s)=\mathcal U \mathcal{L}\{x(t)\}$</p>
+<p><strong>单边拉普拉斯变换 $\chi(s)$​ 的收敛域总是位于某个右半平面。</strong></p>
+<p>单边拉普拉斯变换的逆变换为（和双边的拉普拉斯变换逆变换一样，只是不考虑$t&lt;0$的情况）：</p>
+<script type="math/tex; mode=display">
+x(t)=u(t)\cdot \frac{1}{2 \pi \mathrm{j}} \int_{\sigma-\mathrm{j} \infty}^{\sigma+\mathrm{j} \infty} X(s) \mathrm{e}^{s t} \mathrm{~d} s</script><h3 id="单边拉普拉斯变换性质"><a href="#单边拉普拉斯变换性质" class="headerlink" title="单边拉普拉斯变换性质"></a>单边拉普拉斯变换性质</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240601221432305.png" alt="image-20240601221432305"></p>
+<blockquote>
+<p>注意：</p>
+<script type="math/tex; mode=display">
+x_{1}(t) * x_{2}(t) \stackrel{\mathcal U \mathcal{L}}{\longleftrightarrow} \chi_{1}(s) \chi_{2}(s)</script><p>在$x_1(t)$和$x_2(t)$两者都在$t&lt;0$时为0的情况下才成立</p>
+</blockquote>
+<h3 id="求解微分方程"><a href="#求解微分方程" class="headerlink" title="求解微分方程"></a>求解微分方程</h3><p>单边拉普拉斯变换的一个主要应用是求解具有非零初始条件的线性常系数微分方程。</p>
+<p>比如这样的一个因果线性时不变系统：</p>
+<script type="math/tex; mode=display">
+\frac{\mathrm{d}^{2} y(t)}{\mathrm{d} t^{2}}+3 \frac{\mathrm{d} y(t)}{\mathrm{d} t}+2 y(t)=x(t)</script><p>初始条件为：$y\left(0^{-}\right)=\beta, \quad y^{\prime}\left(0^{-}\right)=\gamma$</p>
+<p>那么对两边应用单边拉普拉斯变换可以得到</p>
+<script type="math/tex; mode=display">
+s^{2} \mathcal Y(s)-\beta s-\gamma+3 s \mathcal Y(s)-3 \beta+2 \mathcal Y(s)=\frac{\alpha}{s}</script><p>也就是</p>
+<script type="math/tex; mode=display">
+\mathcal Y(s)=\frac{\beta(s+3)}{(s+1)(s+2)}+\frac{\gamma}{(s+1)(s+2)}+\frac{\alpha}{s(s+1)(s+2)}</script><ul>
+<li>右边前两项代表的是输入（$\alpha=0$）的时候系统响应的单边拉普拉斯变换。这个响应被称为<strong>零输入响应</strong>。</li>
+<li>右边最后一项代表在初始松弛条件下的响应（$\beta=\gamma=0$）时系统响应的单边拉普拉斯变换。这个响应被称为<strong>零状态响应</strong>。</li>
+</ul>
+<p>然后假设$\alpha=2, \beta=3 ,\gamma=-5$。那么$\mathcal Y(s)=\frac{1}{s}-\frac{1}{s+1}+\frac{3}{s+2}$​。</p>
+<p>对$\mathcal Y(s)$进行反变换，就可以得到$y(t)=\left[1-\mathrm{e}^{-t}+3 \mathrm{e}^{-2 t}\right] u(t), \quad t&gt;0$</p>
+<h1 id="z-变换"><a href="#z-变换" class="headerlink" title="$z$变换"></a>$z$变换</h1><p>$z$​变换在离散时间情况下与拉普斯变换相对应。</p>
+<h2 id="z-变换-1"><a href="#z-变换-1" class="headerlink" title="$z$变换"></a>$z$变换</h2><p>一个离散时间信号$x[n]$的$z$​变换定义为：</p>
+<script type="math/tex; mode=display">
+X(z) \triangleq \sum_{n=-\infty}^{+\infty} x[n] z^{-n}</script><p>其中$z$是一个复变量。有时为了方便, 也将 $ x[n] $ 的 $ z $ 变换写为 $ Z\{x[n]\} $, 而 $ x[n] $ 和它的 $ z $ 变换之间的关系记为$x[n] \stackrel{z}{\longleftrightarrow} X(z)$。</p>
+<p>或者$z$变换也可以等效为：</p>
+<script type="math/tex; mode=display">
+X\left(r \mathrm{e}^{j \omega}\right)=\sum_{n=-\infty}^{+\infty}\left\{x[n] r^{-n}\right\} \mathrm{e}^{-j \omega n}</script><p>可见， $X\left(r \mathrm{e}^{\mathrm{j} \omega}\right)$  就是序列  $x[n]$  乘以实指数  $r^{-n}$  后的傅里叶变换, 即：</p>
+<script type="math/tex; mode=display">
+X\left(r \mathrm{e}^{\mathrm{j} \omega}\right)=\mathcal{F}\left\{x[n] r^{-n}\right\}</script><p>对于某一序列的$z$变换，存在着某一个$z$值的范围,对该范围内的$z$，$X(z)$​收敛。和拉普拉斯变换一样，这样一些值的范围称为收敛域（ROC）。如果收敛域包括单位圆，则傅里叶变换也收敛。<strong>和拉普拉斯变换一样，$z$​​变换的表述既要求它的代数表示式,又要求相应的收敛域。</strong></p>
+<p>只要$x[n]$是实指数或复指数的线性组合，$X(z)$就一定是有理的。</p>
+<h2 id="z-变换的收敛域"><a href="#z-变换的收敛域" class="headerlink" title="$z$变换的收敛域"></a>$z$变换的收敛域</h2><p>收敛域有以下一系列性质：</p>
+<ol>
+<li>$X(z) $ 的收敛域是在 $ z $​ 平面内以原点为中心的圆环。 </li>
+<li>收敛域内不包含任何极点。</li>
+<li>如果 $ x[n] $ 是有限长序列, 那么收收敛就是整个 $ z $ 平面, 可能除去 $ z=0 $ 和/或 $ z=\infty $ 。<ul>
+<li>在 $N_{1}$ 为负值且 $N_{2}$ 为正值时，收敛域不包括 $z=0$ 和 $z=\infty$ 。</li>
+<li>如果 $N_{1}$ 为零或为正值，那么式中仅有 $z$ 的负幂次项，这时收敛域就可以包括 $z=\infty$ </li>
+<li>而如果 $N_{2}$ 为零或为负值，式中就仅有 $z$ 的正幂次项，收敛域就可以包括 $z=0$​ 。</li>
+</ul>
+</li>
+<li>如果 $x[n]$ 是一个右边序列，并且 $|z|=r_{0}$ 的圆位于收敛域内，那么 $|z|&gt;r_{0}$ 的全部有限 $z$ 值都一定在这个收敛域内。<ul>
+<li>一般来说，右边序列的收敛域不包括无限远点。</li>
+<li>然而，对于因果序列，即 $n&lt;0$ 时序列值为零的序列，$N$ 一定为非负，因此收敛域一定包括 $z=\infty$​。</li>
+</ul>
+</li>
+<li>如果 $x[n]$ 是一个左边序列，而且 $|z|=r_{0}$ 的圆位于收敛域内，那么满足 $0&lt;|z|&lt;r_{0}$ 的全部 $z$ 值都一定在这个收敛域内。<ul>
+<li>一般左边序列的 $z$ 变换，其收敛域不包括 $z=0$，然而如果 $N_2 \leq 0$（即 $n&gt;0$ 时 $x[n]=0$），那么收敛域一定包括 $z=0$​。</li>
+</ul>
+</li>
+<li>如果 $x[n]$ 是双边序列，而且 $|z|=r_0$ 的圆位于收敛域内，那么该收敛域在 $z$ 域中一定是包含 $|z|=r_0$ 这一圆环的环状区域。<ul>
+<li>双边序列的收敛域可以把 $x[n]$ 表示成一个右边信号和一个左边信号之和来确定。整个序列的收敛域就是这两部分收敛域的相交。</li>
+</ul>
+</li>
+<li>如果 $x[n]$ 的 $z$ 变换 $X(z)$​ 是有理的，那么它的收敛域就被极点所界定，或者延伸至无限远。</li>
+<li>如果 $x[n]$ 的 $z$ 变换 $X(z)$ 是有理的，并且 $x[n]$ 是右边序列，那么收敛域就位于 $z$ 平面内最外层极点的外边，也就是半径等于 $X(z)$ 极点中最大模值的圆的外边。而且，若 $x[n]$ 是因果序列，即 $x[n]$ 为 $n&lt;0$ 时等于零的右边序列，那么收敛域也包括 $z=\infty$​。<ul>
+<li>对于具有有理变换的右边序列，它的全部极点比收敛域中的任何一点都更加靠拢原点。</li>
+</ul>
+</li>
+<li>如果 $x[n]$ 的 $z$ 变换 $X(z)$ 是有理的，并且 $x[n]$ 是左边序列，那么收敛域就位于 $z$ 平面内最里层的非零极点的里边，也就是半径等于 $X(z)$ 中除去 $z=0$ 的极点中最小模值的圆的里边，并且向内延伸到可能包括 $z=0$。特别是，若 $x[n]$ 是反因果序列，即 $x[n]$ 为 $n&gt;0$ 时等于零的左边序列，那么收敛域也包括 $z=0$。<ul>
+<li>对于左边序列，除了可能在 $z=0$ 的极点外，$X(z)$ 的极点都比收敛域中任何一点更加远离原点。</li>
+</ul>
+</li>
+</ol>
+<h2 id="z-逆变换"><a href="#z-逆变换" class="headerlink" title="$z$逆变换"></a>$z$逆变换</h2><p>$z$逆变换写为：</p>
+<script type="math/tex; mode=display">
+x[n]=\frac{1}{2 \pi} \int_{2 \pi} X\left(r \mathrm{e}^{\mathrm{j} \omega}\right)\left(r \mathrm{e}^{\mathrm{j} \omega}\right)^{n} \mathrm{~d} \omega</script><p>也可以写为：</p>
+<script type="math/tex; mode=display">
+x[n]=\frac{1}{2 \pi \mathrm{j}} \oint X(z) z^{n-1} \mathrm{~d} z</script><p>式中 $ \oint $ 记为在半径为 $ r $, 以原点为中心的封闭圆上沿逆时针方向环绕一周的积分。</p>
+<p>还有另外几个方法可以求得逆变换：</p>
+<ol>
+<li>对于一个有理$z$变换，可以首先将它进行部分分式展开，然后逐项求其逆变换</li>
+<li>对$X(z)$进行幂级数展开（实际上$z$变换就是涉及$z$的正幂和负幂的一个幂级数），这个幂级数的系数就是序列值$x[n]$。</li>
+</ol>
+<h2 id="零-极点图-1"><a href="#零-极点图-1" class="headerlink" title="零-极点图"></a>零-极点图</h2><p>在离散时间情况下，利用$z$平面内零极点向量也能对傅里叶变换进行几何求值。然而，因为在这种情况下，有理函数是在$|z|=1$的单位圆上进行求值，所以<strong>应该考虑从极点和零点到这一单位圆上的向量,而不是到虚轴上的向量</strong>。（因为$z=e^{jw}$的时候是在单位圆上运动）</p>
+<p>同样：</p>
+<ul>
+<li>$X(z_1)$ 的模就是各零点向量（从各个零点到 $z_1$ 的向量）长度乘积的 $M$ 倍被各极点向量（从各个极点到 $z_1$ 的向量）长度的积相除。（极点用$\times$表示）</li>
+<li>复数 $X(z_1)$ 的相角则是这些零点向量相角的和减去这些极点向量相角的和。如果在上式中比例因子 $M$ 是负的，则对应有一个附加相角 $\pi$。（零点用$\circ$表示）</li>
+</ul>
+<h2 id="性质-3"><a href="#性质-3" class="headerlink" title="性质"></a>性质</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240616215800082.png" alt="image-20240616215800082"></p>
+<h2 id="z-变换对"><a href="#z-变换对" class="headerlink" title="$z$变换对"></a>$z$变换对</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240616215900689.png" alt="image-20240616215900689"></p>
+<h2 id="利用-z-​变换分析与表征线性时不变系统"><a href="#利用-z-​变换分析与表征线性时不变系统" class="headerlink" title="利用$z$​变换分析与表征线性时不变系统"></a>利用$z$​变换分析与表征线性时不变系统</h2><p>$H(z)$称为系统的系统函数或转移函数。一个系统的很多性质都能够直接与系统函数的零极点和收敛域的性质相联系。</p>
+<h3 id="因果性-1"><a href="#因果性-1" class="headerlink" title="因果性"></a>因果性</h3><p>一个离散时间线性时不变系统，当且仅当它的系统函数的收敛域在某个圆的外边，<strong>且包括无限远点时</strong>，该系统就是因果的。</p>
+<p>一个具有<strong>有理</strong>系统函数 $H(z)$ 的线性时不变系统是因果的，当且仅当满足以下条件：</p>
+<ol>
+<li><strong>收敛域条件</strong>：收敛域位于最外层极点外边某个圆的外边。</li>
+<li><strong>多项式阶次条件</strong>：若 $H(z)$ 表示成$z$的多项式之比，其分子的阶次不能高于分母的阶次。</li>
+</ol>
+<h3 id="稳定性-1"><a href="#稳定性-1" class="headerlink" title="稳定性"></a>稳定性</h3><p>一个线性时不变系统是稳定的，当且仅当它的系统函数 $H(z)$ 的收敛域包括单位圆 $|z| = 1$。</p>
+<p>一个具有有理系统函数的因果线性时不变系统是稳定的，当且仅当系统函数 $H(z)$ 的全部极点都位于单位圆内，即全部极点的模均小于1。 </p>
+<h3 id="由线性常系数差分方程表征的线性时不变系统"><a href="#由线性常系数差分方程表征的线性时不变系统" class="headerlink" title="由线性常系数差分方程表征的线性时不变系统"></a>由线性常系数差分方程表征的线性时不变系统</h3><p>现考虑一个线性时不变系统，其输入、输出满足如下线性常系数差分方程：</p>
+<script type="math/tex; mode=display">
+\sum_{k=0}^{N} a_{k} y[n-k]=\sum_{k=0}^{M} b_{k} x[n-k]</script><p>则系统函数为：</p>
+<script type="math/tex; mode=display">
+H(z)=\frac{Y(z)}{X(z)}=\frac{\sum_{k=0}^{M} b_{k} z^{-k}}{\sum_{k=0}^{N} a_{k} z^{-k}}</script><p>并且系统函数是有理的。</p>
+<h2 id="单边-z-变换"><a href="#单边-z-变换" class="headerlink" title="单边$z$变换"></a>单边$z$变换</h2><p>到目前为止，本章所考虑的$z$变换一般都称为双边$z$变换。与拉普拉斯变换一样,也有另一种形式称为单边$z$变换。</p>
+<p>单边$z$变化定义为：</p>
+<script type="math/tex; mode=display">
+X(z)=\sum_{n=0}^{\infty} x[n] z^{-n}</script><p>简化符号记为：</p>
+<script type="math/tex; mode=display">
+x[n] \stackrel{\mathcal U Z}{\longleftrightarrow} X(z)=\mathcal U Z\{x[n]\}</script><p>单边$z$变换与双边变换的差别在于，求和仅在$n$的非负值上进行,而不考虑$n&lt;0$时$x[n]$是否为零。因此，$x[n]$的单边$z$​变换就能看成$x[n]u[n]$​的双边变换。</p>
+<h3 id="逆变换"><a href="#逆变换" class="headerlink" title="逆变换"></a>逆变换</h3><p>同理，单边$z$​逆变换的计算也基本上与双边变换相同，但是要考虑到<strong>对单边变换而言，其收敛域总是位于某个圆的外边</strong>。</p>
+<p>通过$z$变换的幂级数展开式的系数来求逆变换的方法，也能够用于单边变换的情况。不过，在单边情况下必须满足的一种限制是，<strong>变换的幂级数展开式中不能包括$z$的正幂次项</strong>。</p>
+<p>一个$z$的有理函数若能成为一个单边变换，<strong>其分子的阶次必须不能高于分母的阶次</strong>。</p>
+<h3 id="性质-4"><a href="#性质-4" class="headerlink" title="性质"></a>性质</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/信号与系统.assets/image-20240620083036219.png" alt="image-20240620083036219"></p>
+<h3 id="利用单边-z-​变换求解差分方程"><a href="#利用单边-z-​变换求解差分方程" class="headerlink" title="利用单边$z$​变换求解差分方程"></a>利用单边$z$​变换求解差分方程</h3><p>考虑由下列差分方程描述的因果线性时不变系统：</p>
+<script type="math/tex; mode=display">
+y[n]+3 y[n-1]=x[n]</script><p>假设输入为$x[n]=\alpha u[n]$，初始条件为$y[-1]=\beta$。对两边进行单边$z$变换：</p>
+<script type="math/tex; mode=display">
+\mathcal Y(z)+3 \beta+3 z^{-1} \mathcal Y(z)=\frac{\alpha}{1-z^{-1}}</script><p>解得：</p>
+<script type="math/tex; mode=display">
+\mathcal Y(z)=-\frac{3 \beta}{1+3 z^{-1}}+\frac{\alpha}{\left(1+3 z^{-1}\right)\left(1-z^{-1}\right)}</script><p>右边的第一项是零输入响应，即$\alpha=0$时的响应；第二项是零状态响应，即$\beta=0$时候的响应。</p>
+<p>最后, 对于任意 $\alpha$ 和 $\beta$ 值, 都能将上式的 $\mathcal Y(z)$ 展开成部分分式, 然后求（单边$z$）逆变换而得到 $y[n]$ 。</p>
+<h1 id="部分分式分解"><a href="#部分分式分解" class="headerlink" title="部分分式分解"></a>部分分式分解</h1><p>考虑一个有理函数：</p>
+<script type="math/tex; mode=display">
+H(v)=\frac{\beta_{m} v^{m}+\beta_{m-1} v^{m-1}+\cdots+\beta_{1} v+\beta_{0}}{\alpha_{n} v^{n}+\alpha_{n-1} v^{n-1}+\cdots+\alpha_{1} v+\alpha_{0}}</script><p>对于连续时间傅里叶分析来说，$v$ 就相当于 $\mathrm{j} \omega$；而对于拉普拉斯变换来说，$v$ 就对应于复变量 $s$。在离散时间傅里叶分析中，通常将 $v$ 取为 $\mathrm{e}^{-\mathrm{j} \omega}$；而对于Z变换，则可用 $z^{-1}$ 或者 $z$ 取代 $v$。</p>
+<h2 id="连续时间信号与系统"><a href="#连续时间信号与系统" class="headerlink" title="连续时间信号与系统"></a>连续时间信号与系统</h2><p>将$H(v)$转换为第一种标准形式：</p>
+<script type="math/tex; mode=display">
+G(v)=\frac{b_{n-1} v^{n-1}+b_{n-2} v^{n-2}+\cdots+b_{1} v+b_{0}}{v^{n}+a_{n-1} v^{n-1}+\cdots+a_{1} v+a_{0}}</script><p>步骤为：</p>
+<ol>
+<li><p>将 $ H(v) $ 的分子分母同除以 $ a_{n}$​。得到</p>
+<script type="math/tex; mode=display">
+H(v)=\frac{\gamma_{m} v^{m}+\gamma_{m-1} v^{m-1}+\cdots+\gamma_{1} v+\gamma_{0}}{v^{n}+a_{n-1} v^{n-1}+\cdots+a_{1} v+a_{0}}\\
+\begin{aligned}
+\gamma_{m} & =\frac{\beta_{m}}{\alpha_{n}}, & \gamma_{m-1}=\frac{\beta_{m-1}}{\alpha_{n}}, & \ldots \\
+a_{n-1} & =\frac{\alpha_{n-1}}{\alpha_{n}}, & a_{n-2}=\frac{\alpha_{n-2}}{\alpha_{n}}, & \ldots
+\end{aligned}</script></li>
+<li><p>若 $ m&lt;n $, 则 $ H(v) $ 称为严格真的有理函数。在这种情况下, 令 $ b_{0}=\gamma_{0}, b_{1}=\gamma_{1}, \cdots,b_{m}=\gamma_{m}$；然而，如果 $H(v)$ 不是真有理函数（即 $m \geq n$），可以通过基本的计算，将 $H(v)$ 写成一个 $v$ 的多项式与一个严格真有理函数之和：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+H(v)= & c_{m-n} v^{m-n}+c_{m-n-1} v^{m-n-1}+\cdots+c_{1} v+c_{0} \\
+& +\frac{b_{n-1} v^{n-1}+b_{n-2} v^{n-2}+\cdots+b_{1} v+b_{0}}{v^{n}+a_{n-1} v^{n-1}+\cdots+a_{1} v+a_{0}}
+\end{aligned}</script><p>然后将这个式子和上一个式子同乘分母后对比系数得到一组方程，解出$c_0,\cdots,c_{m-n}$以及$b_{0},\cdots,b_{n-1}$。</p>
+</li>
+</ol>
+<p>那么若标准形式的$G(v)$的分母有不同的根  $\rho_{1}, \cdots, \rho_{r}$  分别具有 $\sigma_{1}, \cdots, \sigma_{r}$  次幂时, 那么:</p>
+<script type="math/tex; mode=display">
+G(v)=\frac{b_{n-1} v^{n-1}+\cdots+b_{1} v+b_{0}}{\left(v-\rho_{1}\right)^{\sigma_{1}}\left(v-\rho_{2}\right)^{\sigma_{2}} \cdots\left(v-\rho_{r}\right)^{\sigma_{r}}}</script><p>则$G(z)$具有部分分式展开的形式为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+G(v)= & \frac{A_{11}}{v-\rho_{1}}+\frac{A_{12}}{\left(v-\rho_{1}\right)^{2}}+\cdots+\frac{A_{1 \sigma_{1}}}{\left(v-\rho_{1}\right)^{\sigma_{1}}} \\
+& +\frac{A_{21}}{v-\rho_{2}}+\cdots+\frac{A_{2 \sigma_{2}}}{\left(v-\rho_{2}\right)^{\sigma_{2}}} \\
+& +\cdots+\frac{A_{r 1}}{v-\rho_{r}}+\cdots+\cdots+\frac{A_{r \sigma_{r}}}{\left(v-\rho_{r}\right)^{\sigma_{r}}} \\
+= & \sum_{i=1}^{r} \sum_{k=1}^{\sigma_{i}} \frac{A_{i k}}{\left(v-\rho_{i}\right)^{k}}
+\end{aligned}</script><p>其中$A_{i k}$可以用以下公式算出：</p>
+<script type="math/tex; mode=display">
+A_{i k}=\left.\frac{1}{\left(\sigma_{i}-k\right)!}\left[\frac{\mathrm{d}^{\sigma_{i}-k}}{\mathrm{~d} v^{\sigma_{i}-k}}\left[\left(v-\rho_{i}\right)^{\sigma_{i}} G(v)\right]\right]\right|_{v=\rho_{i}}</script><blockquote>
+<p>这是因为极限存在并等于$A_{ik}$</p>
+</blockquote>
+<h2 id="离散时间信号与系统"><a href="#离散时间信号与系统" class="headerlink" title="离散时间信号与系统"></a>离散时间信号与系统</h2><p>将$H(v)$转换为另一种标准形式：</p>
+<script type="math/tex; mode=display">
+G(v)=\frac{d_{n-1} v^{n-1}+\cdots+d_{1} v+d_{0}}{f_{n} v^{n}+\cdots+f_{1} v+1}</script><p>这种形式的 $ G(v) $，可通过把第一种标准形式中的 $ G(v) $ 分子分母同除以 $ a_{0} $ 而得到。 其的因式分解形式为：</p>
+<script type="math/tex; mode=display">
+G(v)=\sum_{i=1}^{r} \sum_{k=1}^{\sigma_{i}} \frac{B_{i k}}{\left(1-\rho_{i}^{-1} v\right)^{k}}</script><blockquote>
+<p>$1-\rho_i^{-1}v$这样的形式更容易找到其的$z$变换对</p>
+</blockquote>
+<p>其中$B_{ik}$由下式计算得到：</p>
+<script type="math/tex; mode=display">
+B_{i k}=\left.\frac{1}{\left(\sigma_{i}-k\right)!}\left(-\rho_{i}\right)^{\sigma_{i}-k}\left[\frac{d^{\sigma_{i}-k}}{\mathrm{~d} v^{\sigma_{i}-k}}\left[\left(1-\rho_{i}^{-1} v\right)^{\sigma_{i}} G(v)\right]\right]\right|_{v=\rho_{i}}</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ranruo.xyz">Ruo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ranruo.xyz/post/1580825926.html">https://ranruo.xyz/post/1580825926.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ranruo.xyz" target="_blank">A blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/head_protrait.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/284249815.html" title="图论"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">图论</div></div></a></div><div class="next-post pull-right"><a href="/post/2529764766.html" title="从0开始配置mindtorch环境"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">从0开始配置mindtorch环境</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/head_protrait.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruo</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%8D%E6%95%B0%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">复数基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%95%B0%E8%A1%A8%E7%A4%BA%E5%BD%A2%E5%BC%8F"><span class="toc-number">1.1.1.</span> <span class="toc-text">复数表示形式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E6%95%B0%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">指数表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E8%A7%92%E5%BD%A2%E5%BC%8F"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">三角形式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%85%E8%A7%92%E5%92%8C%E6%A8%A1"><span class="toc-number">1.1.2.</span> <span class="toc-text">辅角和模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E4%BD%8D"><span class="toc-number">1.1.3.</span> <span class="toc-text">相位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B1%E8%BD%AD"><span class="toc-number">1.1.4.</span> <span class="toc-text">共轭</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">欧拉公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%8A%80%E5%B7%A7"><span class="toc-number">1.3.</span> <span class="toc-text">计算技巧</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%BC%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">导言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BF%A1%E5%8F%B7%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">什么是信号？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B3%BB%E7%BB%9F%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">什么是系统？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E8%83%BD%E9%87%8F%E4%B8%8E%E5%8A%9F%E7%8E%87%E5%85%AC%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.3.</span> <span class="toc-text">信号与系统中的信号能量与功率公式描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E9%99%90%E5%8C%BA%E9%97%B4%E4%B8%8A%E7%9A%84%E4%BF%A1%E5%8F%B7%E8%83%BD%E9%87%8F"><span class="toc-number">2.3.1.</span> <span class="toc-text">无限区间上的信号能量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E9%99%90%E5%8C%BA%E9%97%B4%E4%B8%8A%E7%9A%84%E4%BF%A1%E5%8F%B7%E5%8A%9F%E7%8E%87"><span class="toc-number">2.3.2.</span> <span class="toc-text">无限区间上的信号功率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E5%88%86%E7%B1%BB"><span class="toc-number">2.3.3.</span> <span class="toc-text">信号处理中的信号分类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E8%87%AA%E5%8F%98%E9%87%8F%E5%8F%98%E6%8D%A2"><span class="toc-number">2.4.</span> <span class="toc-text">信号与系统中的自变量变换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E7%A7%BB"><span class="toc-number">2.4.1.</span> <span class="toc-text">时移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%8F%8D%E8%BD%AC"><span class="toc-number">2.4.2.</span> <span class="toc-text">时间反转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%BA%E5%BA%A6%E5%8F%98%E6%8D%A2"><span class="toc-number">2.4.3.</span> <span class="toc-text">尺度变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%87%E4%BF%A1%E5%8F%B7%E5%92%8C%E5%81%B6%E4%BF%A1%E5%8F%B7"><span class="toc-number">2.4.4.</span> <span class="toc-text">奇信号和偶信号</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%88%86%E8%A7%A3"><span class="toc-number">2.4.4.1.</span> <span class="toc-text">信号的分解</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7"><span class="toc-number">3.</span> <span class="toc-text">信号</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%A4%8D%E6%8C%87%E6%95%B0%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%AD%A3%E5%BC%A6%E4%BF%A1%E5%8F%B7"><span class="toc-number">3.1.</span> <span class="toc-text">连续时间复指数信号与正弦信号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%8C%87%E4%BF%A1%E5%8F%B7"><span class="toc-number">3.1.1.</span> <span class="toc-text">复指信号</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E6%8C%87%E6%95%B0%E4%BF%A1%E5%8F%B7"><span class="toc-number">3.1.1.1.</span> <span class="toc-text">实指数信号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%A8%E6%9C%9F%E5%A4%8D%E6%8C%87%E6%95%B0%E4%BF%A1%E5%8F%B7"><span class="toc-number">3.1.1.2.</span> <span class="toc-text">周期复指数信号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E5%A4%8D%E6%8C%87%E6%95%B0%E4%BF%A1%E5%8F%B7"><span class="toc-number">3.1.1.3.</span> <span class="toc-text">一般复指数信号</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%BC%A6%E4%BF%A1%E5%8F%B7"><span class="toc-number">3.1.2.</span> <span class="toc-text">正弦信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E5%85%B3%E7%B3%BB"><span class="toc-number">3.1.3.</span> <span class="toc-text">转换关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%90%E6%B3%A2%E5%85%B3%E7%B3%BB"><span class="toc-number">3.1.4.</span> <span class="toc-text">谐波关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%A4%8D%E6%8C%87%E6%95%B0%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%AD%A3%E5%BC%A6%E4%BF%A1%E5%8F%B7"><span class="toc-number">3.2.</span> <span class="toc-text">离散时间复指数信号与正弦信号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%90%E6%B3%A2%E5%85%B3%E7%B3%BB-1"><span class="toc-number">3.2.1.</span> <span class="toc-text">谐波关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E6%AF%94%E8%BE%83-e-j-omega-0-t-%E4%B8%8E-e-j-omega-0-n"><span class="toc-number">3.3.</span> <span class="toc-text">信号比较: $e^{j\omega_0 t}$ 与 $e^{j\omega_0 n}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%8D%95%E4%BD%8D%E8%84%89%E5%86%B2%E4%B8%8E%E5%8D%95%E4%BD%8D%E9%98%B6%E8%B7%83%E5%BA%8F%E5%88%97"><span class="toc-number">3.4.</span> <span class="toc-text">离散时间单位脉冲与单位阶跃序列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8"><span class="toc-number">3.4.1.</span> <span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%8D%95%E4%BD%8D%E9%98%B6%E8%B7%83%E4%B8%8E%E5%8D%95%E4%BD%8D%E5%86%B2%E6%BF%80%E5%87%BD%E6%95%B0"><span class="toc-number">3.5.</span> <span class="toc-text">连续时间单位阶跃与单位冲激函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-1"><span class="toc-number">3.5.1.</span> <span class="toc-text">性质</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.</span> <span class="toc-text">系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E7%9A%84%E8%81%94%E7%BB%93%E6%96%B9%E5%BC%8F"><span class="toc-number">4.1.</span> <span class="toc-text">不同的联结方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%AD%E4%B8%AA%E6%80%A7%E8%B4%A8"><span class="toc-number">4.2.</span> <span class="toc-text">系统的六个性质</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%B7%E7%A7%AF%E5%92%8C%E5%8D%B7%E7%A7%AF%E7%A7%AF%E5%88%86"><span class="toc-number">5.</span> <span class="toc-text">卷积和卷积积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%B7%E7%A7%AF%E5%92%8C"><span class="toc-number">5.1.</span> <span class="toc-text">卷积和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%B7%E7%A7%AF%E7%A7%AF%E5%88%86"><span class="toc-number">5.2.</span> <span class="toc-text">卷积积分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">5.3.</span> <span class="toc-text">线性时不变系统的性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-number">5.4.</span> <span class="toc-text">交换律</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%85%8D%E5%BE%8B"><span class="toc-number">5.5.</span> <span class="toc-text">分配律</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E5%90%88%E5%BE%8B"><span class="toc-number">5.6.</span> <span class="toc-text">结合律</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E8%AE%B0%E5%BF%86%E5%92%8C%E6%97%A0%E8%AE%B0%E5%BF%86%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F"><span class="toc-number">5.7.</span> <span class="toc-text">有记忆和无记忆线性时不变系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E9%80%86%E6%80%A7"><span class="toc-number">5.8.</span> <span class="toc-text">线性时不变系统的可逆性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9B%A0%E6%9E%9C%E6%80%A7"><span class="toc-number">5.9.</span> <span class="toc-text">线性时不变系统的因果性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="toc-number">5.10.</span> <span class="toc-text">线性时不变系统的稳定性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8%E5%BE%AE%E5%88%86%E5%92%8C%E5%B7%AE%E5%88%86%E6%96%B9%E7%A8%8B%E6%8F%8F%E8%BF%B0%E7%9A%84%E5%9B%A0%E6%9E%9C%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F"><span class="toc-number">6.</span> <span class="toc-text">用微分和差分方程描述的因果线性时不变系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%B8%B8%E7%B3%BB%E6%95%B0%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-number">6.1.</span> <span class="toc-text">线性常系数微分方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%B8%B8%E7%B3%BB%E6%95%B0%E5%B7%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-number">6.2.</span> <span class="toc-text">线性常系数差分方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%86%E5%9B%BE"><span class="toc-number">6.3.</span> <span class="toc-text">方框图</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A5%87%E5%BC%82%E5%87%BD%E6%95%B0"><span class="toc-number">7.</span> <span class="toc-text">奇异函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D%E5%86%B2%E6%BF%80%E5%81%B6%E5%92%8C%E5%85%B6%E4%BB%96%E5%A5%87%E5%BC%82%E5%87%BD%E6%95%B0"><span class="toc-number">7.1.</span> <span class="toc-text">单位冲激偶和其他奇异函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D%E5%86%B2%E6%BF%80%E5%81%B6"><span class="toc-number">7.1.1.</span> <span class="toc-text">单位冲激偶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D%E6%96%9C%E5%9D%A1%E5%87%BD%E6%95%B0"><span class="toc-number">7.1.2.</span> <span class="toc-text">单位斜坡函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#delta-t-%E5%92%8C-u-t-%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E8%A1%A8%E7%A4%BA"><span class="toc-number">7.1.3.</span> <span class="toc-text">$\delta(t)$和$u(t)$的另一种表示</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E8%A1%A8%E7%A4%BA"><span class="toc-number">8.</span> <span class="toc-text">周期信号的傅里叶级数表示</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E8%A1%A8%E7%A4%BA"><span class="toc-number">8.1.</span> <span class="toc-text">连续时间周期信号的傅里叶级数表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B"><span class="toc-number">8.1.1.</span> <span class="toc-text">傅里叶级数的收敛</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%89%E4%BC%AF%E6%96%AF%E7%8E%B0%E8%B1%A1"><span class="toc-number">8.1.1.1.</span> <span class="toc-text">吉伯斯现象</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E6%80%A7%E8%B4%A8"><span class="toc-number">8.2.</span> <span class="toc-text">连续时间傅里叶级数性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E8%A1%A8%E7%A4%BA"><span class="toc-number">8.3.</span> <span class="toc-text">离散时间周期信号的傅里叶级数表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E6%80%A7%E8%B4%A8"><span class="toc-number">8.4.</span> <span class="toc-text">离散傅里叶级数性质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E4%B9%98"><span class="toc-number">8.4.1.</span> <span class="toc-text">相乘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E6%AC%A1%E5%B7%AE%E5%88%86"><span class="toc-number">8.4.2.</span> <span class="toc-text">一次差分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%91%A8%E6%9C%9F%E7%9A%84%E5%B8%95%E6%96%AF%E7%93%A6%E5%B0%94%E5%AE%9A%E7%90%86"><span class="toc-number">8.4.3.</span> <span class="toc-text">离散时间周期的帕斯瓦尔定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E4%B8%8E%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F"><span class="toc-number">8.5.</span> <span class="toc-text">傅里叶级数与线性时不变系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%A4%E6%B3%A2"><span class="toc-number">8.6.</span> <span class="toc-text">滤波</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">8.6.1.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">8.7.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="toc-number">9.</span> <span class="toc-text">连续时间傅里叶变换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E8%A1%A8%E7%A4%BA"><span class="toc-number">9.1.</span> <span class="toc-text">非周期信号傅里叶变换表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%94%B6%E6%95%9B"><span class="toc-number">9.1.1.</span> <span class="toc-text">傅里叶变换的收敛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%8E%B0%E8%B1%A1%E7%9A%84%E5%AF%B9%E5%81%B6%E6%80%A7"><span class="toc-number">9.1.2.</span> <span class="toc-text">傅里叶现象的对偶性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#sa%E5%87%BD%E6%95%B0%E5%92%8Csinc%E5%87%BD%E6%95%B0"><span class="toc-number">9.1.2.1.</span> <span class="toc-text">sa函数和sinc函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="toc-number">9.2.</span> <span class="toc-text">周期信号的傅里叶变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">9.3.</span> <span class="toc-text">傅里叶变换的性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B1%E7%BA%BF%E6%80%A7%E5%B8%B8%E7%B3%BB%E6%95%B0%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E8%A1%A8%E5%BE%81%E7%9A%84%E7%B3%BB%E7%BB%9F"><span class="toc-number">9.4.</span> <span class="toc-text">由线性常系数微分方程表征的系统</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="toc-number">10.</span> <span class="toc-text">离散时间傅里叶变换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E9%9D%9E%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="toc-number">10.1.</span> <span class="toc-text">离散时间非周期信号傅里叶变换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%94%B6%E6%95%9B%E9%97%AE%E9%A2%98"><span class="toc-number">10.1.1.</span> <span class="toc-text">离散时间傅里叶变换的收敛问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="toc-number">10.2.</span> <span class="toc-text">离散时间周期信号傅里叶变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%80%A7%E8%B4%A8-1"><span class="toc-number">10.3.</span> <span class="toc-text">傅里叶变换的性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%81%B6%E6%80%A7"><span class="toc-number">10.4.</span> <span class="toc-text">对偶性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B1%E7%BA%BF%E6%80%A7%E5%B8%B8%E7%B3%BB%E6%95%B0%E5%B7%AE%E5%88%86%E6%96%B9%E7%A8%8B%E8%A1%A8%E5%BE%81%E7%9A%84%E7%B3%BB%E7%BB%9F"><span class="toc-number">10.5.</span> <span class="toc-text">由线性常系数差分方程表征的系统</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%92%8C%E9%A2%91%E5%9F%9F%E7%89%B9%E6%80%A7"><span class="toc-number">11.</span> <span class="toc-text">信号与系统的时域和频域特性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%A8%A1%E5%92%8C%E7%9B%B8%E4%BD%8D%E8%A1%A8%E7%A4%BA"><span class="toc-number">11.1.</span> <span class="toc-text">傅里叶变换的模和相位表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F%E9%A2%91%E7%8E%87%E5%93%8D%E5%BA%94%E7%9A%84%E6%A8%A1%E5%92%8C%E7%9B%B8%E4%BD%8D%E8%A1%A8%E7%A4%BA"><span class="toc-number">11.1.1.</span> <span class="toc-text">线性时不变系统频率响应的模和相位表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%90%86%E6%83%B3%E9%A2%91%E7%8E%87%E9%80%89%E6%8B%A9%E6%80%A7%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%9A%84%E6%97%B6%E5%9F%9F%E7%89%B9%E6%80%A7"><span class="toc-number">11.1.2.</span> <span class="toc-text">理想频率选择性滤波器的时域特性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4"><span class="toc-number">11.1.2.1.</span> <span class="toc-text">连续时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4"><span class="toc-number">11.1.2.2.</span> <span class="toc-text">离散时间</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%87%E6%A0%B7"><span class="toc-number">12.</span> <span class="toc-text">采样</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%87%E6%A0%B7%E5%AE%9A%E7%90%86"><span class="toc-number">12.1.</span> <span class="toc-text">采样定理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%B2%E6%BF%80%E4%B8%B2%E9%87%87%E6%A0%B7"><span class="toc-number">12.1.1.</span> <span class="toc-text">冲激串采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B6%E9%98%B6%E4%BF%9D%E6%8C%81%E9%87%87%E6%A0%B7"><span class="toc-number">12.1.2.</span> <span class="toc-text">零阶保持采样</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E6%8F%92"><span class="toc-number">12.2.</span> <span class="toc-text">内插</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AC%A0%E9%87%87%E6%A0%B7%E7%9A%84%E6%95%88%E6%9E%9C-%E6%B7%B7%E5%8F%A0%E7%8E%B0%E8%B1%A1"><span class="toc-number">12.3.</span> <span class="toc-text">欠采样的效果:混叠现象</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F"><span class="toc-number">13.</span> <span class="toc-text">通信系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%8C%87%E6%95%B0%E4%B8%8E%E6%AD%A3%E5%BC%A6%E5%B9%85%E5%BA%A6%E8%B0%83%E5%88%B6"><span class="toc-number">13.1.</span> <span class="toc-text">复指数与正弦幅度调制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%8C%87%E6%95%B0%E8%BD%BD%E6%B3%A2%E7%9A%84%E5%B9%85%E5%BA%A6%E8%B0%83%E5%88%B6"><span class="toc-number">13.1.1.</span> <span class="toc-text">复指数载波的幅度调制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%BC%A6%E8%BD%BD%E6%B3%A2%E7%9A%84%E5%B9%85%E5%BA%A6%E8%B0%83%E5%88%B6"><span class="toc-number">13.1.2.</span> <span class="toc-text">正弦载波的幅度调制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%BC%A6%E5%B9%85%E5%BA%A6%E8%B0%83%E5%88%B6%E7%9A%84%E8%A7%A3%E8%B0%83"><span class="toc-number">13.2.</span> <span class="toc-text">正弦幅度调制的解调</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E8%A7%A3%E8%B0%83"><span class="toc-number">13.2.1.</span> <span class="toc-text">同步解调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%A7%A3%E8%B0%83"><span class="toc-number">13.2.2.</span> <span class="toc-text">非同步解调</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%91%E5%88%86%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="toc-number">13.3.</span> <span class="toc-text">频分多路复用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%BE%B9%E5%B8%A6%E6%AD%A3%E5%BC%A6%E5%B9%85%E5%BA%A6%E8%B0%83%E5%88%B6"><span class="toc-number">13.4.</span> <span class="toc-text">单边带正弦幅度调制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E8%84%89%E5%86%B2%E4%B8%B2%E8%BF%9B%E8%A1%8C%E8%BD%BD%E6%B3%A2%E7%9A%84%E5%B9%85%E5%BA%A6%E8%B0%83%E5%88%B6"><span class="toc-number">13.5.</span> <span class="toc-text">用脉冲串进行载波的幅度调制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%84%89%E5%86%B2%E4%B8%B2%E8%BD%BD%E6%B3%A2%E8%B0%83%E5%88%B6"><span class="toc-number">13.5.1.</span> <span class="toc-text">脉冲串载波调制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E5%88%86%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="toc-number">13.5.2.</span> <span class="toc-text">时分多路复用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2"><span class="toc-number">14.</span> <span class="toc-text">拉普拉斯变换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">14.1.</span> <span class="toc-text">定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E7%90%86%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2"><span class="toc-number">14.1.1.</span> <span class="toc-text">有理拉普拉斯变换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B6%E6%95%9B%E5%9F%9F"><span class="toc-number">14.2.</span> <span class="toc-text">收敛域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E9%80%86%E5%8F%98%E6%8D%A2"><span class="toc-number">14.3.</span> <span class="toc-text">拉普拉斯逆变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%B6-%E6%9E%81%E7%82%B9%E5%9B%BE"><span class="toc-number">14.4.</span> <span class="toc-text">零-极点图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2"><span class="toc-number">14.5.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2%E5%AF%B9"><span class="toc-number">14.6.</span> <span class="toc-text">拉普拉斯变换对</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2%E4%B8%8E%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F"><span class="toc-number">14.7.</span> <span class="toc-text">拉普拉斯变换与线性时不变系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%A0%E6%9E%9C%E6%80%A7"><span class="toc-number">14.7.1.</span> <span class="toc-text">因果性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="toc-number">14.7.2.</span> <span class="toc-text">稳定性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B1%E7%BA%BF%E6%80%A7%E5%B8%B8%E7%B3%BB%E6%95%B0%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E8%A1%A8%E5%BE%81%E7%9A%84%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F"><span class="toc-number">14.7.3.</span> <span class="toc-text">由线性常系数微分方程表征的线性时不变系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%B4%E7%89%B9%E6%B2%83%E6%96%AF%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="toc-number">14.7.4.</span> <span class="toc-text">巴特沃斯滤波器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%86%E5%9B%BE%E8%A1%A8%E7%A4%BA"><span class="toc-number">14.7.5.</span> <span class="toc-text">方框图表示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%BE%B9%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2"><span class="toc-number">14.8.</span> <span class="toc-text">单边拉普拉斯变换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E8%BE%B9%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2%E6%80%A7%E8%B4%A8"><span class="toc-number">14.8.1.</span> <span class="toc-text">单边拉普拉斯变换性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%82%E8%A7%A3%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-number">14.8.2.</span> <span class="toc-text">求解微分方程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#z-%E5%8F%98%E6%8D%A2"><span class="toc-number">15.</span> <span class="toc-text">$z$变换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#z-%E5%8F%98%E6%8D%A2-1"><span class="toc-number">15.1.</span> <span class="toc-text">$z$变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#z-%E5%8F%98%E6%8D%A2%E7%9A%84%E6%94%B6%E6%95%9B%E5%9F%9F"><span class="toc-number">15.2.</span> <span class="toc-text">$z$变换的收敛域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#z-%E9%80%86%E5%8F%98%E6%8D%A2"><span class="toc-number">15.3.</span> <span class="toc-text">$z$逆变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%B6-%E6%9E%81%E7%82%B9%E5%9B%BE-1"><span class="toc-number">15.4.</span> <span class="toc-text">零-极点图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-3"><span class="toc-number">15.5.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#z-%E5%8F%98%E6%8D%A2%E5%AF%B9"><span class="toc-number">15.6.</span> <span class="toc-text">$z$变换对</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-z-%E2%80%8B%E5%8F%98%E6%8D%A2%E5%88%86%E6%9E%90%E4%B8%8E%E8%A1%A8%E5%BE%81%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F"><span class="toc-number">15.7.</span> <span class="toc-text">利用$z$​变换分析与表征线性时不变系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%A0%E6%9E%9C%E6%80%A7-1"><span class="toc-number">15.7.1.</span> <span class="toc-text">因果性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7-1"><span class="toc-number">15.7.2.</span> <span class="toc-text">稳定性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B1%E7%BA%BF%E6%80%A7%E5%B8%B8%E7%B3%BB%E6%95%B0%E5%B7%AE%E5%88%86%E6%96%B9%E7%A8%8B%E8%A1%A8%E5%BE%81%E7%9A%84%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F"><span class="toc-number">15.7.3.</span> <span class="toc-text">由线性常系数差分方程表征的线性时不变系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%BE%B9-z-%E5%8F%98%E6%8D%A2"><span class="toc-number">15.8.</span> <span class="toc-text">单边$z$变换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%86%E5%8F%98%E6%8D%A2"><span class="toc-number">15.8.1.</span> <span class="toc-text">逆变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-4"><span class="toc-number">15.8.2.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%8D%95%E8%BE%B9-z-%E2%80%8B%E5%8F%98%E6%8D%A2%E6%B1%82%E8%A7%A3%E5%B7%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-number">15.8.3.</span> <span class="toc-text">利用单边$z$​变换求解差分方程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E5%88%86%E5%BC%8F%E5%88%86%E8%A7%A3"><span class="toc-number">16.</span> <span class="toc-text">部分分式分解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F"><span class="toc-number">16.1.</span> <span class="toc-text">连续时间信号与系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F"><span class="toc-number">16.2.</span> <span class="toc-text">离散时间信号与系统</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/284249815.html" title="图论">图论</a><time datetime="2024-09-19T10:00:11.000Z" title="发表于 2024-09-19 18:00:11">2024-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/1580825926.html" title="信号与系统">信号与系统</a><time datetime="2024-09-19T10:00:10.000Z" title="发表于 2024-09-19 18:00:10">2024-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/2529764766.html" title="从0开始配置mindtorch环境">从0开始配置mindtorch环境</a><time datetime="2024-09-19T09:00:10.000Z" title="发表于 2024-09-19 17:00:10">2024-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/1176275894.html" title="Pycharm设置运行配置">Pycharm设置运行配置</a><time datetime="2024-09-12T07:00:13.000Z" title="发表于 2024-09-12 15:00:13">2024-09-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/3715959065.html" title="在pycharm中重命名项目">在pycharm中重命名项目</a><time datetime="2024-09-04T14:40:03.000Z" title="发表于 2024-09-04 22:40:03">2024-09-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruo</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

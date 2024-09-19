@@ -1,0 +1,1265 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>图论 | A blog</title><meta name="author" content="Ruo"><meta name="copyright" content="Ruo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="图论基础图论基础概念 有限图：顶点数和边数有限的图称为有限图。  平凡图：只有一个顶点的图。  零图：一个没有边的图被称为零图。  n阶图：顶点数为n的图。  $(n,m)$图：顶点数为 𝑛 的图，边数为 𝑚 的图  边的重数：连接两个相同顶点的边的条数  环 ：端点重合为一点的边  简单图：无环无重边的图；其余的图称为复合图  顶点 𝑢 与 𝑣 相邻接  顶点 𝑢 与 𝑣 间有边相连">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图论">
+<meta property="og:url" content="https://ranruo.xyz/post/284249815.html">
+<meta property="og:site_name" content="A blog">
+<meta property="og:description" content="图论基础图论基础概念 有限图：顶点数和边数有限的图称为有限图。  平凡图：只有一个顶点的图。  零图：一个没有边的图被称为零图。  n阶图：顶点数为n的图。  $(n,m)$图：顶点数为 𝑛 的图，边数为 𝑚 的图  边的重数：连接两个相同顶点的边的条数  环 ：端点重合为一点的边  简单图：无环无重边的图；其余的图称为复合图  顶点 𝑢 与 𝑣 相邻接  顶点 𝑢 与 𝑣 间有边相连">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ranruo.xyz/img/head_protrait.jpg">
+<meta property="article:published_time" content="2024-09-19T10:00:11.000Z">
+<meta property="article:modified_time" content="2024-09-19T10:00:11.949Z">
+<meta property="article:author" content="Ruo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ranruo.xyz/img/head_protrait.jpg"><link rel="shortcut icon" href="/img/head_protrait.jpg"><link rel="canonical" href="https://ranruo.xyz/post/284249815.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '图论',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-19 18:00:11'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my_css.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/head_protrait.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="A blog"><span class="site-name">A blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">图论</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-19T10:00:11.000Z" title="发表于 2024-09-19 18:00:11">2024-09-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-19T10:00:11.949Z" title="更新于 2024-09-19 18:00:11">2024-09-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%87%8D%E7%94%9F%E4%B9%8B%E6%88%91%E6%98%AF%E7%A8%8B%E5%BA%8F%E5%91%98/">重生之我是程序员</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%87%8D%E7%94%9F%E4%B9%8B%E6%88%91%E6%98%AF%E7%A8%8B%E5%BA%8F%E5%91%98/%E7%A8%8B%E5%BA%8F%E5%91%98%E4%B9%9F%E5%BE%97%E4%B8%8A%E8%AF%BE/">程序员也得上课</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="图论"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="图论基础"><a href="#图论基础" class="headerlink" title="图论基础"></a>图论基础</h1><h2 id="图论基础概念"><a href="#图论基础概念" class="headerlink" title="图论基础概念"></a>图论基础概念</h2><ul>
+<li><p><strong>有限图</strong>：顶点数和边数有限的图称为有限图。</p>
+</li>
+<li><p><strong>平凡图</strong>：只有一个顶点的图。</p>
+</li>
+<li><p><strong>零图</strong>：一个没有边的图被称为零图。</p>
+</li>
+<li><p><strong>n阶图</strong>：顶点数为n的图。</p>
+</li>
+<li><p><strong>$(n,m)$图</strong>：顶点数为 <em>𝑛</em> 的图，边数为 <em>𝑚</em> 的图</p>
+</li>
+<li><p><strong>边的重数</strong>：连接两个相同顶点的边的条数</p>
+</li>
+<li><p><strong>环</strong> ：端点重合为一点的边</p>
+</li>
+<li><p><strong>简单图</strong>：无环无重边的图；其余的图称为复合图</p>
+</li>
+<li><p>顶点 <em>𝑢</em> 与 <em>𝑣</em> 相邻接</p>
+<ul>
+<li><p>顶点 <em>𝑢</em> 与 <em>𝑣</em> 间有边相连接</p>
+</li>
+<li><p><em>𝑢</em> 与 <em>𝑣</em> 称为边的两个端点</p>
+</li>
+<li><p>通常规定一个顶点与自身是邻接的</p>
+</li>
+</ul>
+</li>
+<li><p>顶点 <em>𝑢</em> 与边 <em>𝑒</em> 相关联：顶点 <em>𝑢</em> 是边 <em>𝑒</em> 的端点</p>
+</li>
+<li><p>边 $e_1$与边 $e_2$相邻接：边 $e_1$ 与边 $e_2$​​ 有公共端点</p>
+</li>
+<li><p><strong>途径</strong>：有限非空序列 $ w = v_0e_1v_1e_2v_2 \ldots e_kv_k $，$ e_i $ 端点 $ v_{i-1}, v_i $。途径长度为边数；$ v_0, v_k $ 分别为起点终点。</p>
+</li>
+<li><p><strong>迹</strong>：边不重复的途径。</p>
+</li>
+<li><strong>路</strong>：顶点不重复的途径。</li>
+<li><strong>闭途径、闭迹与圈</strong>：起点终点重合的途径、迹、路。闭迹也称为回路。长度为 $ k $ 的圈称为$k$圈，$𝑘$ 为奇数（偶数）时称为奇（偶）圈</li>
+<li><strong>顶点间距离</strong>：$ u, v $ 间最短路长度 $ d(u, v) $。</li>
+<li><strong>顶点间的连通性</strong>：$ u, v $ 间存在途径。</li>
+<li><strong>连通图</strong>：连通图中任意两点连通。若图 $ G $ 不连通，则其补图连通。</li>
+<li><strong>连通分支</strong>：非连通图极大连通部分。连通分支个数，称为分支数。</li>
+<li><strong>图的直径</strong>：$ d(G) = \max \{d(u, v) | u, v \in V \}$。</li>
+</ul>
+<h1 id="Peterson图"><a href="#Peterson图" class="headerlink" title="Peterson图"></a>Peterson图</h1><p>Peterson图是K5的线图的补图。Petersen图的同构多种多样，其自同构有120种。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/Users/wanhuabai/Library/Application Support/typora-user-images/image-20240320203608407.png" alt="image-20240320203608407"></p>
+<h2 id="图同构"><a href="#图同构" class="headerlink" title="图同构"></a>图同构</h2><p>同构图：顶点数相同，边数相同，结构相同</p>
+<p><strong>数学定义：</strong> 两个图 $ G_1 = (V_1, E_1) $ 和 $ G_2 = (V_2, E_2) $ 是同构的，如果存在一个双射 $ f: V_1 \rightarrow V_2 $，使得对于所有 $ u, v \in V_1 $，$ (u, v) \in E_1 $ 当且仅当 $ (f(u), f(v)) \in E_2 $​。且 $xy$ 和 $m(x)m(y)$ 重数相同，称$G_1, G_2$​ 同构。<strong>关键在于找到这个双射</strong>。</p>
+<h1 id="几种典型的图"><a href="#几种典型的图" class="headerlink" title="几种典型的图"></a>几种典型的图</h1><h2 id="完全图"><a href="#完全图" class="headerlink" title="完全图"></a>完全图</h2><p>$n$个顶点的完全图：$n$阶完全图，用$K_n$​表示</p>
+<p>$𝐾_𝑛$ 的边数为 $\frac{n(n-1)}{2}$</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/Users/wanhuabai/Library/Application Support/typora-user-images/image-20240320204443140.png" alt="image-20240320204443140"></p>
+<h2 id="偶图"><a href="#偶图" class="headerlink" title="偶图"></a>偶图</h2><p><strong>点集可以分解为两个子集 $𝑋$ 和 $𝑌$，使得每条边的一个端点在 $𝑋$ 中，另一个在 $𝑌$ 中</strong></p>
+<p>性质：</p>
+<ol>
+<li>偶图中没有环与三角形，可以有重边。</li>
+<li>完全偶图：$𝑋 (𝑌)$ 的每个顶点与 $𝑌 (𝑋)$ 的每个顶点相连，任取 $𝑋, 𝑌$ 中各一点均有边相连</li>
+<li>$k$正则偶图：每个顶点度数均为$k$，$k$正则偶图的两个顶点子集包含顶点个数相等。</li>
+</ol>
+<h2 id="补图"><a href="#补图" class="headerlink" title="补图"></a>补图</h2><p>$对于一个简单图  G=(V, E) , 令集合  E_{1}=\{u v \mid u \neq v, u, v \in V\} 称图  H=\left(V, E_{1} \backslash E\right)  为  G  的补图$</p>
+<p>注意：</p>
+<ol>
+<li>只有简单图才能定义补图</li>
+<li>图和其补图顶点集合相同</li>
+<li>任意一对顶点相邻的充分必要条件是它们在补图中不相邻</li>
+<li><em>𝑛</em> 阶简单图边数与其补图边数之和等于 $𝐾_𝑛$ 的边数 $\frac{n(n-1)}{2}$</li>
+</ol>
+<h3 id="自补图"><a href="#自补图" class="headerlink" title="自补图"></a>自补图</h3><p>如果 <em>𝐺</em> 与其补图同构，则称 <em>𝐺</em> 为自补图。<strong>并不是任意一个简单图都是自补图</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/Users/wanhuabai/Library/Application Support/typora-user-images/image-20240320205606253.png" alt="image-20240320205606253"></p>
+<p><mark>定理</mark></p>
+<script type="math/tex; mode=display">
+若 𝑛 阶图 𝐺 是自补图，则有 𝑛 = 4𝑘 或 4𝑘 + 1</script><blockquote>
+<p>利用 <em>𝑛</em> 阶图边数与其补图边数之和为 $𝐾_𝑛$​ 的边数</p>
+</blockquote>
+<h1 id="顶点的度"><a href="#顶点的度" class="headerlink" title="顶点的度"></a>顶点的度</h1><p><strong>顶点度</strong>：在图 $ G $ 中，顶点 $ v $ 的度 $ d(v) $ 是指与 $ v $​ 关联的边的数目。</p>
+<p>相关概念：</p>
+<ul>
+<li><strong>最小度</strong>：图 $ G $ 的最小度 $ \delta(G) $ 是所有顶点中度数最小的值。</li>
+<li><strong>最大度</strong>：图 $ G $ 的最大度 $ \Delta(G) $ 是所有顶点中度数最大的值。</li>
+<li><strong>奇点</strong>：度数为奇数的顶点称为奇点。</li>
+<li><strong>偶点</strong>：度数为偶数的顶点称为偶点。</li>
+<li><strong>正则图</strong>：设 $ G = (V, E) $ 为简单图，如果对所有节点 $ v $ 有 $ d(v) = k $，则称 $ G $ 为 $ k $ 正则图。这意味着图中的每个顶点都有相同的度数 $ k $。</li>
+</ul>
+<h2 id="握手定理"><a href="#握手定理" class="headerlink" title="握手定理"></a><mark>握手定理</mark></h2><p>握手定理：</p>
+<script type="math/tex; mode=display">
+任意图中所有顶点的度的和等于边数的 2 倍</script><p>推论：</p>
+<ul>
+<li>任何图中，奇点个数为偶数</li>
+<li>正则图的阶数和度数不同时为奇数</li>
+</ul>
+<h2 id="图的度序列"><a href="#图的度序列" class="headerlink" title="图的度序列"></a>图的度序列</h2><p>图 $G$ 的各个点的度 $d_1, d_2, \ldots, d_n$ 构成的<strong>递增</strong>非负整数组 $(d_1, d_2, \ldots, d_n)$ 称为 $G$ 的度序列。</p>
+<ul>
+<li><strong>一个图的度序列与序列中元素排列无关</strong>。</li>
+<li><strong>每个图对应唯一一个度序列</strong>。</li>
+<li>同构的图具有相同的度序列。</li>
+</ul>
+<h3 id="度序列判别定理"><a href="#度序列判别定理" class="headerlink" title="度序列判别定理"></a>度序列判别定理</h3><p><mark>定理：</mark></p>
+<p>非负整数组 $(d_1, d_2, \ldots, d_n)$ 是图的度序列的<strong>充分必要条件</strong>是该序列中元素的总和为偶数。</p>
+<blockquote>
+<ul>
+<li><p><strong>充分性</strong>：构造对应度序列的图</p>
+<ul>
+<li><p>数组中为奇数的数字个数必为偶数</p>
+</li>
+<li><p>若 $𝑑_i$ 为偶数，则在与之对应的点作 $\frac{𝑑_𝑖}{2}$ 个环</p>
+</li>
+<li><p>对于剩下的偶数个奇数，两两配对后分别在每配对点间先连一条边，然后在每个顶点做环</p>
+</li>
+</ul>
+</li>
+<li><p><strong>必要性</strong>：握手定理得到，一个图的度数和为偶数。</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="图序列"><a href="#图序列" class="headerlink" title="图序列"></a>图序列</h3><p>一个非负整数组如果是某<strong>简单图</strong>的度序列，我们称它为可图序列，简称图序列</p>
+<ul>
+<li><p>存在问题：什么样的非负整数组是图序列？(彻底解决)</p>
+</li>
+<li><p>计数问题：一个图序列对应多少不同构的图？（解决的不好）</p>
+</li>
+<li><p>构造问题：如何画出图序列对应的所有不同构图？（没有解决）</p>
+</li>
+</ul>
+<h4 id="图序列判别定理（Havel-Hakimi-定理）"><a href="#图序列判别定理（Havel-Hakimi-定理）" class="headerlink" title="图序列判别定理（Havel-Hakimi 定理）"></a>图序列判别定理（Havel-Hakimi 定理）</h4><p><mark>定理：</mark></p>
+<p>给定一个非负整数序列 $(d_1, d_2, \ldots, d_n)$，其中 $d_1 \geq d_2 \geq \ldots \geq d_n$，则该序列是图序列的充分必要条件是：对于序列 $(d_2 - 1, d_3 - 1, \ldots, d_{d_1+1} - 1, d_{d_1+2}, \ldots, d_n)$，它也是一个图序列。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/Users/wanhuabai/Library/Application Support/typora-user-images/image-20240320212013566.png" alt="image-20240320212013566"></p>
+<h2 id="度的性质"><a href="#度的性质" class="headerlink" title="度的性质"></a>度的性质</h2><p><mark>定理：</mark></p>
+<script type="math/tex; mode=display">
+一个简单图 𝐺 的 n 个点的度不能互不相同，也就是必有两个点度数相等</script><blockquote>
+<p>证明：鸽笼原理</p>
+<ol>
+<li><strong>情形 1：图 $G$​ 没有孤立点</strong><ul>
+<li>在没有孤立点的情况下，每个顶点的度数 $d(v)$ 必须满足 $1 \leq d(v) \leq n - 1$。</li>
+<li>根据鸽笼原理，由于有 $n$ 个顶点和 $n - 1$ 个可能的度数，至少有两个顶点的度数相同。</li>
+</ul>
+</li>
+<li><strong>情形 2：图 $G$ 只有一个孤立点</strong><ul>
+<li>假设 $G_1$ 是图 $G$ 去掉孤立点后的部分。</li>
+<li>在 $G_1$ 中，每个非孤立顶点的度数 $d(v)$ 满足 $1 \leq d(v) \leq n - 2$。</li>
+<li>同样根据鸽笼原理，由于 $G_1$ 有 $n - 1$ 个顶点和 $n - 2$ 个可能的度数，至少有两个顶点的度数相同。</li>
+</ul>
+</li>
+<li><strong>情形 3：图 $G$ 有两个以上的孤立点</strong><ul>
+<li>如果图 $G$ 有两个或更多的孤立点，那么在这些孤立点之间不存在边。</li>
+<li>在这种情况下，定理显然成立，因为孤立点的度数为 0，而其他非孤立点的度数至少为 1。</li>
+<li>因此，至少有两个顶点的度数相同（即，孤立点的度数相同）。</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h1 id="子图"><a href="#子图" class="headerlink" title="子图"></a>子图</h1><p>如果图 $ H $ 的顶点集 $ V(H) $ 是图 $ G $ 的顶点集 $ V(G) $ 的子集，并且 $ H $ 的边集 $ E(H) $ 是 $ G $ 的边集 $ E(G) $ 的子集，则称 $ H $ 为 $ G $ 的子图，记为 $ H \subseteq G $。</p>
+<ul>
+<li>如果 $ H $ 不等于 $ G $，则称 $ H $ 为 $ G $ 的真子图。</li>
+</ul>
+<p><strong>点导出子图</strong>：</p>
+<ul>
+<li>对于 $ V’ \subseteq V(G) $，以 $ V’ $ 为顶点集，包括所有两个端点都在 $ V’ $ 中的 $ G $ 的边所组成的图，称为 $ G $ 的点导出子图，记为 $ G(V’) $。</li>
+</ul>
+<p><strong>边导出子图</strong>：</p>
+<ul>
+<li>对于 $ E’ \subseteq E(G) $，以 $ E’ $ 为边集，由 $ E’ $ 中所有端点构成的点集所组成的图，称为 $ G $ 的边导出子图，记为 $ G(E’) $。</li>
+</ul>
+<p><strong>生成子图</strong>：</p>
+<ul>
+<li>如果图 $ G $ 的一个子图包含 $ G $ 的所有顶点，则称该子图为 $ G $ 的一个生成子图。</li>
+</ul>
+<p><strong>简单图的生成子图数量</strong>：</p>
+<ul>
+<li>对于一个具有 $ m $ 条边的简单图 $ G $，它有 $ 2^m $ 个生成子图。<h1 id="图运算"><a href="#图运算" class="headerlink" title="图运算"></a>图运算</h1></li>
+</ul>
+<ol>
+<li><strong>删点</strong>: $ G - V $ - 删除顶点集 $ V $ 中的顶点及相关联的边。</li>
+<li><strong>删边</strong>: $ G - E $ - 删除边集 $ E $ 中的边，不删除顶点。</li>
+<li><strong>并运算</strong>: $ G + H $ - 将两个图中的点和边合并成新图，适用于不相交的图。</li>
+<li><strong>交运算</strong></li>
+<li><strong>差运算</strong>: $ G - H $ - 从 $ G $ 中删除 $ H $ 中的边得到新图。</li>
+<li><strong>对称差运算（环和）</strong>: $ G \Delta H = (G \cup H) - (G \cap H) $ - 两个图的并集与交集的差集。</li>
+<li><strong>联运算</strong>: 未具体定义，将两个不相交图的每个顶点相互连接。</li>
+</ol>
+<h2 id="积运算"><a href="#积运算" class="headerlink" title="积运算"></a>积运算</h2><p>在图论中，积运算是将两个图组合成一个新的图的方法。具体定义如下：</p>
+<ul>
+<li><strong>定义</strong>：设 $ G_1 = (V_1, E_1) $ 和 $ G_2 = (V_2, E_2) $ 是两个图。</li>
+<li><strong>操作</strong>：构造一个新的图，其顶点集为 $ V = V_1 \times V_2 $，即两个顶点集的笛卡尔积。</li>
+<li><strong>连接规则</strong>：对于 $ V $ 中的任意两点 $ u = (u_1, u_2) $ 和 $ v = (v_1, v_2) $，当满足以下条件之一时，将 $ u $ 和 $ v $ 连接：<ul>
+<li>$ u_1 = v_1 $ 且 $ u_2 $ 与 $ v_2 $ 在 $ G_2 $ 中相邻；</li>
+<li>$ u_2 = v_2 $ 且 $ u_1 $ 与 $ v_1 $ 在 $ G_1 $ 中相邻。</li>
+</ul>
+</li>
+<li><strong>结果</strong>：通过这种方式构造的新图称为 $ G_1 $ 与 $ G_2 $ 的积图，记为 $ G_1 \times G_2 $​。</li>
+<li><strong>举例</strong>：可以用于定义超立方体<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/Users/wanhuabai/Library/Application Support/typora-user-images/image-20240320213540484.png" alt="image-20240320213540484"></li>
+</ul>
+<h2 id="合成运算"><a href="#合成运算" class="headerlink" title="合成运算"></a>合成运算</h2><p>合成运算是图论中另一种将两个图组合成新图的方法。具体定义如下：</p>
+<ul>
+<li><strong>定义</strong>：设 $ G_1 = (V_1, E_1) $ 和 $ G_2 = (V_2, E_2) $ 是两个图。</li>
+<li><strong>操作</strong>：构造一个新的图，其顶点集为 $ V = V_1 \times V_2 $，即两个顶点集的笛卡尔积。</li>
+<li><strong>连接规则</strong>：对于 $ V $ 中的任意两点 $ u = (u_1, u_2) $ 和 $ v = (v_1, v_2) $，当满足以下条件之一时，将 $ u $ 和 $ v $ 连接：<ul>
+<li>$ u_1 $ 与 $ v_1 $ 在 $ G_1 $ 中相邻；</li>
+<li>$ u_1 = v_1 $ 且 $ u_2 $ 与 $ v_2 $ 在 $ G_2 $ 中相邻。</li>
+</ul>
+</li>
+<li><strong>结果</strong>：通过这种方式构造的新图称为 $ G_1 $ 与 $ G_2 $ 的合成图，记为 $ G_1 [G_2] $。</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/Users/wanhuabai/Library/Application Support/typora-user-images/image-20240320213713765.png" alt="image-20240320213713765"></li>
+</ul>
+<h1 id="偶图判定定理"><a href="#偶图判定定理" class="headerlink" title="偶图判定定理"></a>偶图判定定理</h1><p><mark>定理：</mark></p>
+<script type="math/tex; mode=display">
+一个图是偶图当且当它不包含奇圈</script><blockquote>
+<h2 id="必要性"><a href="#必要性" class="headerlink" title="必要性"></a>必要性</h2><p>假设 $ G $ 是一个偶图 $ (X, Y) $，且 $ C = v_0v_1 \ldots v_kv_0 $ 是 $ G $ 中的一个圈。不失一般性，我们假定 $ v_0 \in X $。那么，根据偶图的定义，$ v_{2i} \in X $ 且 $ v_{2i+1} \in Y $。因此，$ v_k \in Y $。所以，$ C $ 是一个偶圈。</p>
+<h2 id="充分性"><a href="#充分性" class="headerlink" title="充分性"></a>充分性</h2><p>在图 $ G $ 中任意选取一个点 $ u $，我们定义集合 $ V $ 的分类如下：</p>
+<ul>
+<li><p>$ X = \{ x | d(u, x) = 2k, x \in V(G) \} $</p>
+</li>
+<li><p>$ Y = \{ y | d(u, y) = 2k + 1, y \in V(G) \} $<br>我们需要证明的是 $ X $ 中的任意两点 $ v $ 和 $ w $ 不邻接。<br>假设 $ v $ 和 $ w $ 是 $ X $ 中的任意两个顶点。设 $ P $ 是一条最短的 $ (u, v) $ 路径，而 $ Q $ 是一条最短的 $ (u, w) $ 路径。设 $ z $ 是 $ P $ 和 $ Q $ 的最后一个交点。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/Users/wanhuabai/Library/Application Support/typora-user-images/image-20240320215713259.png" alt="image-20240320215713259">由于 $ P $ 和 $ Q $ 是最短路径，$ P $ 和 $ Q $ 中从 $ u $ 到 $ z $ 的段长度相同，因此它们的奇偶性也相同。又因为 $ P $ 和 $ Q $ 的长度均为偶数，所以 $ P $ 和 $ Q $ 中从 $ z $ 到 $ v $ 的段和从 $ z $ 到 $ w $ 的段奇偶性也相同。<br>如果 $ v $ 与 $ w $ 邻接，那么我们可以得到一个奇圈，这与 $ G $ 是偶图的事实相矛盾。因此，$ v $ 和 $ w $ 不邻接。这证明了 $ G $ 是一个偶图。</p>
+</li>
+</ul>
+</blockquote>
+<h1 id="图的代数表示"><a href="#图的代数表示" class="headerlink" title="图的代数表示"></a>图的代数表示</h1><p>代数表示主要有邻接矩阵、关联矩阵</p>
+<h2 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h2><p>定义：$\text { 设 } G \text { 为 } n \text { 阶图, } V=\left\{v_{1}, \cdots, v_{n}\right\} \text {, 邻接矩阵 } A(G)=\left(a_{i j}\right)$。其中$a_{ij}$是$v_i$,$v_j$​之间的边数。</p>
+<p>性质：</p>
+<ul>
+<li>其具有非负性与对称性</li>
+<li>同一图的不同形式的邻接矩阵是相似矩阵</li>
+<li>如果 $𝐺$ 为简单图，$𝐴(𝐺)$​​ 为布尔矩阵</li>
+</ul>
+<p><mark>定理</mark>： $G$  连通的充分必要条件是  $A(G)$  不与矩阵  $\left(\begin{array}{l}A_{11}, 0 \\ 0, A_{22}\end{array}\right)$  相似, 非连通图的邻接矩阵一定能够写成准对角矩阵形式。</p>
+<p><mark>定理</mark>：$\text { 记 } A^{k} \text { 的元素为 }\left\{a_{i j}^{k}\right\}, a_{i j}^{k} \text { 为 } v_{i} \text { 到 } v_{j} \text { 长度为 } k \text { 的途径条数 }$。</p>
+<ul>
+<li>推论：对简单图,  $A^{2}$  的元素  $a_{i i}^{2}$  是  $v_{i}$  的度数;  $A^{3}$  的元素  $a_{i i}^{3}$  是含  $v_{i}$  的三角形个数的 2 倍</li>
+</ul>
+<h1 id="最短路算法"><a href="#最短路算法" class="headerlink" title="最短路算法"></a>最短路算法</h1><h2 id="Dijkstra算法"><a href="#Dijkstra算法" class="headerlink" title="Dijkstra算法"></a>Dijkstra算法</h2><p>算法流程：</p>
+<ol>
+<li><p>初始化：所有结点都未被访问，将源点的距离设为0，其他结点的距离设为$\infty$​</p>
+</li>
+<li><p>循环$n$次：</p>
+<ul>
+<li><p>找到表中还没被访问的、距离不为$\infty$​的结点。如果没有，则退出循环。</p>
+</li>
+<li><p>将该结点设置为已被访问</p>
+</li>
+<li><p>更新表中的距离为$min(「到结点j的距离」,「到结点i的距离」+「结点i到j的距离」)$​​</p>
+<blockquote>
+<p>如果有路径数组，则需要在更新最短距离的同时更新路径。如果到<code>节点i的距离</code>+<code>结点i到j的距离</code>更小，则<code>paths[j]=i</code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<p>算法的时间复杂度为$O(n^2)$</p>
+<p>伪代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#初始化</span></span><br><span class="line">Distance_Matrix=...<span class="comment">#邻接矩阵</span></span><br><span class="line">min_distance=[infinity _ <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">visited=[false _ <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">paths=[<span class="literal">None</span> _ <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line"></span><br><span class="line"><span class="comment">#初始化到start节点的距离为0</span></span><br><span class="line">min_distance[start]=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> time <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">  <span class="comment">#找出还没被访问的且距离最小的节点的索引</span></span><br><span class="line">  index=get_next_node_index(visited,min_distance)</span><br><span class="line">  <span class="keyword">if</span> index=<span class="literal">None</span>:<span class="comment">#如果没有这样的节点，则说明不是连通的，退出循环</span></span><br><span class="line">    <span class="keyword">break</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">#更新路径表和距离表</span></span><br><span class="line">  <span class="keyword">for</span> next_node_index <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    <span class="keyword">if</span> Distance_Matrix[index][next_node_index]!=infinity:<span class="comment">#找到了一个和当前点邻接的结点</span></span><br><span class="line">      <span class="keyword">if</span> min_distance[next_node_index]&lt;Distance_Matrix[index][next_node_index]+distance[index]:</span><br><span class="line">        min_distance[next_node_index]=Distance_Matrix[index][next_node_index]+distance[index]</span><br><span class="line">        paths[next_node_index]=index</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+<h2 id="Bellman-Ford最短路算法"><a href="#Bellman-Ford最短路算法" class="headerlink" title="Bellman-Ford最短路算法"></a>Bellman-Ford最短路算法</h2><p>算法流程：</p>
+<ol>
+<li><p>初始化：将源点的距离设为0，其他结点的距离设为$\infty$。path数组初始化为null。</p>
+</li>
+<li><p>循环$n-1$次：对所有的边$e(i,j)$，如果$d(j)&gt;d(i)+e(i,j)$。（d[i]是源点到i点的最短距离）</p>
+<ul>
+<li>$d(j)=d(i)+e(i,j)$</li>
+<li>$path[j]=i$​​</li>
+</ul>
+<blockquote>
+<p>第$k$次得到的$d$数组是源点经过至多$k$个中间点，到其他点的最小值。</p>
+</blockquote>
+<p>算法复杂度：$O(mn)$​</p>
+</li>
+</ol>
+<p>伪代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">distance=[infinity _ <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">paths=[<span class="literal">None</span> _ <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line"></span><br><span class="line"><span class="comment">#初始化到start节点的距离为0</span></span><br><span class="line">min_distance[start]=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> time <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n-<span class="number">1</span>):</span><br><span class="line">  <span class="keyword">for</span> [i,j] <span class="keyword">in</span> all_edges:<span class="comment">#对所有边中的每一条边都执行下述操作</span></span><br><span class="line">    <span class="keyword">if</span> distance[j]&gt;distance[i]+D[i][j]:</span><br><span class="line">      distance[j]=distance[i]+D[i][j]</span><br><span class="line">      path[j]=i</span><br></pre></td></tr></table></figure>
+<h3 id="改进的Bellman-Ford最短路算法"><a href="#改进的Bellman-Ford最短路算法" class="headerlink" title="改进的Bellman-Ford最短路算法"></a>改进的Bellman-Ford最短路算法</h3><p>如果$d(i)$上一次没有改变，则这一次不需要执行$d(j)&gt;d(i)+c(i,j)$。（要改变上一次就改变了）</p>
+<p>改进后的算法流程：</p>
+<ol>
+<li>初始化：将源点的距离设为0，其他结点的距离设为$\infty$​。path数组初始化为null。</li>
+<li>将源点$s$加入队列$q$当中。</li>
+<li>如果队列不为空，则：<ol>
+<li>取出队列顶部的结点$i$</li>
+<li>对所有以$i$为起点的边$e(i,j)$，如果$d(j)&gt;d(i)+e(i,j)$​​。<ul>
+<li>$d(j)=d(i)+e(i,j)$</li>
+<li>$path[j]=i$​​</li>
+<li>如果队列$q$中不含有$j$，则$q.push_back(j)$</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><p>不含圈的图称为无圈图。<strong>树是连通的无圈图</strong>。森林也是无圈图。</p>
+<p>树叶：树叶是一度的顶点。</p>
+<h2 id="树的六种等价定义"><a href="#树的六种等价定义" class="headerlink" title="树的六种等价定义"></a>树的六种等价定义</h2><ul>
+<li><em>𝑇</em> 是树</li>
+<li><em>𝑇</em> 是含有 <em>𝑛</em> − 1 条边的无圈图</li>
+<li><em>𝑇</em> 中任意两点连通，且有 <em>𝑛</em> − 1 条边</li>
+<li><em>𝑇</em> 连通，且任意边都是割边</li>
+</ul>
+<blockquote>
+<p>割边：删掉该边图就不连通了</p>
+</blockquote>
+<ul>
+<li>任意两点仅有一条路</li>
+<li><em>𝑇</em> 无圈，加入任意一条边后，<em>𝑇</em> 有且仅有一个圈</li>
+</ul>
+<h2 id="定理"><a href="#定理" class="headerlink" title="定理"></a><mark>定理</mark></h2><blockquote>
+<p>[!Note]</p>
+<p>具体的证明看课件：graph-5.pdf。</p>
+</blockquote>
+<ol>
+<li><p>树与森林都是偶图</p>
+<blockquote>
+<p>因为它们不包含奇圈，也就是圈长度为0</p>
+</blockquote>
+</li>
+<li><p>每棵非平凡树至少有两片树叶</p>
+<blockquote>
+<p>反证法：如果不是，则要么不存在最长路（两端点度为1），要么树中存在圈</p>
+</blockquote>
+</li>
+<li><p>图 𝐺 是树当且仅当 𝐺 中任意两点都被唯一的路连接。</p>
+</li>
+<li><p>设$T$是$(n,m)$树，有$m=n-1$。多了就有圈，少了就不连通。推论：具有 $k$ 个分支的森林有 $𝑛 − 𝑘$ 条边。</p>
+</li>
+<li><p>每个$n$阶连通图的边数至少为$n-1$</p>
+</li>
+<li><p>任意树$T$两个不邻接结点加上一条边后，可得到唯一圈。</p>
+</li>
+<li><p>设$G$是树且$\Delta \geq k$，$G$至少有$k$个一度结点。$\Delta$指的是树中度最大的顶点的度。</p>
+</li>
+<li><p>若森林  $G$  有  $2 k$  个奇数度顶点, 则  $G$  中有  $k$  条边不重合的路  $P_{1}, \cdots, P_{k}$  满足  $E(G)=\bigcup_{i} E\left(P_{i}\right)$​​ </p>
+</li>
+<li><p>树的度序列的充分必要条件：设  $S=\left\{d_{1}, \cdots, d_{n}\right\}$  满足:  $d_{1} \geq \cdots \geq d_{n} \geq 1, \sum d_{i}=2(n-1)$ , 存在树  $T$  度序列为  $S$​ 。</p>
+</li>
+</ol>
+<h2 id="树的中心"><a href="#树的中心" class="headerlink" title="树的中心"></a>树的中心</h2><ul>
+<li>图的顶点的离心率：$e(v) = \max\{d(u, v)|u \in V\}$。（一个顶点与其他顶点之间的最大距离）</li>
+<li>图的半径：$r = \min\{e(v)|v \in V\}$。（所有顶点的离心率的最小值）</li>
+<li>图的中心点：离心率等于半径的点。</li>
+<li>图的中心：中心点的集合。</li>
+</ul>
+<p><mark>定理</mark>：树的中心由一个点或两个相邻点组成。</p>
+<h2 id="生成树"><a href="#生成树" class="headerlink" title="生成树"></a>生成树</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>若图 $𝐺$ 的一个生成子图<em>𝑇</em> 是树，称它为 $𝐺$ 的一棵生成树。</p>
+<ul>
+<li>生成树的边称为树枝，<em>𝐺</em> 中非生成树的边称为弦</li>
+<li>在连通边赋权图 $𝐺$​​ 中总权值最小的生成树，称为最小生成树</li>
+<li>生成树一般不唯一</li>
+<li>$s$到所有节点的最短路构成一棵树</li>
+</ul>
+<h3 id="定理-1"><a href="#定理-1" class="headerlink" title="定理"></a><mark>定理</mark></h3><ol>
+<li><p>每个连通图 $𝐺$ 至少包含一棵生成树。推论：若 $𝐺$ 是 $(𝑛,𝑚)$ 连通图，则 $𝑚 ≥ 𝑛 − 1$。</p>
+<blockquote>
+<p>可以用破圈法求生成树</p>
+</blockquote>
+</li>
+<li><p>记图$G$中生成树的个数为$ \tau(G) $, 有$ \tau(G)=\tau(G-e)+\tau(\text { G.e })$。</p>
+<blockquote>
+<p>图 $𝐺$ 中，删掉边 $𝑒$ 后，把 $𝑒$ 的两个端点重合，得到的图记为 $𝐺.e$</p>
+</blockquote>
+</li>
+<li><p>设  $G$  是顶点集合为  $V(G)=\left\{v_{1}, \cdots, v_{n}\right\}$  的图, 设  $A=\left(a_{i j}\right)$  是  $G$  的邻接矩阵,  $C=\left(c_{i j}\right)$  是  $n$  阶方阵, 其中:</p>
+<script type="math/tex; mode=display">
+c_{i j}=\left\{\begin{array}{ll}
+d\left(v_{i}\right) & i=j \\
+-a_{i j} & i \neq j
+\end{array}\right.</script><p>则  $G$  的生成树棵数为  $C$  的任意一个余子式的值。</p>
+<blockquote>
+<p>定理中的矩阵 $𝐶$ 又称为图的 Laplace 矩阵，定义为 $𝐶 = 𝐷(𝐺) − 𝐴(𝐺)$。其中：$𝐷(𝐺)$ 为度对角矩阵，即主对角元为对应顶点度数，其余元素为 0；$𝐴(𝐺)$ 是邻接矩阵</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="最小生成树算法"><a href="#最小生成树算法" class="headerlink" title="最小生成树算法"></a>最小生成树算法</h3><h4 id="Kruskal算法"><a href="#Kruskal算法" class="headerlink" title="Kruskal算法"></a>Kruskal算法</h4><p>算法流程：</p>
+<ol>
+<li>选择权值最小边 $𝑒_1$</li>
+<li>若已经选定边 $𝑒_1, 𝑒_2, · · · , 𝑒_𝑘$ , 则从 $𝐸 − {𝑒_1, 𝑒_2, · · · , 𝑒_𝑘 }$ 中选择最小边 $𝑒_𝑘+1$, 使$𝑒_1, 𝑒_2, · · · , 𝑒_𝑘$ 无圈。</li>
+<li>不能增加边时，停止</li>
+</ol>
+<h4 id="管梅谷破圈法"><a href="#管梅谷破圈法" class="headerlink" title="管梅谷破圈法"></a>管梅谷破圈法</h4><p>算法流程：</p>
+<ol>
+<li>从任意圈开始，去掉圈中权值最大的一条边</li>
+<li>不断破圈，直到 $G$ 中没有圈为止</li>
+</ol>
+<h4 id="Prim算法"><a href="#Prim算法" class="headerlink" title="Prim算法"></a>Prim算法</h4><ol>
+<li>任选一个顶点$u$，选择与$u$关联的权值最小的边作为最小生成树的第一条边$e_1$</li>
+<li>在与已经选取边只有一个公共端点的边中，选取权值最小的边。直到选取$n-1$​条边为止</li>
+</ol>
+<h2 id="根树"><a href="#根树" class="headerlink" title="根树"></a>根树</h2><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><p>每条边都有一个方向的树称为有向树。</p>
+<ul>
+<li>以 $𝑣$ 为终点和起点的边数称为 $𝑣$ 的入度和出度</li>
+<li>入度与出度之和称为点 $𝑣$ 的度</li>
+</ul>
+<p>一棵有向树，如果恰有一个顶点的入度为 0，其余顶点入度为 1，这样的的树称为根树。</p>
+<ul>
+<li>入度为 0 的点称为树根</li>
+<li>出度为 0 的点称为树叶</li>
+<li>入度为 1，出度大于 1 的点称为内点</li>
+<li>内点和树根统称为分支点</li>
+<li>顶点 $𝑣$ 到树根的距离称为 $𝑣$ 的层数</li>
+<li>最大层数称为树高</li>
+<li>对于根树，由其中节点及其后代导出的子图，称为子根树</li>
+</ul>
+<h3 id="几种不同类型的根树"><a href="#几种不同类型的根树" class="headerlink" title="几种不同类型的根树"></a>几种不同类型的根树</h3><h4 id="m元树"><a href="#m元树" class="headerlink" title="m元树"></a>m元树</h4><p>对于根树，若每个分支点至多𝑚 个儿子，称为𝑚 元根树；若每个分支点恰有 𝑚 个儿子，称它为完全 𝑚 元树。</p>
+<p><mark>定理</mark>：在完全 $𝑚$ 元树中，若树叶数为 $𝑡$ , 分支点数为 $𝑖$ , 则$(m-1)i=t-1$。</p>
+<h4 id="有序树与完全树"><a href="#有序树与完全树" class="headerlink" title="有序树与完全树"></a>有序树与完全树</h4><p>对于根树$𝑇$​​，若规定了每层顶点的访问次序，这样的根树称为有序树：一般次序为从左至右。</p>
+<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><p>$𝑚$​ 元树中，应用最广泛的是二元树。</p>
+<p>有序树转化为二元树的方法：</p>
+<ol>
+<li>从根开始，保留每个父亲同其最左边儿子的连线，撤销与别的儿子的连线</li>
+<li>兄弟间用从左至右的有向边连接</li>
+<li>直接位于给定结点下面的儿子，作为左儿子，对于同一水平线上与给定结点右邻的结点，作为右儿子</li>
+</ol>
+<p>二元树的遍历：找到一种方法，每个结点恰好访问一次。有三种常用遍历方法：先序遍历、中序遍历、后序遍历。</p>
+<h5 id="最优二叉树"><a href="#最优二叉树" class="headerlink" title="最优二叉树"></a>最优二叉树</h5><p>设  $T$  是二元树, 若对所有  $t$  片树叶赋权  $w_{i}(1 \leq i \leq t)$ , 权值为  $w_{i}$  的树叶层数记为  $L\left(w_{i}\right)$ , 称  $W(T)=\sum_{i=1}^{t} w_{i} L\left(w_{i}\right)$  为该二元树的权。</p>
+<p>$𝑊 (𝑇 )$ 最小的二元树称为最优二元树。</p>
+<p>Huffman 算法：</p>
+<ol>
+<li>令  $S=\left\{w_{1}, \cdots, w_{t}\right\}$ </li>
+<li>从  $S$  中取出两个权值最小者  $w_{i}, w_{j}$ </li>
+<li>画结点  $v_{i}, v_{j}$ , 权值  $w_{i}, w_{j}$ , 画  $v_{i}$, $v_{j}$  的父亲  $v$  ，权值  $w_{i}+w_{j}$ </li>
+<li><p>$S \leftarrow\left(S-\left\{w_{i}, w_{j}\right\}\right) \cup\left\{w_{i}+w_{j}\right\}$</p>
+</li>
+<li><p>如果  $S$  只含一个元素, 停止, 否则转第二步</p>
+</li>
+</ol>
+<h2 id="最小Steiner树"><a href="#最小Steiner树" class="headerlink" title="最小Steiner树"></a>最小Steiner树</h2><p>给出一个图$G=(V,E)$，和一个终端顶点集合$N$。</p>
+<p>Steiner树问题：找到一个$G$的子树$T$，覆盖所有的$N$，并且权值和最小。</p>
+<ul>
+<li>当$N=V$的时候，是最小生成树问题</li>
+<li>当$|N|=2$​的时候，是最短路径问题</li>
+</ul>
+<p>与最小生成树问题不同，Steiner树问题允许在树中添加图中未标记为终端顶点的其他顶点（称为Steiner顶点），以帮助降低总权重。</p>
+<p>Steiner树是一个NP完全问题，因为其可以和X3C问题（已知的NP完全问题）一一对应。</p>
+<blockquote>
+<p>X3C问题：有一个集合X，它包含n个元素，以及一个集合S，它包含一些3个元素的子集，这些子集都是X的子集。X3C问题的目标是找到一个子集S’，它是S的子集，并且S’中的每个子集都是X的一个恰好覆盖，即每个子集都恰好覆盖X中的一个元素，并且每个元素都被恰好一个子集覆盖</p>
+</blockquote>
+<p>所以需要用近似算法来解决Steiner树问题。</p>
+<h3 id="Metric闭包"><a href="#Metric闭包" class="headerlink" title="Metric闭包"></a>Metric闭包</h3><p>以$u$和$v$之间的最短距离作为顶点$u$和$v$​之间的边的权值，就可以得到metric闭包。</p>
+<p>在metric闭包中：</p>
+<ul>
+<li>边的权重满足三角不等式：$d(A, C) \leq d(A, B) + d(B, C)$​</li>
+<li>最小Steiner树在图中的成本等于最小Steiner树在其metric闭包中的成本</li>
+</ul>
+<p>而在Metric闭包中，<strong>最小生成树的成本不超过两倍的最小Steiner树的成本</strong>，所以可以用最小生成树去近似最小Steiner树。<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhonghangliu/article/details/106664312">参考文章</a></p>
+<h1 id="图的连通性"><a href="#图的连通性" class="headerlink" title="图的连通性"></a>图的连通性</h1><h2 id="割边与割点"><a href="#割边与割点" class="headerlink" title="割边与割点"></a>割边与割点</h2><p>割边（桥）：若$w(G-e)&gt;w(G)$，则称$e$为$G$​​的一条割边。</p>
+<p>割点：若 $E(G)$ 可划分为两个非空子集 $E_1, E_2$，使 $G(E_1)$ 和 $G(E_2)$ 以点 $v$ 为公共顶点，称 $v$ 为 $G$ 的割点。</p>
+<blockquote>
+<p>$w(G)$表示图$G$的连通分支数</p>
+</blockquote>
+<h3 id="定理-2"><a href="#定理-2" class="headerlink" title="定理"></a><mark>定理</mark></h3><ol>
+<li>$𝑒$ 是图 $𝐺$ 的割边当且仅当 $e$ 不在 $G$​​ 的任何圈中<ul>
+<li>推论：$𝑒$ 为连通图 $𝐺$ 的一条边，若 $𝑒$ 含于 $𝐺$ 的某圈中，则 $𝐺$ − $𝑒$ 连通</li>
+</ul>
+</li>
+<li>无环非平凡图 $G$，$v$ 是 $G$ 的割点，当且仅当 $w(G - v) &gt; w(G)$​。</li>
+<li><p>$v$ 是树 $T$ 的割点，当且仅当 $v$ 是分支点。</p>
+</li>
+<li><p>一个顶点 $v$ 是无环连通图 $G$ 的割点，当且仅当满足以下条件：$V(G - v)$ 可以划分为两个非空子集 $V_1, V_2$，对于所有 $x \in V_1, y \in V_2$，顶点 $v$ 在每一条连接 $x$ 与 $y$​​ 的路上。</p>
+</li>
+</ol>
+<h2 id="块"><a href="#块" class="headerlink" title="块"></a>块</h2><p>没有割点的连通图称为块图，简称块。</p>
+<p>满足如下性质的 $𝐺$ 的子图 $𝐵$ 称为 $𝐺$ 的块：</p>
+<ul>
+<li>它本身是块</li>
+<li>没有真包含 $𝐵$ 的 $𝐺$ 的块存在</li>
+</ul>
+<h3 id="定理-3"><a href="#定理-3" class="headerlink" title="定理"></a><mark>定理</mark></h3><ol>
+<li>若简单图 $𝐺$ 满足 $|𝑉(𝐺)| \geq 3$，则 $𝐺$​ 是块的充要条件为其中任意两顶点位于同一圈上。</li>
+<li>$v$ 是 $𝐺$ 的割点当且仅当 $v$ 至少属于 $𝐺$ 的两个不同块。</li>
+</ol>
+<h2 id="点割集和边割集"><a href="#点割集和边割集" class="headerlink" title="点割集和边割集"></a>点割集和边割集</h2><h3 id="点割集"><a href="#点割集" class="headerlink" title="点割集"></a>点割集</h3><p>给定连通图 $G$，设 $V’ \subseteq V$，若 $G - V’$ 不连通，称 $V’$ 为 $G$ 的一个<strong>点割集</strong>：</p>
+<ul>
+<li>含有 $k$ 个顶点的点割集称为<strong>k顶点割</strong>。</li>
+<li>点数最少的顶点割称为<strong>最小顶点割</strong>。</li>
+</ul>
+<p>若 $G$ 有顶点割，最小顶点割的顶点数称为 $G$ 的<strong>点连通度</strong>，否则称 $𝑛 − 1$ 为其点连通度。$G$ 的点连通度记为 $\kappa(G)$。</p>
+<ul>
+<li>若不连通，$\kappa(G) = 0$​​。</li>
+<li>若 $\kappa(G) \geq k$，称 $G$ 是<strong>k连通的</strong>：</li>
+</ul>
+<h3 id="边割集"><a href="#边割集" class="headerlink" title="边割集"></a>边割集</h3><p>最小边割集所含边数称为图的<strong>边连通度</strong>，记为 $\lambda(G)$。</p>
+<ul>
+<li>若 $G$ 不连通，则定义 $\lambda(G) = 0$。</li>
+<li>若 $\lambda(G) \geq k$，称 $G$ 是<strong>k边连通的</strong>。</li>
+</ul>
+<h3 id="定理-4"><a href="#定理-4" class="headerlink" title="定理"></a><mark>定理</mark></h3><ol>
+<li><p>Whitney定理：对任意图 $G$，有 $\kappa(G) \leq \lambda(G) \leq \delta(G)$。</p>
+<blockquote>
+<p>其中$\kappa(G)$是点连通度，$\lambda(G)$是边连通度，图的最小度数是$\delta(G)$​。</p>
+</blockquote>
+</li>
+<li><p>对任意 $(n, m)$连通图$G$, 有  $\kappa(G) \leq\lfloor 2 m / n\rfloor$</p>
+</li>
+<li>设$G$是$(n, m)$单图, 若 $\delta(G) \geq\lfloor n / 2\rfloor$ , 则 $G$ 连通</li>
+<li>设 $G$ 是 $(n, m)$ 单图，若对 $\forall k \in \mathbb{Z}$，有 $\delta(G) \geq \frac{(n+k-2)}{2}$，则 $G$ 是 $k$ 连通的</li>
+<li>设 $G$ 是 $n$ 阶单图，若 $\delta(G) \geq \lfloor n / 2 \rfloor$，则有 $\lambda(G) = \delta(G)$。</li>
+</ol>
+<h2 id="分离集"><a href="#分离集" class="headerlink" title="分离集"></a>分离集</h2><p>设 $S$ 为 $G$ 的一个顶点子集或边子集，若 $u, v$ 不在 $G-S$ 的同一分支上，称 $S$ 分离 $u, v$。</p>
+<h3 id="定理-5"><a href="#定理-5" class="headerlink" title="定理"></a><mark>定理</mark></h3><ol>
+<li><p>Menger定理：</p>
+<ul>
+<li><p>$G$ 中分离 $x, y$ 的最少点数等于独立的 $(x, y)$​ 路的最大数目。</p>
+<blockquote>
+<p>也可以表述为：一个非平凡图 $G$ 是 $k \geq 2$ 连通的，当且仅当 $G$ 的任意两个顶点 $u, v$ 间至少存在 $k$ 条内点不交的 $(u, v)$ 路。</p>
+</blockquote>
+</li>
+<li><p>$G$ 中分离 $x, y$ 的最少边数等于边不重的 $(x, y)$​ 路的最大数目。</p>
+<blockquote>
+<p>也可以表述为：一个非平凡的图 $G$ 是 $k \geq 2$ 边连通的，当且仅当 $G$ 的任意两个顶点间至少存在 $k$ 条边不重的 $(u, v)$​ 路。</p>
+<p><strong>推论</strong>：对于一个阶至少为 3 的无环图  G , 下面三个命题等价：</p>
+<ul>
+<li>G  是 2 连通的</li>
+<li>G  中任意两点位于同一个圈上</li>
+<li>G  无孤立点, 且任意两条边在同一个圈上</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="最大流和最小割"><a href="#最大流和最小割" class="headerlink" title="最大流和最小割"></a>最大流和最小割</h2><h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><h4 id="Flow-network定义"><a href="#Flow-network定义" class="headerlink" title="Flow network定义"></a>Flow network定义</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/图.assets/image-20240513102157714.png" alt="image-20240513102157714"></p>
+<p>流网络的定义：</p>
+<ol>
+<li><p>有向图</p>
+</li>
+<li><p>边有容量属性</p>
+</li>
+<li><p>有source节点（源节点）s和sink（汇节点）节点t</p>
+</li>
+</ol>
+<h4 id="割（Cut）"><a href="#割（Cut）" class="headerlink" title="割（Cut）"></a>割（Cut）</h4><p>一个割将结点划分为两部分：$S$和$T$，使得源节点$s$属于$S$，汇节点$t$属于$T$。</p>
+<p>分割的容量（capacity）指的是从$S$（不是$s$）出发的边的权重之和。最小割问题就是找一个cut，使得分割的容量最小。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/图.assets/image-20240513102654246.png" alt="image-20240513102654246"></p>
+<h4 id="流（Flow）"><a href="#流（Flow）" class="headerlink" title="流（Flow）"></a>流（Flow）</h4><p>每条边都有一个流，每条边的流需要满足：</p>
+<ul>
+<li>不超过边的容量</li>
+<li>除了$s$和$t$​，其他点流入需要等于流出。</li>
+</ul>
+<p>最大流问题就是找到一个流法，使得汇入$t$​的流最大。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/图.assets/image-20240513103452310.png" alt="image-20240513103452310"></p>
+<blockquote>
+<p>可以类比为，$s$是一个水库，水流通过管道（边）流向不同的区域（顶点），最终到达汇点𝑡，比如一个污水处理厂。在这个过程中，水流流量不能超过管道的容量，并且每个交叉点的水量必须保持平衡，不能有水积聚或流失。</p>
+</blockquote>
+<h3 id="最大流最小割定理"><a href="#最大流最小割定理" class="headerlink" title="最大流最小割定理"></a>最大流最小割定理</h3><h4 id="基础定理"><a href="#基础定理" class="headerlink" title="基础定理"></a><mark>基础定理</mark></h4><ol>
+<li>设 $f$ 为一个流，$(S, T)$ 为任意的 $s-t$ 割。那么，穿过这个割的净流量等于到达 $t$​ 的流量。</li>
+<li>到达$t$​的流量最多是割的容量。（穿过割的净流量不一定等于割的容量）</li>
+<li>设 $f$ 为一个流，$(S, T)$ 为一个 $s-t$ 割，其容量等于流 $f$ 的值。那么 $f$ 是一个最大流，$(S, T)$ 是一个最小割。</li>
+</ol>
+<h4 id="最大流最小割定理-1"><a href="#最大流最小割定理-1" class="headerlink" title="最大流最小割定理"></a><mark>最大流最小割定理</mark></h4><script type="math/tex; mode=display">
+在任意网络中，最大流的值=最小割的容量</script><p>参考：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Q7411R7ie/?share_source=copy_web&amp;vd_source=00fb209a30d8e075044dc2abea8890c7">[算法竞赛入门] 网络流基础：理解最大流/最小割定理 (蒋炎岩)</a></p>
+<h5 id="寻找最大流——Ford-Fulkerson算法"><a href="#寻找最大流——Ford-Fulkerson算法" class="headerlink" title="寻找最大流——Ford-Fulkerson算法"></a>寻找最大流——Ford-Fulkerson算法</h5><p>参考：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Pv41157xh/?share_source=copy_web&amp;vd_source=00fb209a30d8e075044dc2abea8890c7">13-2: Ford-Fulkerson Algorithm 寻找网络最大流</a></p>
+<p>步骤：</p>
+<ol>
+<li><strong>初始化</strong>：首先，需要将网络中所有边的流量初始化为0（或者根据问题的具体要求设置为其他初始值）。同时，需要保留一个残余网络，用于记录每条边的剩余容量，即还能增加的流量。</li>
+<li><strong>寻找增广路径</strong>：在残余网络中寻找一条从源点到汇点的路径，这条路径上的所有边都有剩余容量大于0。这样的路径称为增广路径。如果存在这样的路径，则执行下一步；如果不存在，算法结束，当前网络流即为最大流。</li>
+<li><strong>计算瓶颈容量</strong>：在增广路径上，找到所有边中剩余容量最小的那一个，这个剩余容量即为瓶颈容量。这个值决定了我们可以沿增广路径增加多少流量。</li>
+<li><strong>增广流量</strong>：沿着增广路径，将每条边的流量增加瓶颈容量，同时需要减少残余网络中对应边的剩余容量（因为流量增加了，所以剩余容量相应减少）。对于增广路径上的每条边，还需要在残余网络中增加一条反向边，其容量等于增广路径上该边的增流量，用于表示流量的可逆性。</li>
+<li><strong>重复</strong>：返回第二步，继续寻找新的增广路径，直到无法找到增广路径为止。</li>
+</ol>
+<p><mark>定理</mark>：一个流 $f$​ 是最大流，当且仅当不存在增广路径。</p>
+<p>寻找最小割：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1T64y1R7ZK/?share_source=copy_web&amp;vd_source=00fb209a30d8e075044dc2abea8890c7">13-5: 最小割 Min-Cut</a></p>
+<h1 id="欧拉图"><a href="#欧拉图" class="headerlink" title="欧拉图"></a>欧拉图</h1><p>在欧拉图中，可以通过图中的一条路径<strong>经过每条边恰好一次</strong>并返回起点。这条路径被称为欧拉回路（也称为欧拉环游或欧拉闭迹）。</p>
+<h2 id="定理-6"><a href="#定理-6" class="headerlink" title="定理"></a><mark>定理</mark></h2><ol>
+<li>下列陈述对于非平凡连通图 $𝐺$​ 是等价的：<ul>
+<li>𝐺 是欧拉图</li>
+<li>𝐺 的顶点度数为偶数</li>
+<li>𝐺 的边集合能划分为圈</li>
+</ul>
+</li>
+<li>连通图是欧拉图当且仅当<strong>每个点的度数是偶数</strong>。<ul>
+<li>推论：连通非欧拉图存在欧拉迹当且仅当只有两个顶点度数为奇数</li>
+</ul>
+</li>
+</ol>
+<h2 id="求欧拉环游的算法"><a href="#求欧拉环游的算法" class="headerlink" title="求欧拉环游的算法"></a>求欧拉环游的算法</h2><h3 id="Fleury算法"><a href="#Fleury算法" class="headerlink" title="Fleury算法"></a>Fleury算法</h3><p>Fleury算法用于在欧拉图中求出一条具体欧拉环游。复杂度为$O(m^2)$。</p>
+<p>算法流程如下：</p>
+<ol>
+<li>任意选择一个顶点 $v_{0}$，置 $w_{0}=v_{0}$。</li>
+<li>假设迹 $w_{i}=v_{0} e_{1} v_{1} \cdots e_{i} v_{i}$ 已经选定，按下述方法从 $E-\left\{e_{1}, e_{2}, \cdots, e_{i}\right\}$ 中选取边 $e_{i+1}$：<ul>
+<li>$e_{i+1}$ 与 $v_{i}$ 相关联。</li>
+<li>除非没有别的边可选择，否则 $e_{i+1}$ 不能是 $G_{i}=G-\left\{e_{1}, e_{2}, \cdots, e_{i}\right\}$ 的割边。</li>
+</ul>
+</li>
+<li>当以上操作不能执行时，算法停止。</li>
+</ol>
+<p>证明：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://math.stackexchange.com/questions/2362546/on-the-proof-of-fleurys-algorithm">参考1</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/665031541">参考2</a></li>
+</ul>
+<h3 id="Hierholzer算法"><a href="#Hierholzer算法" class="headerlink" title="Hierholzer算法"></a>Hierholzer算法</h3><p>Hierholzer算法是另一个寻找欧拉环游的算法，它采用深度优先搜索，不断找圈，最后合并为Euler环游。其的复杂度为$O(m)$，比Fleury算法的更小。</p>
+<p>算法伪代码如下，其中<code>cpath</code>记录当前圈，<code>epath</code>记录总体路径。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> cpath:</span><br><span class="line">    u = cpath.top()  <span class="comment"># Assuming cpath is a stack</span></span><br><span class="line">    <span class="keyword">if</span> all_edges_visited(u):</span><br><span class="line">      	cpath.pop()</span><br><span class="line">        epath.append(u)  <span class="comment"># Assuming epath is a list to store the final path</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        u, x = select_random_edge(u)</span><br><span class="line">        cpath.append(x)</span><br><span class="line">        delete_edge(u, x)</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/图.assets/image-20240520104121132.png" alt="image-20240520104121132"></p>
+<h2 id="中国邮路问题"><a href="#中国邮路问题" class="headerlink" title="中国邮路问题"></a>中国邮路问题</h2><p>中国邮路问题指的是：邮递员从邮局出发，每条街道至少行走一次，再回邮局。如何行走，其环游路程最短？</p>
+<ul>
+<li>如果邮路图本身是欧拉图，可以直接用 Fleury 算法。</li>
+<li>重要的是，如果是非欧拉图，如何重复行走街道才能使行走总路程最短？</li>
+</ul>
+<h3 id="定理-7"><a href="#定理-7" class="headerlink" title="定理"></a><mark>定理</mark></h3><p>若 $W$ 是包含图 $G$ 每条边至少一次的闭途径，$W$ 具有最小权值当且仅当：</p>
+<ul>
+<li>$G$ 的每条边在$W$ 中最多重复一次</li>
+</ul>
+<ul>
+<li>对 $G$ 的每个圈，在$W$ 中重复的边的总权值不超过非重复边总权值</li>
+</ul>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>若图 $G$ 只有两个奇度顶点 $u, v$，则最优邮递员路径算法如下：</p>
+<ul>
+<li><p>在 $u, v$ 间求出一条最短路 $P^*$ </p>
+</li>
+<li><p>在 $P^*$ 上，给每条边添加一条平行边得 $G$ 的欧拉母图 $G$ ∗</p>
+</li>
+<li><p>在 $G^*$ 中运行 Fleury 算法</p>
+</li>
+</ul>
+<h1 id="哈密顿图"><a href="#哈密顿图" class="headerlink" title="哈密顿图"></a>哈密顿图</h1><p>如果经过图 $𝐺$ <strong>每个顶点一次</strong>后能够回到出发点，称这样的图为Hamilton 图，简称 $𝐻$ 图。所经过的闭途径是 $𝐺$ 的一个生成圈，称为 $𝐺$ 的 Hamilton 圈。如果存在经过 $𝐺$ 的每个顶点一次的路，称该路为 Hamilton 路，简称 $𝐻$​ 路。</p>
+<p>判定H图是一个NP难问题。</p>
+<h2 id="定理-8"><a href="#定理-8" class="headerlink" title="定理"></a><mark>定理</mark></h2><ol>
+<li><p>$H$圈的必要条件：若 $G$ 为 $H$ 图, 则对 $V(G)$ 的任一非空顶点子集 $S$, 有 $w(G-S) \leq|S|$。</p>
+<blockquote>
+<p>可用来证明不是$H$圈。$w$指的是连通分支。</p>
+</blockquote>
+</li>
+<li><p>Dirac定理：对于 $n \geq 3$​ 的单图 $G$​，如果 $\delta(G) \geq n / 2$​，则 $G$​ 是 $H$​​ 图。</p>
+<blockquote>
+<p>这个定理不是紧的</p>
+</blockquote>
+</li>
+<li><p>Ore定理：若 $d(u) + d(v) \geq n$ 对任意不相邻 $u, v$ 成立，则 $G$ 是 $\mathrm{H}$ 图。</p>
+<blockquote>
+<p>这个定理是紧的</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="闭包和H图"><a href="#闭包和H图" class="headerlink" title="闭包和H图"></a>闭包和H图</h2><h3 id="闭图"><a href="#闭图" class="headerlink" title="闭图"></a>闭图</h3><p>在 $n$ 阶单图中，若对 $d(u)+d(v) \geq n$ 的任意顶点 $u, v$，均有 $u, v$ 相邻，则称 $G$ 是闭图。</p>
+<p><mark>定理</mark>：若 $G_{1}$ 和 $G_{2}$ 是同一个点集 $V$ 的两个闭图，则 $G = G_{1} \cap G_{2}$​ 也是闭图。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>包含 $G$ 的极小闭图称为 $G$ 的闭包，如果 $G$ 本身是闭图，其闭包是它本身。</p>
+<p>如果 $G$ 不是闭图，则可以通过在度和大于等于 $n$ 的不相邻顶点对间加边来构造闭图</p>
+<p><mark>定理</mark>：</p>
+<ul>
+<li>图 $𝐺$ 的闭包是唯一的</li>
+<li>Bondy定理：图 $G$ 是 $H$ 图当且仅当它的闭包是 $H$ 图</li>
+</ul>
+<h2 id="度序列和H图"><a href="#度序列和H图" class="headerlink" title="度序列和H图"></a>度序列和H图</h2><p>设简单图 $G$ 的度序列是 $\left(d_{1}, d_{2}, \cdots, d_{n}\right), d_{1} \leq \cdots \leq d_{n}, n \geq 3$ 。若对任意 $m &lt; \frac{n}{2}$, $d_{m} &gt; m$ 或 $d_{n-m} \geq n-m$, $G$ 是 $\mathrm{H}$ 图。</p>
+<h1 id="TSP"><a href="#TSP" class="headerlink" title="TSP"></a>TSP</h1><p>不同的TSP问题：</p>
+<ul>
+<li>一般TSP问题：给定一个城市集合和两两城市间的距离，找到最短的路径访问所有城市并回到出发城市。</li>
+<li>Metric TSP问题：城市间距离满足三角不等式</li>
+<li>Euclidean TSP：城市间的距离是欧拉距离</li>
+</ul>
+<p><mark>定理</mark>：对于所有$\rho &gt;1$，寻找一个$\rho-$最优的TSP旅行路线是NP难题。</p>
+<h2 id="近似最优算法"><a href="#近似最优算法" class="headerlink" title="近似最优算法"></a>近似最优算法</h2><h3 id="基于最小生成树的算法"><a href="#基于最小生成树的算法" class="headerlink" title="基于最小生成树的算法"></a>基于最小生成树的算法</h3><ol>
+<li>首先计算图的最小生成树</li>
+<li>对最小生成树先序遍历</li>
+<li>先序遍历序列就是TSP问题的一个近似解</li>
+</ol>
+<p>路径长度小于等于2倍的最优长度。</p>
+<h3 id="基于最近邻的算法"><a href="#基于最近邻的算法" class="headerlink" title="基于最近邻的算法"></a>基于最近邻的算法</h3><ol>
+<li>从任意顶点开始</li>
+<li>如果已有顶点还未包含所有顶点：<ul>
+<li>找到离已有顶点最近的顶点$v_a$，记其离的最近的顶点为$v_b$。</li>
+<li>找到离开$v_b$的边，其到达$v_c$。</li>
+<li>将$v_a$加入已有顶点，并替换$v_b\rightarrow v_c$为$v_b \rightarrow v_a$</li>
+</ul>
+</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/图.assets/image-20240526175300192.png" alt="image-20240526175300192"></p>
+<p>路径长度小于等于2倍的最优长度。</p>
+<h3 id="Christofides算法"><a href="#Christofides算法" class="headerlink" title="Christofides算法"></a>Christofides算法</h3><ol>
+<li>找到一个最小生成树 T</li>
+<li>找到T中奇度顶点的最小匹配 M，将 M 添加到 T</li>
+<li>找到一个欧拉回路</li>
+<li>简化回路</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/图.assets/image-20240526214244878.png" alt="image-20240526214244878"></p>
+<p>路径长度小于等于1.5倍的最优长度。</p>
+<h1 id="偶图的匹配"><a href="#偶图的匹配" class="headerlink" title="偶图的匹配"></a>偶图的匹配</h1><h2 id="图的匹配"><a href="#图的匹配" class="headerlink" title="图的匹配"></a>图的匹配</h2><h3 id="匹配的定义"><a href="#匹配的定义" class="headerlink" title="匹配的定义"></a>匹配的定义</h3><p><strong>定义</strong>：设 $M$ 是图 $G$ 的边子集（不含环），若 $M$ 中任意两条边没有共同顶点，则称 $M$ 是 $G$ 的一个匹配或对集或边独立集。</p>
+<p>若 $v \in G$ 为 $M$ 中某条边的端点，称它为 $M$ 的饱和点；否则，称为 $M$ 的非饱和点。</p>
+<p>如果 $𝑀$ 是图 $𝐺$ 包含边数最多的匹配，称 $M$ 是 $𝐺$ 的最大匹配。若最大匹配饱和了 $𝐺$​ 的所有顶点，称<strong>完美匹配</strong>。一个图不一定存在完美匹配，若存在，不一定唯一。一个图的最大匹配也不一定唯一。</p>
+<h3 id="交错路与可扩路"><a href="#交错路与可扩路" class="headerlink" title="交错路与可扩路"></a>交错路与可扩路</h3><p>𝑀 是图 𝐺 的匹配，𝐺 中一条由 𝑀 中的边和非 𝑀 中的边交错形成的路，称为 𝑀 交错路。若路的起点与终点是 𝑀 非饱和点，称为 𝑀 可扩路。</p>
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+  %%{ init: { &#39;flowchart&#39;: { &#39;curve&#39;: &#39;basis&#39; } } }%%
+flowchart TD
+subgraph X
+A
+B
+C
+D
+end
+
+subgraph Y
+E
+F
+G
+H
+end
+
+A-.-F
+B---E &amp; F
+B-.-G
+C---G
+C-.-H
+D---F &amp; H
+  </pre></div>
+<p>这里$A\rightarrow F \rightarrow B \rightarrow G \rightarrow C \rightarrow H$​是一条交错路。</p>
+<h3 id="定理-9"><a href="#定理-9" class="headerlink" title="定理"></a><mark>定理</mark></h3><ol>
+<li>Berge定理（最大匹配充要条件）：$𝐺$ 的匹配 $𝑀$ 是最大匹配的充要条件是 $𝐺$ 不包含 $𝑀$ 可扩路。</li>
+<li>Hall定理（偶图匹配存在性）：设  $G=(X, Y)$  是偶图,  $G$  存在饱和  $X$  每个顶点的匹配的充要条件是：$\forall S \subseteq X,|N(S)| \geq|S|$​​​。（$N(S)表示S的邻居$）<ul>
+<li>推论：$k$​正则偶图存在完美匹配</li>
+<li>推论：每个$k\geq 2$​方体都有完美匹配</li>
+</ul>
+</li>
+<li>$K_{2n}$中完美匹配的个数为$(2n-1)(2n-3)\cdot \cdot \cdot 1$​</li>
+<li>树至多存在一个完美匹配</li>
+<li>Tutte定理：图 $𝐺$ 有完美匹配的充要条件为：对$𝑉$ 的任意非空真子集 $𝑆$，$𝐺$ − $𝑆$ 的奇分支个数 $𝑜 (𝐺 − 𝑆) ≤ |𝑆 |$。</li>
+</ol>
+<h2 id="图的点覆盖"><a href="#图的点覆盖" class="headerlink" title="图的点覆盖"></a>图的点覆盖</h2><p>对图 $𝐺$ 的顶点子集 $𝐾$，如果 $𝐺$ 的每条边都至少有一个点在 $𝐾$ 中，称 $𝐾$为 $𝐺$ 的一个点覆盖。顶点数最少的 $𝐾$ 称为最小点覆盖，|$𝐾$| 称为 $𝐺$ 的覆盖数。</p>
+<p><mark>定理</mark>：</p>
+<ol>
+<li>设 $𝑀$ 是 $𝐺$ 的匹配，$𝐾$ 是 $𝐺$ 的覆盖，若 $|𝑀|$ = $|𝐾|$，则 $𝑀$ 是最大匹配，$𝐺$​ 是最小覆盖。</li>
+<li>Konig定理：偶图中最大匹配的边数等于最小覆盖的顶点数。</li>
+</ol>
+<h2 id="匈牙利算法"><a href="#匈牙利算法" class="headerlink" title="匈牙利算法"></a>匈牙利算法</h2><p>匈牙利算法用于寻找完美匹配。参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1jT411R7vQ/?share_source=copy_web&amp;vd_source=00fb209a30d8e075044dc2abea8890c7">图论 匈牙利算法求最大匹配</a></p>
+<h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><p>设 $G$ 是具有二部划分 $\left(V_{1}, V_{2}\right)$ 的二部图。</p>
+<ol>
+<li>任给初始匹配 $M$（边集）。</li>
+<li>若 $M$ 饱和 $V_{1}$ 则结束，否则转 3；</li>
+<li>在 $V_{1}$ 中找一非 $M$ 饱和点 $x$，置 $S=\{x\}$，$T=\varnothing$；</li>
+<li>若 $N(S)=T$，则停止，否则任选一点 $y \in N(S)-T$；</li>
+<li>若 $y$ 为 $M$ 饱和点转 6，否则作求一条从 $x$ 到 $y$ 的 $M$ 可增广路 $P$，$M=M \Delta P$，转 2；</li>
+<li>由于 $y$ 是 $M$ 饱和点，故 $M$ 中有一边 $\{(u, y)\}$，置 $S=S \cup\{u\}$，$T=T \cup\{y\}$，转 4。</li>
+</ol>
+<p>其中，$N(S)$ 表示集合 $S$ 中所有点的邻点集合，$M \Delta P$ 表示环和（也就是将路径 $P$ 中的边与匹配 $M$ 进行交换）。</p>
+<h3 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h3><p>匈牙利算法的时间复杂度为$O(|V|*|E|)$，其中$|V|$是顶点数而$|E|$是边数。</p>
+<h2 id="Kuhn-Munkres-算法"><a href="#Kuhn-Munkres-算法" class="headerlink" title="Kuhn-Munkres 算法"></a>Kuhn-Munkres 算法</h2><p>Kuhn-Munkres 算法用于寻找最优匹配。假设 $G=(X, Y)$  是边赋权完全偶图,  $X=\left\{x_{1}, \cdots, x_{n}\right\} ,  Y=\left\{y_{1}, \cdots, y_{n}\right\}, w_{i j}=w\left(x_{i} y_{j}\right)$​ 。那么求这个图的最优匹配，就是求一个具有最大权值的完美匹配</p>
+<h3 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h3><h4 id="可行顶点标号"><a href="#可行顶点标号" class="headerlink" title="可行顶点标号"></a>可行顶点标号</h4><p>若对任意的$x\in X,y\in Y$, 有$l(x)+l(y)\ge w(xy)$，称$l$是$G$​的可行顶点标号。</p>
+<p>对于任意$G$，均存在可行顶点标号：</p>
+<script type="math/tex; mode=display">
+l(x)=\max_{y\in Y}w(xy)\\
+l(y)=0</script><h4 id="相等子图"><a href="#相等子图" class="headerlink" title="相等子图"></a>相等子图</h4><p>设  $l$  是  $G$  的可行顶点标号, 令  $E_{l}=\{x y \in E(G) \mid l(x)+l(y)=w(x y)\}$ , 称  $G$  的生成子图  $G_{l}=G\left[E_{l}\right]$  为  $G$  对应于  $l$  的相等子图。</p>
+<p><mark>定理</mark>：设  $l$  是赋权完全偶图  $G$  的可行顶点标号，若相等子图  $G_{l}$  有完美匹配  $M^{<em>}$ ,则  $M^{</em>}$  是  $G$  的最优匹配。</p>
+<h3 id="Kuhn-Munkres-算法-1"><a href="#Kuhn-Munkres-算法-1" class="headerlink" title="Kuhn-Munkres 算法"></a>Kuhn-Munkres 算法</h3><p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lemonxiaoxiao/article/details/108704280">https://blog.csdn.net/lemonxiaoxiao/article/details/108704280</a></p>
+<p>参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fT411977g/?share_source=copy_web&amp;vd_source=00fb209a30d8e075044dc2abea8890c7">图论 KM算法求最优匹配</a></p>
+<p>算法步骤：</p>
+<ol>
+<li>基于任意可行标号 $l$, 求出相等子图 $G_{l}$, 任选 $G_{l}$ 一个匹配 $M$。</li>
+<li>若 $M$ 是完美匹配，算法终止; 否则, 令 $x$ 是一个 $M$ 非饱和顶点, 置 $S=\{x\}, T=\emptyset$。</li>
+<li>若 $T \subset N_{G_{l}}(S)$, 转第 3 步; 否则有 $N_{G_{l}}(S)=T$, 修改标号 $l$ 如下:</li>
+</ol>
+<script type="math/tex; mode=display">
+\alpha_{l}=\min \{l(x)+l(y)-w(xy) \mid x \in S, y \in Y-T\}</script><script type="math/tex; mode=display">
+l(v) \leftarrow\begin{cases}
+l(v)-\alpha & v \in S \\
+l(v)+\alpha & v \in T
+\end{cases}</script><ol>
+<li>在 $N_{G_{l}}(S)-T$ 中选择一个顶点 $y$, 若 $y$ 是 $M$ 饱和的, 记 $yz \in M$, 更新 $S \leftarrow S \cup\{z\}, T \leftarrow T \cup\{y\}$, 转第 2 步; 否则, 寻找 $G_{l}$ 中的 $M$ 可扩 $(u, y)$ 路, 用其更新 $M$​, 转第 1 步。</li>
+</ol>
+<blockquote>
+<p>另一种版本（我觉得更清晰）：</p>
+<ol>
+<li>从任何可行顶标（例如平凡顶标）$ l $ 开始，确定 $ \left(K_{n, n}, w\right) $ 的等子图 $ G_{l} $，并且在 $ G_{l} $ 中选取匹配 $ M $。若 $ M $ 饱和 $ V_{1} $，则 $ M $ 是完美匹配，也即 $ M $ 是最优匹配，算法终止。否则转入步骤 (2)。</li>
+<li>基于匹配 $ M $，在 $ \left(K_{n, n}, w\right) $ 的 $ l $ 等子图 $ G_{l} $ 中执行匈牙利算法，该算法终止于 $ S \subset V_{1} $，$ T \subset V_{2} $ 且 $ N_{G_{l}}(S)=T $。利用公式 $ \alpha_{l}=\min \left\{l(x)+l(y)-\omega(x, y) \mid x \in S, y \in V_{2}-T\right\} $ 计算值 $ \alpha_{l} $，然后利用公式<script type="math/tex; mode=display">
+ l^{\prime}(u)=\left\{ \begin{array}{ll}
+ l(u)-\alpha_{l}, & u \in S \\
+ l(u)+\alpha_{l}, & u \in T \\
+ l(u), & \text{其他}
+ \end{array} \right.</script>确定新的可行顶标 $ l^{\prime} $，并以 $ l^{\prime} $ 替代 $ l $，以 $ G_{l^{\prime}} $ 替代 $ G_{l} $ 转入步骤 (1)。</li>
+</ol>
+</blockquote>
+<p>注意：</p>
+<ul>
+<li>标号的调整不影响已有匹配</li>
+<li>每次改变标号都会扩大$𝑇$，从而扩大匹配</li>
+<li>完全图存在完美匹配</li>
+<li>算法复杂度 $𝑂(𝑛^3 )$</li>
+</ul>
+<h2 id="任务分配匈牙利算法"><a href="#任务分配匈牙利算法" class="headerlink" title="任务分配匈牙利算法"></a>任务分配匈牙利算法</h2><p>问题：$𝑁$ 个人分配 $𝑁$ 项任务，每人分配一项，将一项任务分给一个人需支付报酬，如何分配任务，支付的报酬总数最少。也就是求最小权值的完美匹配。</p>
+<p>算法步骤：</p>
+<ol>
+<li>减去行最小值</li>
+<li>减去列最小值</li>
+<li>用最少的线条覆盖所有零（如果将0视为人$i$和任务$j$间的连线，找最小的点覆盖数就是找最大匹配）<ul>
+<li>如果需要 $n$ 条线，则停止，在零之间存在一个最优分配。</li>
+</ul>
+</li>
+<li>创建额外的零<ul>
+<li>找到步骤 3 中未被线条覆盖的最小元素（称其为 $k$）</li>
+<li>从未覆盖的元素中减去 $k$，给被两次覆盖的元素加上 $k$。</li>
+<li>转到步骤 3</li>
+</ul>
+</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/图.assets/image-20240609103157007.png" alt="image-20240609103157007"></p>
+<h1 id="平面图"><a href="#平面图" class="headerlink" title="平面图"></a>平面图</h1><p>如果能把图 $𝐺$ 画在平面上，<strong>使得除顶点外，边与边之间没有交叉</strong>，称 $𝐺$可以嵌入平面，或称 $𝐺$ 是可平面图。$𝐺$ 的边不交叉的一种画法，称为 $𝐺$ 的一种平面嵌入</p>
+<p>平面上的自身不相交的封闭曲线称为 Jordan 曲线。</p>
+<p><mark>定理</mark>：Jordan 曲线把平面分成内外 2 部分，连接两部分的任意曲线必然与Jordan 曲线相交。</p>
+<h2 id="面"><a href="#面" class="headerlink" title="面"></a>面</h2><p>平面图 $𝐺$ 把平面分成若干连通片，称为 $𝐺$ 的区域，或面，其集合记为 $Φ$</p>
+<ul>
+<li>面积有限的面称为内部面，否则称为外部面</li>
+</ul>
+<ul>
+<li>顶点和边都与某个面关联的子图，称为该面的边界</li>
+</ul>
+<ul>
+<li><p>面 $𝑓$ 的边界中含有的边数称为 $𝑓$ 的次数，记为 $𝑑𝑒𝑔(𝑓 )$</p>
+<ul>
+<li>割边计算 2 次</li>
+</ul>
+</li>
+</ul>
+<h3 id="定理-10"><a href="#定理-10" class="headerlink" title="定理"></a><mark>定理</mark></h3><ol>
+<li><p>设$G=(n, m)$是平面图, $\sum_{f \in \Phi} \operatorname{deg}(f)=2 m$。</p>
+</li>
+<li><p>平面图欧拉公式：设 $𝐺 = (𝑛,𝑚)$​ 是有 $𝜙$​ 个面的连通平面图，$𝑛 − 𝑚 + 𝜙 = 2$​。</p>
+<ul>
+<li>推论：平面图 $𝐺$ 有 $𝑘$ 个连通分支，$𝑛 − 𝑚 + 𝜙 = 𝑘 + 1$</li>
+<li>若连通平面图  $G$  每个面  $f$  满足  $\operatorname{deg}(f) \geq l \geq 3$ , 则  $m \leq \frac{l}{l-2}(n-2)$。隐含着$m\leq 3n-6$​。</li>
+<li>对任意简单平面图，有 $ \delta \leq 5$</li>
+</ul>
+<blockquote>
+<p>$m$是边的数量，$n$是顶点的数量，$l$是每个面最小次数，$𝜙$是面数</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="图的嵌入性"><a href="#图的嵌入性" class="headerlink" title="图的嵌入性"></a>图的嵌入性</h2><p><mark>定理</mark>：</p>
+<ol>
+<li>$G $ 可球面嵌入当且仅当 $ G $​ 可平面嵌入。</li>
+<li>所有图均可嵌入 $ \mathrm{R}^{3} $ 中。</li>
+</ol>
+<h3 id="平面图的判定"><a href="#平面图的判定" class="headerlink" title="平面图的判定"></a>平面图的判定</h3><p> <mark>定理</mark>：</p>
+<ol>
+<li>对简单图  $G$ , 若  $m&gt;3 n-6$ , 则  $G$  不是平面图。</li>
+<li>对简单图  $G$ , 若  $m&gt;\frac{l(n-2)}{(l-2)}$ , 则  $G$​  不是平面图。</li>
+<li>$K_5$和$K_{3,3}$​不是平面图</li>
+<li>至少有 9 个顶点的简单平面图的补图不是平面图，9 为顶点数的下界</li>
+</ol>
+<h4 id="通过同胚判定"><a href="#通过同胚判定" class="headerlink" title="通过同胚判定"></a>通过同胚判定</h4><p>如  $G_{1}$  与  $G_{2}$  通过反复 2 度顶点内扩充和收缩后变成同构, 称它们同胚</p>
+<ul>
+<li>在图的边上插入一个 2 度顶点, 使一条边分成两条边, 称将图在 2 度顶点内扩充</li>
+<li>去掉一个图的 2 度顶点, 使关联它们的两条边合并成一条边，称将图 G 在 2 度顶点内收缩</li>
+</ul>
+<p>图的平面性在同胚意义下不变。</p>
+<p><mark>Kuratowski定理</mark>：$G$ 是平面图，当且仅当它不含 $ K_{5} $ 和 $ K_{3,3} $ 同胚的子图 </p>
+<ul>
+<li>推论：$G $ 是非平面图，当且仅当它含有与 $ K_{5} $ 和 $ K_{3,3} $​ 同胚的子图 </li>
+</ul>
+<h4 id="通过简单基础图判定"><a href="#通过简单基础图判定" class="headerlink" title="通过简单基础图判定"></a>通过简单基础图判定</h4><p>去掉 𝐺 中的环，用单边代替平行边而得到的图称为 𝐺 的基础简单图。</p>
+<ul>
+<li>图 $𝐺$ 是平面图，当且仅当它的基础简单图是平面图</li>
+<li>图 $𝐺$​ 是平面图，当且仅当它的每个块是平面图</li>
+</ul>
+<h4 id="Wangner-判定定理"><a href="#Wangner-判定定理" class="headerlink" title="Wangner 判定定理"></a>Wangner 判定定理</h4><p>设 $𝑢𝑣$ 是简单图 $𝐺$ 的一条边，去掉该边，重合其端点，再删去由此产生的环和平行边，这一过程称为 $𝐺$ 的初等收缩或边收缩。</p>
+<p><mark>Wanger定理</mark>：简单图 $ G $ 是平面图，当且仅当它不含可收缩到 $ K_{5} $ 或 $ K_{3,3} $ 的子图 。</p>
+<h2 id="凸多面体与平面图"><a href="#凸多面体与平面图" class="headerlink" title="凸多面体与平面图"></a>凸多面体与平面图</h2><p>一个多面体，如果在体上任取两点，其连线均在体上，称为凸多面体。把凸多面体压缩在平面上，得到的平面图，称为该凸多面体的一维骨架。</p>
+<p><mark>定理</mark>：存在且只存在5种正多面体（plato 立体）：正四、六、八、十二、二十面体。</p>
+<h2 id="平面图的对偶图"><a href="#平面图的对偶图" class="headerlink" title="平面图的对偶图"></a>平面图的对偶图</h2><p>$ G $ 的对偶图  $G^{*}$  构造如下</p>
+<ul>
+<li>在  $G$  的每个面  $f_{i}$  内取一个点  $v_{i}^{<em>}$  作为  $G^{</em>}$  的一个顶点</li>
+<li>对  $G$  的一条边  $e$ , 若  $e$  是面  $f_{i}$  与  $f_{j}$  的公共边, 连接  $v_{i}^{<em>}$  与  $v_{j}^{</em>}$ , 若  $e$  是面  $f_{i}$ 中的割边, 以  $v_{i}$  为顶点作环。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/图.assets/image-20240609171339923.png" alt="image-20240609171339923"></p>
+<p>对偶图性质：</p>
+<ul>
+<li>$G^{*}$  的顶点数等于  $G$  的面数</li>
+<li>$G^{*}$  的边数等于  $G$  的边数</li>
+<li>$G^{*}$  的面数等于  $G$  的顶点数</li>
+<li>$d\left(v^{*}\right)=\operatorname{deg}(f)$​ </li>
+<li>同构的平面图可以有不同构的对偶图</li>
+</ul>
+<p><mark>定理</mark>：</p>
+<ol>
+<li>平面图 $ G $ 的对偶图 $ G^{*} $ 连通 </li>
+<li>对平面图 $ G,\left(G^{<em>}\right)^{</em>} \simeq(同构) G $ 当且仅当 $ G $ 连通。 </li>
+</ol>
+<h1 id="图的着色"><a href="#图的着色" class="headerlink" title="图的着色"></a>图的着色</h1><h2 id="边着色"><a href="#边着色" class="headerlink" title="边着色"></a>边着色</h2><p>对图 $G$ 的边进行染色，若相邻边染不同颜色，则称对 $G$ 进行正常边着色。</p>
+<ul>
+<li>如果能用 $k$ 种颜色对 $G$ 进行正常边着色，称 $G$ 是 $k$ 边可着色的。$k$ 的最小值，称为 $G$ 的边色数，记为 $\chi^{\prime}(G)$。</li>
+<li>若点 $v$ 关联的边的着色没有用到色 $i$，则称 $v$ 缺 $i$ 色。着相同颜色的边集称为该着色的一个色组。</li>
+</ul>
+<p>对图的边着色，<strong>本质上是对边集合的一种划分</strong>，因此对应实际问题中的划分问题或分类问题。</p>
+<h3 id="定理-11"><a href="#定理-11" class="headerlink" title="定理"></a><mark>定理</mark></h3><ol>
+<li><p>偶图$K_{n,m}$边色数：$\chi^{\prime}\left(K_{m, n}\right)=\Delta$​</p>
+</li>
+<li><p>一般偶图边色数：对偶图 $G$，$\chi^{\prime}(G) = \Delta$。</p>
+</li>
+<li><p>简单图边色数（Vizing定理）：对于简单图 $G$，其边色数 $\chi’(G)$ 为 $\Delta$ 或 $\Delta + 1$​。</p>
+<blockquote>
+<p>判断 $ \chi^{\prime}(G)=\Delta $ 还是 $ \chi^{\prime}(G)=\Delta+1 $ 一般情况下是困难的 </p>
+</blockquote>
+<ul>
+<li>引理：在简单图 $G$ 中，假设 $x$ 与 $y_1$ 是不相邻的两个顶点，$\pi$ 是 $G$ 的一个正常 $k$ 边着色。如果在着色 $\pi$ 下，顶点 $x$、$y_1$ 以及所有与 $x$ 相邻的点都至少缺少一种颜色，那么图 $G + xy_1$ 是 $k$​ 边可着色的。</li>
+<li>推论：若简单图 $ G $ 中只有一个最大度点或恰有两个相邻的最大度点, 则 $ \chi^{\prime}(G)=\Delta$​</li>
+<li>推论：对$n=2k+1$阶简单图G<ul>
+<li>若 $m &gt; k\Delta$，则 $\chi^{\prime}(G) = \Delta + 1$。</li>
+<li>若 $G$ 是正则图，则 $\chi^{\prime}(G) = \Delta + 1$。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="点着色"><a href="#点着色" class="headerlink" title="点着色"></a>点着色</h2><p>对图 $G$ 的顶点进行染色，若相邻点染不同颜色，则称对 $G$ 进行正常点着色。</p>
+<ul>
+<li>如果能用 $k$ 种颜色对 $G$ 进行正常点着色，称 $G$ 是 $k$ 点可着色的。</li>
+<li>$k$ 的最小值，称为 $G$ 的点色数，记为 $\chi(G)$。</li>
+<li>着相同颜色的点集称为该着色的一个色组</li>
+</ul>
+<p>对图的点着色，本质上是对点集合的一种划分，因此对应实际问题中的划分问题或分类问题。</p>
+<h3 id="定理-12"><a href="#定理-12" class="headerlink" title="定理"></a><mark>定理</mark></h3><ol>
+<li>对于任意图 $G$，有 $\chi(G) \leq \Delta + 1$​​。</li>
+<li>Brooks定理：连通简单图 $G$，如果它既不是奇圈，又不是完全图，那么满足不等式 $\chi(G) \leq \Delta$​。</li>
+<li><p>Brooks定理改进：对于简单图 $G$，则有 $\chi(G) \leq \Delta_{2}(G) + 1$；若 $G$ 中最大度点互不邻接，则 $\chi(G) \leq \Delta(G)$。</p>
+<ul>
+<li>记$N(u)$ 是顶点 $u$ 的邻居顶点集合。若记 $V_{2}(G)=\{v \mid \exists u \in N(v): d(u) \geq d(v)\}$，则次大度 $\Delta_{2}(G)=\max \left\{d(v) \mid v \in V_{2}(G)\right\}$​​。</li>
+</ul>
+</li>
+<li><p>五色定理：每个平面图都是5可着色的。</p>
+</li>
+<li>k着色，即给定一个图，问是否可以k着色，是NP难问题。</li>
+</ol>
+<h3 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h3><p>对一般图的点染色是一个NP难问题。</p>
+<p>$Δ(𝐺) + 1$ 的点着色算法：将顶点任意排序为  $v_{1}, \cdots, v_{n}$ , 将颜色任意排序依次染  $v_{i}$ , 每次用可能的最小颜色染  $v_{i}$ 。</p>
+<blockquote>
+<p>不能保证得到最佳染色方案。</p>
+</blockquote>
+<p><em>Welsh—Powell</em> 改进：按顶点度数由大到小的次序着色，即先处理瓶颈结点。</p>
+<h1 id="随机图"><a href="#随机图" class="headerlink" title="随机图"></a>随机图</h1><p>给定 $N$ 与 $p$，对任意一对顶点，<strong>以概率 $p$ 连边</strong>，产生随机图记为 $G_{np}$。</p>
+<p>边数：$\bar{M} = p \cdot\binom{N}{2} = \frac{p N(N-1)}{2}$</p>
+<p>平均度数：$\bar{k}=2 \bar{M} / N=(N-1) p$​</p>
+<p>单个顶点度为$k$的概率：当 $k \ll N$ 时，$P(k)$ 近似于 Poisson 分布。</p>
+<p><mark>定理</mark>：记 $N_G$ 为 $G_{Np}$ 最大连通分支的顶点个数</p>
+<ul>
+<li>当 $\bar{k} = Np &lt; 1$ 时，$N_G = O(\ln N)$；</li>
+<li>当 $\bar{k} = 1$ 时，$N_G = O\left(N^{2/3}\right)$；</li>
+<li>当 $1 &lt; \bar{k} &lt; \ln N$ 时，巨连通分支存在；</li>
+<li>当 $\bar{k} &gt; \ln N$ 时，$N_G = N$，即 $G$ 是连通图。</li>
+</ul>
+<h1 id="有向图"><a href="#有向图" class="headerlink" title="有向图"></a>有向图</h1><p>有向图是由顶点集 $V$ 和有向边集 $E$ 组成的。</p>
+<ul>
+<li>有向路径是一个顶点列表 $\{v_i\}$，满足 $v_i v_{i+1} ∈ E$。如果存在从 $s$ 到 $t$ 的有向路径，则称 $t$ 是从 $s$ 可达的。</li>
+<li><p>有向无环图（DAG）是一个没有有向环的有向图。</p>
+</li>
+<li><p>只有出边的顶点称为源点。</p>
+</li>
+<li><p>只有入边的顶点称为汇点。</p>
+</li>
+<li><p>如果对于所有的 $u, v ∈ V$，$u$ 都是从 $v$ 可达的，则称有向图是强连通的。</p>
+</li>
+<li><p>强连通分量是一个最大的强连通子图。</p>
+</li>
+</ul>
+<h2 id="核有向无环"><a href="#核有向无环" class="headerlink" title="核有向无环"></a>核有向无环</h2><p>假设给定一个有向图$𝐷$，定义另一个有向图$𝐾(𝐷)$。</p>
+<ul>
+<li>在 $K(D)$ 中，每个顶点映射到 $D$ 的一个强连通分量。</li>
+<li>如果 $D$ 中存在从对应于 $u$ 的分量到 $v$ 的边，则 $uv ∈ E(K(D))$。</li>
+<li>$K(D)$ 被称为 $D$ 的核有向无环图（kernel DAG）。</li>
+</ul>
+<h2 id="寻找强连通分量"><a href="#寻找强连通分量" class="headerlink" title="寻找强连通分量"></a>寻找强连通分量</h2><p>Kosaraju算法：</p>
+<ul>
+<li>在图 $G$ 上运行深度优先搜索（DFS），并记录每个顶点的完成时间（每探索一个点时间+1）。</li>
+<li>将图 $G$ 中所有边的方向反转。</li>
+<li>从完成时间最大的节点开始在反转后的图上运行DFS，每当遇到死胡同时，就添加一个新的SCC。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/图.assets/image-20240623104551279.png" alt="image-20240623104551279"></p>
+<h2 id="传递闭包"><a href="#传递闭包" class="headerlink" title="传递闭包"></a>传递闭包</h2><p>传递闭包是一个有向图，它具有与 $D$ 相同的顶点集，但只在 $t$ 从 $s$ 可达时，从 $s$ 到 $t$ 有一条边。</p>
+<h3 id="计算传递闭包"><a href="#计算传递闭包" class="headerlink" title="计算传递闭包"></a>计算传递闭包</h3><p>方法一：计算邻接矩阵的布尔乘法$A^n$</p>
+<ul>
+<li>使用逻辑与（AND）作为乘法（$\times$），逻辑或（OR）作为加法（+）。 -</li>
+<li>复杂度：$O(n^4)$ </li>
+</ul>
+<p>改进方法：计算直到 $A^i$ 收敛。</p>
+<p>进一步改进：计算 $A, A^2, A^4, \cdots$：复杂度：$O(n^3 \log n)$</p>
+<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><p>给定一个有向无环图 $G$，找到一个总排序，使得对于所有的 $uv \in E(G)$，在排序中 $u$ 都在 $v$ 之前。</p>
+<p>算法：</p>
+<ol>
+<li>识别一个源点 $s$<ul>
+<li>如果没有源点：停止（存在循环）</li>
+</ul>
+</li>
+<li>删除 $s$ 及其相关边，将 $s$ 加入队列<ul>
+<li>如果图不为空：回到步骤 1</li>
+</ul>
+</li>
+</ol>
+<p>复杂度：$O(n + m)$。</p>
+<h3 id="应用：调度"><a href="#应用：调度" class="headerlink" title="应用：调度"></a>应用：调度</h3><ul>
+<li>任务 $v$ 需要时间 $\text{time}[v]$ 来执行</li>
+<li>存在优先级约束</li>
+<li>问题：每个任务最早何时能完成？</li>
+</ul>
+<p>算法：</p>
+<ol>
+<li>计算顶点的拓扑顺序</li>
+<li>初始化 $\text{fin}[v] = 0$ 对于所有 $v$</li>
+<li>按拓扑顺序考虑 $v$：对于每条边 $v \rightarrow w$，设置 $\text{fin}[w] = \max(\text{fin}[w], \text{fin}[v] + \text{time}[w])$</li>
+</ol>
+<h1 id="点覆盖"><a href="#点覆盖" class="headerlink" title="点覆盖"></a>点覆盖</h1><p>给定无向图 $G$，找到一个最小顶点集 $V_0 \subseteq V$，使得如果 $(u, v) \in E(G)$，那么 $u \in V_0$ 或 $v \in V_0$。即通过选择顶点来覆盖边。是NP难问题。</p>
+<p>APPROX-VERTEX-COVER 是一个多项式时间的 2-近似算法。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/图.assets/image-20240623112452218.png" alt="image-20240623112452218"></p>
+<p>存在一个最优顶点覆盖，它不包括任何叶子 - 用其父节点替换覆盖中的任何叶子*</p>
+<h3 id="树上的点覆盖"><a href="#树上的点覆盖" class="headerlink" title="树上的点覆盖"></a>树上的点覆盖</h3><p>存在一个最优顶点覆盖，它不包括任何叶子节点：用其父节点替换覆盖中的任何叶子节点。</p>
+<p>用以下算法可以得到最优解：</p>
+<ol>
+<li><strong>初始化集合 C 为空</strong>：这是算法的起始步骤，创建一个空集合 C，用于存储算法的结果。</li>
+<li><strong>循环执行</strong>：这一部分是算法的核心，包含以下步骤：<ul>
+<li><strong>条件判断</strong>：检查图 G 中是否至少存在一个叶子节点。如果不存在，则跳出循环。</li>
+<li><strong>添加父节点</strong>：在每次迭代中，将图 G 中所有叶子节点的父节点添加到集合 C 中。</li>
+<li><strong>删除节点</strong>：从图 G 中删除所有的叶子节点及其父节点。</li>
+</ul>
+</li>
+<li><strong>返回集合 C</strong>：当循环结束后，算法返回集合 C 作为最终结果。</li>
+</ol>
+<h4 id="更优算法"><a href="#更优算法" class="headerlink" title="更优算法"></a>更优算法</h4><p><mark>定理</mark>：考虑一个图 $G$ 和它的边 $uv$。令 $G_u$ 为通过删除顶点 $u$ 及其关联边得到的图。图 $G$ 有一个大小为 $k$ 的顶点覆盖，当且仅当 $G_u$ 或 $G_v$ 有一个大小为 $k-1$ 的顶点覆盖。</p>
+<p>算法：</p>
+<ol>
+<li>如果 $E=\emptyset$，则返回 $\emptyset$；</li>
+<li>如果 $k=0$ 且 $E\neq\emptyset$，则返回 $\perp$；</li>
+<li>从 $E$ 中选择任意一条边 $(u,v)\in E$；</li>
+<li>$S1=VERTEX-COVER-SEARCH(Gu,k-1)$；</li>
+<li>$S2=VERTEX-COVER-SEARCH(Gv,k-1)$；</li>
+<li>如果 $S1\neq\perp$，则返回 $S1\cup\{u\}$；</li>
+<li>如果 $S2\neq\perp$，则返回 $S2\cup\{v\}$；</li>
+<li>返回 $\perp$。</li>
+</ol>
+<h4 id="带权树的点覆盖"><a href="#带权树的点覆盖" class="headerlink" title="带权树的点覆盖"></a>带权树的点覆盖</h4><p><strong>给定：</strong> 一个无向的、顶点加权的图 $G$。</p>
+<p><strong>目标：</strong> 找到一个权重最小的顶点子集 $V_0 \subseteq V$，使得如果边 $(u, v) \in E(G)$，那么 $u \in V_0$ 或 $v \in V_0$。</p>
+<p>算法：</p>
+<ol>
+<li><p>求以下问题的解</p>
+<script type="math/tex; mode=display">
+\text{最小化 } \sum_{v} w(v) \cdot x(v)</script><p>约束：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&x(u)+x(v)  \geq 1 & & \text { for each }(u, v) \in E \\
+&x(v)  \in[0,1] & & \text { for each } v \in V
+\end{aligned}</script></li>
+<li><p>在图中执行以下算法：</p>
+<ol>
+<li>C = ∅</li>
+<li>根据刚才计算出来的一个最优解 $\bar{x}$</li>
+<li>对于每个顶点 $v$ 属于 $V$，如果 $\bar{x}(v) \geq \frac{1}{2}$，$C = C \cup \{v\}$</li>
+<li>返回 $C$</li>
+</ol>
+</li>
+</ol>
+<p>RAND-VC是一个期望中2-近似的多项式时间算法</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ranruo.xyz">Ruo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ranruo.xyz/post/284249815.html">https://ranruo.xyz/post/284249815.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ranruo.xyz" target="_blank">A blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/head_protrait.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/1580825926.html" title="信号与系统"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">信号与系统</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/head_protrait.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruo</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">图论基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">图论基础概念</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Peterson%E5%9B%BE"><span class="toc-number">2.</span> <span class="toc-text">Peterson图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%90%8C%E6%9E%84"><span class="toc-number">2.1.</span> <span class="toc-text">图同构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%A0%E7%A7%8D%E5%85%B8%E5%9E%8B%E7%9A%84%E5%9B%BE"><span class="toc-number">3.</span> <span class="toc-text">几种典型的图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E5%85%A8%E5%9B%BE"><span class="toc-number">3.1.</span> <span class="toc-text">完全图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%B6%E5%9B%BE"><span class="toc-number">3.2.</span> <span class="toc-text">偶图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%9B%BE"><span class="toc-number">3.3.</span> <span class="toc-text">补图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E8%A1%A5%E5%9B%BE"><span class="toc-number">3.3.1.</span> <span class="toc-text">自补图</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B6%E7%82%B9%E7%9A%84%E5%BA%A6"><span class="toc-number">4.</span> <span class="toc-text">顶点的度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%A1%E6%89%8B%E5%AE%9A%E7%90%86"><span class="toc-number">4.1.</span> <span class="toc-text">握手定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%BA%A6%E5%BA%8F%E5%88%97"><span class="toc-number">4.2.</span> <span class="toc-text">图的度序列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%A6%E5%BA%8F%E5%88%97%E5%88%A4%E5%88%AB%E5%AE%9A%E7%90%86"><span class="toc-number">4.2.1.</span> <span class="toc-text">度序列判别定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%BA%8F%E5%88%97"><span class="toc-number">4.2.2.</span> <span class="toc-text">图序列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%BE%E5%BA%8F%E5%88%97%E5%88%A4%E5%88%AB%E5%AE%9A%E7%90%86%EF%BC%88Havel-Hakimi-%E5%AE%9A%E7%90%86%EF%BC%89"><span class="toc-number">4.2.2.1.</span> <span class="toc-text">图序列判别定理（Havel-Hakimi 定理）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%A6%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">4.3.</span> <span class="toc-text">度的性质</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%90%E5%9B%BE"><span class="toc-number">5.</span> <span class="toc-text">子图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BE%E8%BF%90%E7%AE%97"><span class="toc-number">6.</span> <span class="toc-text">图运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%AF%E8%BF%90%E7%AE%97"><span class="toc-number">6.1.</span> <span class="toc-text">积运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88%E6%88%90%E8%BF%90%E7%AE%97"><span class="toc-number">6.2.</span> <span class="toc-text">合成运算</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%81%B6%E5%9B%BE%E5%88%A4%E5%AE%9A%E5%AE%9A%E7%90%86"><span class="toc-number">7.</span> <span class="toc-text">偶图判定定理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E8%A6%81%E6%80%A7"><span class="toc-number">7.1.</span> <span class="toc-text">必要性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%85%E5%88%86%E6%80%A7"><span class="toc-number">7.2.</span> <span class="toc-text">充分性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E4%BB%A3%E6%95%B0%E8%A1%A8%E7%A4%BA"><span class="toc-number">8.</span> <span class="toc-text">图的代数表示</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5"><span class="toc-number">8.1.</span> <span class="toc-text">邻接矩阵</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E7%AE%97%E6%B3%95"><span class="toc-number">9.</span> <span class="toc-text">最短路算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Dijkstra%E7%AE%97%E6%B3%95"><span class="toc-number">9.1.</span> <span class="toc-text">Dijkstra算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bellman-Ford%E6%9C%80%E7%9F%AD%E8%B7%AF%E7%AE%97%E6%B3%95"><span class="toc-number">9.2.</span> <span class="toc-text">Bellman-Ford最短路算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B%E7%9A%84Bellman-Ford%E6%9C%80%E7%9F%AD%E8%B7%AF%E7%AE%97%E6%B3%95"><span class="toc-number">9.2.1.</span> <span class="toc-text">改进的Bellman-Ford最短路算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%91"><span class="toc-number">10.</span> <span class="toc-text">树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E7%9A%84%E5%85%AD%E7%A7%8D%E7%AD%89%E4%BB%B7%E5%AE%9A%E4%B9%89"><span class="toc-number">10.1.</span> <span class="toc-text">树的六种等价定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E7%90%86"><span class="toc-number">10.2.</span> <span class="toc-text">定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BF%83"><span class="toc-number">10.3.</span> <span class="toc-text">树的中心</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%A0%91"><span class="toc-number">10.4.</span> <span class="toc-text">生成树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">10.4.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-1"><span class="toc-number">10.4.2.</span> <span class="toc-text">定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95"><span class="toc-number">10.4.3.</span> <span class="toc-text">最小生成树算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Kruskal%E7%AE%97%E6%B3%95"><span class="toc-number">10.4.3.1.</span> <span class="toc-text">Kruskal算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%A1%E6%A2%85%E8%B0%B7%E7%A0%B4%E5%9C%88%E6%B3%95"><span class="toc-number">10.4.3.2.</span> <span class="toc-text">管梅谷破圈法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Prim%E7%AE%97%E6%B3%95"><span class="toc-number">10.4.3.3.</span> <span class="toc-text">Prim算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B9%E6%A0%91"><span class="toc-number">10.5.</span> <span class="toc-text">根树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="toc-number">10.5.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%A0%E7%A7%8D%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%A0%B9%E6%A0%91"><span class="toc-number">10.5.2.</span> <span class="toc-text">几种不同类型的根树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#m%E5%85%83%E6%A0%91"><span class="toc-number">10.5.2.1.</span> <span class="toc-text">m元树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E5%BA%8F%E6%A0%91%E4%B8%8E%E5%AE%8C%E5%85%A8%E6%A0%91"><span class="toc-number">10.5.2.2.</span> <span class="toc-text">有序树与完全树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-number">10.5.2.3.</span> <span class="toc-text">二叉树</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-number">10.5.2.3.1.</span> <span class="toc-text">最优二叉树</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%B0%8FSteiner%E6%A0%91"><span class="toc-number">10.6.</span> <span class="toc-text">最小Steiner树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Metric%E9%97%AD%E5%8C%85"><span class="toc-number">10.6.1.</span> <span class="toc-text">Metric闭包</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-number">11.</span> <span class="toc-text">图的连通性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%B2%E8%BE%B9%E4%B8%8E%E5%89%B2%E7%82%B9"><span class="toc-number">11.1.</span> <span class="toc-text">割边与割点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-2"><span class="toc-number">11.1.1.</span> <span class="toc-text">定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%97"><span class="toc-number">11.2.</span> <span class="toc-text">块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-3"><span class="toc-number">11.2.1.</span> <span class="toc-text">定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%B9%E5%89%B2%E9%9B%86%E5%92%8C%E8%BE%B9%E5%89%B2%E9%9B%86"><span class="toc-number">11.3.</span> <span class="toc-text">点割集和边割集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%B9%E5%89%B2%E9%9B%86"><span class="toc-number">11.3.1.</span> <span class="toc-text">点割集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%B9%E5%89%B2%E9%9B%86"><span class="toc-number">11.3.2.</span> <span class="toc-text">边割集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-4"><span class="toc-number">11.3.3.</span> <span class="toc-text">定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%A6%BB%E9%9B%86"><span class="toc-number">11.4.</span> <span class="toc-text">分离集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-5"><span class="toc-number">11.4.1.</span> <span class="toc-text">定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E5%92%8C%E6%9C%80%E5%B0%8F%E5%89%B2"><span class="toc-number">11.5.</span> <span class="toc-text">最大流和最小割</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">11.5.1.</span> <span class="toc-text">基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Flow-network%E5%AE%9A%E4%B9%89"><span class="toc-number">11.5.1.1.</span> <span class="toc-text">Flow network定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%B2%EF%BC%88Cut%EF%BC%89"><span class="toc-number">11.5.1.2.</span> <span class="toc-text">割（Cut）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%EF%BC%88Flow%EF%BC%89"><span class="toc-number">11.5.1.3.</span> <span class="toc-text">流（Flow）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E6%9C%80%E5%B0%8F%E5%89%B2%E5%AE%9A%E7%90%86"><span class="toc-number">11.5.2.</span> <span class="toc-text">最大流最小割定理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%AE%9A%E7%90%86"><span class="toc-number">11.5.2.1.</span> <span class="toc-text">基础定理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E6%9C%80%E5%B0%8F%E5%89%B2%E5%AE%9A%E7%90%86-1"><span class="toc-number">11.5.2.2.</span> <span class="toc-text">最大流最小割定理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E6%9C%80%E5%A4%A7%E6%B5%81%E2%80%94%E2%80%94Ford-Fulkerson%E7%AE%97%E6%B3%95"><span class="toc-number">11.5.2.2.1.</span> <span class="toc-text">寻找最大流——Ford-Fulkerson算法</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E5%9B%BE"><span class="toc-number">12.</span> <span class="toc-text">欧拉图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-6"><span class="toc-number">12.1.</span> <span class="toc-text">定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%82%E6%AC%A7%E6%8B%89%E7%8E%AF%E6%B8%B8%E7%9A%84%E7%AE%97%E6%B3%95"><span class="toc-number">12.2.</span> <span class="toc-text">求欧拉环游的算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fleury%E7%AE%97%E6%B3%95"><span class="toc-number">12.2.1.</span> <span class="toc-text">Fleury算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hierholzer%E7%AE%97%E6%B3%95"><span class="toc-number">12.2.2.</span> <span class="toc-text">Hierholzer算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E5%9B%BD%E9%82%AE%E8%B7%AF%E9%97%AE%E9%A2%98"><span class="toc-number">12.3.</span> <span class="toc-text">中国邮路问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-7"><span class="toc-number">12.3.1.</span> <span class="toc-text">定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-number">12.3.2.</span> <span class="toc-text">算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%93%88%E5%AF%86%E9%A1%BF%E5%9B%BE"><span class="toc-number">13.</span> <span class="toc-text">哈密顿图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-8"><span class="toc-number">13.1.</span> <span class="toc-text">定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AD%E5%8C%85%E5%92%8CH%E5%9B%BE"><span class="toc-number">13.2.</span> <span class="toc-text">闭包和H图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E5%9B%BE"><span class="toc-number">13.2.1.</span> <span class="toc-text">闭图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E5%8C%85"><span class="toc-number">13.2.2.</span> <span class="toc-text">闭包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%A6%E5%BA%8F%E5%88%97%E5%92%8CH%E5%9B%BE"><span class="toc-number">13.3.</span> <span class="toc-text">度序列和H图</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TSP"><span class="toc-number">14.</span> <span class="toc-text">TSP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%91%E4%BC%BC%E6%9C%80%E4%BC%98%E7%AE%97%E6%B3%95"><span class="toc-number">14.1.</span> <span class="toc-text">近似最优算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%9A%84%E7%AE%97%E6%B3%95"><span class="toc-number">14.1.1.</span> <span class="toc-text">基于最小生成树的算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%9C%80%E8%BF%91%E9%82%BB%E7%9A%84%E7%AE%97%E6%B3%95"><span class="toc-number">14.1.2.</span> <span class="toc-text">基于最近邻的算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Christofides%E7%AE%97%E6%B3%95"><span class="toc-number">14.1.3.</span> <span class="toc-text">Christofides算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%81%B6%E5%9B%BE%E7%9A%84%E5%8C%B9%E9%85%8D"><span class="toc-number">15.</span> <span class="toc-text">偶图的匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%8C%B9%E9%85%8D"><span class="toc-number">15.1.</span> <span class="toc-text">图的匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">15.1.1.</span> <span class="toc-text">匹配的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E9%94%99%E8%B7%AF%E4%B8%8E%E5%8F%AF%E6%89%A9%E8%B7%AF"><span class="toc-number">15.1.2.</span> <span class="toc-text">交错路与可扩路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-9"><span class="toc-number">15.1.3.</span> <span class="toc-text">定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E7%82%B9%E8%A6%86%E7%9B%96"><span class="toc-number">15.2.</span> <span class="toc-text">图的点覆盖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95"><span class="toc-number">15.3.</span> <span class="toc-text">匈牙利算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-number">15.3.1.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-number">15.3.2.</span> <span class="toc-text">复杂度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kuhn-Munkres-%E7%AE%97%E6%B3%95"><span class="toc-number">15.4.</span> <span class="toc-text">Kuhn-Munkres 算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc-number">15.4.1.</span> <span class="toc-text">前置知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E8%A1%8C%E9%A1%B6%E7%82%B9%E6%A0%87%E5%8F%B7"><span class="toc-number">15.4.1.1.</span> <span class="toc-text">可行顶点标号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E7%AD%89%E5%AD%90%E5%9B%BE"><span class="toc-number">15.4.1.2.</span> <span class="toc-text">相等子图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kuhn-Munkres-%E7%AE%97%E6%B3%95-1"><span class="toc-number">15.4.2.</span> <span class="toc-text">Kuhn-Munkres 算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E5%88%86%E9%85%8D%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95"><span class="toc-number">15.5.</span> <span class="toc-text">任务分配匈牙利算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%B3%E9%9D%A2%E5%9B%BE"><span class="toc-number">16.</span> <span class="toc-text">平面图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2"><span class="toc-number">16.1.</span> <span class="toc-text">面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-10"><span class="toc-number">16.1.1.</span> <span class="toc-text">定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%B5%8C%E5%85%A5%E6%80%A7"><span class="toc-number">16.2.</span> <span class="toc-text">图的嵌入性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B3%E9%9D%A2%E5%9B%BE%E7%9A%84%E5%88%A4%E5%AE%9A"><span class="toc-number">16.2.1.</span> <span class="toc-text">平面图的判定</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%90%8C%E8%83%9A%E5%88%A4%E5%AE%9A"><span class="toc-number">16.2.1.1.</span> <span class="toc-text">通过同胚判定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E7%AE%80%E5%8D%95%E5%9F%BA%E7%A1%80%E5%9B%BE%E5%88%A4%E5%AE%9A"><span class="toc-number">16.2.1.2.</span> <span class="toc-text">通过简单基础图判定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Wangner-%E5%88%A4%E5%AE%9A%E5%AE%9A%E7%90%86"><span class="toc-number">16.2.1.3.</span> <span class="toc-text">Wangner 判定定理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%B8%E5%A4%9A%E9%9D%A2%E4%BD%93%E4%B8%8E%E5%B9%B3%E9%9D%A2%E5%9B%BE"><span class="toc-number">16.3.</span> <span class="toc-text">凸多面体与平面图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E9%9D%A2%E5%9B%BE%E7%9A%84%E5%AF%B9%E5%81%B6%E5%9B%BE"><span class="toc-number">16.4.</span> <span class="toc-text">平面图的对偶图</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E7%9D%80%E8%89%B2"><span class="toc-number">17.</span> <span class="toc-text">图的着色</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%B9%E7%9D%80%E8%89%B2"><span class="toc-number">17.1.</span> <span class="toc-text">边着色</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-11"><span class="toc-number">17.1.1.</span> <span class="toc-text">定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%B9%E7%9D%80%E8%89%B2"><span class="toc-number">17.2.</span> <span class="toc-text">点着色</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-12"><span class="toc-number">17.2.1.</span> <span class="toc-text">定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95-1"><span class="toc-number">17.2.2.</span> <span class="toc-text">算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E5%9B%BE"><span class="toc-number">18.</span> <span class="toc-text">随机图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%89%E5%90%91%E5%9B%BE"><span class="toc-number">19.</span> <span class="toc-text">有向图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E6%9C%89%E5%90%91%E6%97%A0%E7%8E%AF"><span class="toc-number">19.1.</span> <span class="toc-text">核有向无环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F"><span class="toc-number">19.2.</span> <span class="toc-text">寻找强连通分量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E9%97%AD%E5%8C%85"><span class="toc-number">19.3.</span> <span class="toc-text">传递闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E4%BC%A0%E9%80%92%E9%97%AD%E5%8C%85"><span class="toc-number">19.3.1.</span> <span class="toc-text">计算传递闭包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F"><span class="toc-number">19.4.</span> <span class="toc-text">拓扑排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%EF%BC%9A%E8%B0%83%E5%BA%A6"><span class="toc-number">19.4.1.</span> <span class="toc-text">应用：调度</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%82%B9%E8%A6%86%E7%9B%96"><span class="toc-number">20.</span> <span class="toc-text">点覆盖</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%91%E4%B8%8A%E7%9A%84%E7%82%B9%E8%A6%86%E7%9B%96"><span class="toc-number">20.0.1.</span> <span class="toc-text">树上的点覆盖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E4%BC%98%E7%AE%97%E6%B3%95"><span class="toc-number">20.0.1.1.</span> <span class="toc-text">更优算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%A6%E6%9D%83%E6%A0%91%E7%9A%84%E7%82%B9%E8%A6%86%E7%9B%96"><span class="toc-number">20.0.1.2.</span> <span class="toc-text">带权树的点覆盖</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/284249815.html" title="图论">图论</a><time datetime="2024-09-19T10:00:11.000Z" title="发表于 2024-09-19 18:00:11">2024-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/1580825926.html" title="信号与系统">信号与系统</a><time datetime="2024-09-19T10:00:10.000Z" title="发表于 2024-09-19 18:00:10">2024-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/2529764766.html" title="从0开始配置mindtorch环境">从0开始配置mindtorch环境</a><time datetime="2024-09-19T09:00:10.000Z" title="发表于 2024-09-19 17:00:10">2024-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/1176275894.html" title="Pycharm设置运行配置">Pycharm设置运行配置</a><time datetime="2024-09-12T07:00:13.000Z" title="发表于 2024-09-12 15:00:13">2024-09-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/3715959065.html" title="在pycharm中重命名项目">在pycharm中重命名项目</a><time datetime="2024-09-04T14:40:03.000Z" title="发表于 2024-09-04 22:40:03">2024-09-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruo</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
