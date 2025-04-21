@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>解决DeepSpeed offload时找不到动态库的问题</title>
+      <link href="/post/1070898293.html"/>
+      <url>/post/1070898293.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在DeepSpeed Offload时候需要编译并加载一个动态库，使得Adam优化器可以从GPU卸载到CPU。可以用以下方法测试编译是否成功：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> deepspeed</span><br><span class="line">deepspeed.ops.op_builder.CPUAdamBuilder().load()</span><br></pre></td></tr></table></figure><p>我刚开始的时候遇到了报错，提示找不到其中的一个动态链接库：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/xxx/miniconda3/envs/Visual-RFT/<span class="built_in">bin</span>/../lib/gcc/x86_64 - conda - linux - gnu/<span class="number">11.2</span><span class="number">.0</span>/../../../../x86_64 - conda - linux - gnu/<span class="built_in">bin</span>/ld: cannot find - lcurand: No such file <span class="keyword">or</span> directory</span><br></pre></td></tr></table></figure><h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>如果要编译动态库，需要用到CUDA Toolkit，而且要是官网下载的（Conda/Pytorch安装的CUDA Toolkit是不全的）。</p><p>所以需要：</p><ol><li>下载安装CUDA Toolkit</li><li>设置环境变量让DeepSpeed可以找到（因为我是非ROOT用户安装的，我装在了<code>~/CUDA12.2</code>下）</li></ol><p>然后这样初始化即可：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">initial_deepspeed</span>():</span><br><span class="line">    cuda_lib_path = os.path.expanduser(<span class="string">&quot;~/CUDA12.2/lib64&quot;</span>)</span><br><span class="line">    nvjitlink_lib_path = os.path.expanduser(</span><br><span class="line">        <span class="string">&quot;~/miniconda3/envs/Visual-RFT/lib/python3.10/site-packages/nvidia/nvjitlink/lib&quot;</span></span><br><span class="line">    )</span><br><span class="line">    conda_lib_path = os.path.expandvars(<span class="string">&quot;$CONDA_PREFIX/lib&quot;</span>)</span><br><span class="line">    cuda_bin_path = os.path.expanduser(<span class="string">&quot;~/CUDA12.2/bin&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置 LD_LIBRARY_PATH（追加到原值）</span></span><br><span class="line">    os.environ[<span class="string">&quot;LD_LIBRARY_PATH&quot;</span>] = <span class="string">&quot;:&quot;</span>.join(<span class="built_in">filter</span>(<span class="literal">None</span>, [</span><br><span class="line">        cuda_lib_path,</span><br><span class="line">        nvjitlink_lib_path,</span><br><span class="line">        conda_lib_path,</span><br><span class="line">        os.environ.get(<span class="string">&quot;LD_LIBRARY_PATH&quot;</span>, <span class="string">&quot;&quot;</span>),</span><br><span class="line">    ]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置 CUDA_PATH（直接覆盖）</span></span><br><span class="line">    os.environ[<span class="string">&quot;CUDA_PATH&quot;</span>] = os.path.expanduser(<span class="string">&quot;~/CUDA12.2&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置 PATH（追加到原值）</span></span><br><span class="line">    os.environ[<span class="string">&quot;PATH&quot;</span>] = <span class="string">&quot;:&quot;</span>.join(<span class="built_in">filter</span>(<span class="literal">None</span>, [</span><br><span class="line">        os.environ.get(<span class="string">&quot;PATH&quot;</span>, <span class="string">&quot;&quot;</span>),</span><br><span class="line">        cuda_bin_path</span><br><span class="line">    ]))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">import</span> deepspeed</span><br><span class="line"></span><br><span class="line">    deepspeed.ops.op_builder.CPUAdamBuilder().load()</span><br></pre></td></tr></table></figure><p>设置好环境变量就可以初始化成功了，但要在<code>import deepspeed</code>之前就设置好环境变量。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 程序猿的那些事 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> Deep Learning </tag>
+            
+            <tag> 环境配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>用fast-reid提取人物特征</title>
       <link href="/post/158142455.html"/>
       <url>/post/158142455.html</url>
@@ -137,9 +166,9 @@
       
         <tags>
             
-            <tag> 环境配置 </tag>
-            
             <tag> Python </tag>
+            
+            <tag> 环境配置 </tag>
             
         </tags>
       
@@ -264,9 +293,9 @@
       
         <tags>
             
-            <tag> 环境配置 </tag>
-            
             <tag> Python </tag>
+            
+            <tag> 环境配置 </tag>
             
         </tags>
       

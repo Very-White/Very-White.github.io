@@ -2,18 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://ran.ranruo.xyz/link/index.html</loc>
+    <loc>https://ran.ranruo.xyz/post/1070898293.html</loc>
     
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-21</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://ran.ranruo.xyz/post/670212549.html</loc>
+    <loc>https://ran.ranruo.xyz/link/index.html</loc>
     
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-21</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -21,6 +21,15 @@
   
   <url>
     <loc>https://ran.ranruo.xyz/about/index.html</loc>
+    
+    <lastmod>2025-04-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ran.ranruo.xyz/post/670212549.html</loc>
     
     <lastmod>2025-04-11</lastmod>
     
@@ -227,14 +236,21 @@
 
   
   <url>
-    <loc>https://ran.ranruo.xyz/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
+    <loc>https://ran.ranruo.xyz/tags/Python/</loc>
     <lastmod>2025-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ran.ranruo.xyz/tags/Python/</loc>
+    <loc>https://ran.ranruo.xyz/tags/Deep-Learning/</loc>
+    <lastmod>2025-04-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ran.ranruo.xyz/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2025-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -256,13 +272,6 @@
   
   <url>
     <loc>https://ran.ranruo.xyz/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2025-04-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ran.ranruo.xyz/tags/Deep-Learning/</loc>
     <lastmod>2025-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
