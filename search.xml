@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>目标检测入门</title>
+      <link href="/post/1892840876.html"/>
+      <url>/post/1892840876.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/目标检测入门/image-20250426200143940.png" alt="image-20250426200143940"></p><p>检测任务一般分为两步：</p><ol><li>检测出预测框（回归）</li><li>将预测框中的物体分类（分类）</li></ol><blockquote><p>同时用到了回归和分类。比如在这张图中就需要框出人和猫两个检测框，然后再对检测框做分类</p></blockquote><p>所以标签（<code>ground_truth</code>）需要检测框坐标（<code>bbox</code>）和类别标签。类别标签有一个集合，比如有80个类别，模型就只会在图像中检测出这80个类别。</p><h2 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h2><h3 id="Region-proposals-RP"><a href="#Region-proposals-RP" class="headerlink" title="Region proposals(RP)"></a>Region proposals(RP)</h3><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/目标检测入门/image-20250426201201376.png" alt="image-20250426201201376"></p><p>中文叫做备选框。输入一张图像，可以得到很多候选框，每一个候选框可以看成一个被检测出来的目标，之后这些候选框就被拿去分类。就可以知道这个候选框对应的类别。就完成了目标检测的任务</p><h3 id="IoU"><a href="#IoU" class="headerlink" title="IoU"></a>IoU</h3><p>IoU的计算公式为两个框的交集除以并集</p><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/目标检测入门/sensors-22-09080-g007.png" alt="Influence of Insufficient Dataset Augmentation on IoU and Detection ..."></p><h3 id="NMS（non-maximum-suppression）"><a href="#NMS（non-maximum-suppression）" class="headerlink" title="NMS（non-maximum suppression）"></a>NMS（non-maximum suppression）</h3><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/目标检测入门/225e1f8b06cadb4cb441b32158768f31.png" alt="NMS技术总结（NMS原理、多类别NMS、NMS的缺陷、NMS的改进思路、各种NMS方法） - CV技术指南（公众号） - 博客园"></p><p>中文叫非极大值抑制。因为一个人可能有多个框都预测到这一个人，所以要用一种方法合并这些框，或者说叫过滤冗余框。</p><p>但NMS也有缺点，比如两个人重叠在一起了，就有可能被NMS过滤成同一个人。</p><h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h3 id="1-Stage和2-Stage"><a href="#1-Stage和2-Stage" class="headerlink" title="1-Stage和2-Stage"></a>1-Stage和2-Stage</h3><p>1-Stage的模型分为Anchor-based和Anchor-free的。Anchor-based相当于用预定义的Anchor代替了RP，之后预测Anchor的类别和预测offset。</p><p>2-Stage是先生成RP，然后再做分类。分类的时候一般还要微调（refine）检测框的大小（或称为预测offset）。</p><h3 id="Anchor-based-和-Anchor-free"><a href="#Anchor-based-和-Anchor-free" class="headerlink" title="Anchor-based 和 Anchor-free"></a>Anchor-based 和 Anchor-free</h3><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/目标检测入门/anchors.png" alt="5 Significant Object Detection Challenges and Solutions"></p><p>Anchor是定义出的一系列有固定长宽比、scale的框。对于每个小网格，都会画出很多Anchor框。上图中对每个小网格都画了三个Anchor框。</p><p>Anchor-based：如果有100个网格，每个网格有9个Anchor。那总共就预测900的Anchor的类别（和offset）就可以了。这样神经网络的输出维度就固定了，而且每个神经元预测的Anchor的大小也固定了，就不会出现一个神经元一会要预测大框一会要预测小框，Loss会比较稳定。经典的模型：RetinaNet。</p><p>但Anchor的长宽比、角度、scale这些都是预定义好的。有时候要识别的东西是不规则的形状的，或者长宽比时大时小，那表现就会差。而且计算量比较大。</p><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/目标检测入门/v2-f0871ea7277c2b6129a0c7c7142e8bec_r.jpg" alt="【Anchor Free】CenterNet的详细解析 - 知乎"></p><blockquote><p>Center net 论文配图</p></blockquote><p>Anchor-free：抛弃了Anchor。经典的模型：Center Net、FCOS。Center Net把人物当成关键点来预测，然后再预测这个关键点的长宽，就能绘制出矩形框（但太依赖一个点的预测结果，所以召回率比较低）；FCOS就用多个关键点来预测，就不依赖于一个点的预测结果了。</p><h3 id="End-to-end"><a href="#End-to-end" class="headerlink" title="End-to-end"></a>End-to-end</h3><p>有一些模型在检测出来之后还要做后处理，端到端的模型就省略了这一步。</p><h1 id="发展概述"><a href="#发展概述" class="headerlink" title="发展概述"></a>发展概述</h1><h2 id="开山之作"><a href="#开山之作" class="headerlink" title="开山之作"></a>开山之作</h2><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/目标检测入门/image-20250426201201376.png" alt="image-20250426201201376"></p><p>最早的是RCNN，将卷积网络（深度学习）引入到目标检测任务中。之后在这篇文章上衍生出了改进版Fast RCNN和Faster RCNN。</p><p>RCNN是典型的2-Stage模型。先得到候选框RP，然后再把裁剪出的图像送卷积神经网络CNN。</p><p>Fast RCNN等后续改进，因为觉得每次把图像裁剪下来耗时太长，所以在特征上进行裁剪。</p><h2 id="one-stage的崛起"><a href="#one-stage的崛起" class="headerlink" title="one-stage的崛起"></a>one-stage的崛起</h2><p>在RetinaNet这篇文章中，提出了新的Focal Loss，使得one-stage的方法追平甚至超过了two-stage的方法。</p><p>因为原来，在RP中，正样本（检测出来有物体的框）比较多。而Anchor因为是预定义的，所以很多可能框中根本就没有物体，所以负样本比较多。因为易分辨的负样本较多，所有时候是是模型把易分辨的负样本都找出来了，但真正困难的正样本并没有找出来，而因为最后是加权平均，所以Loss还是低。</p><p>所以就对Loss进行调整，调整难分辨的样本的权重更高，易分辨的样本的权重变低，如果模型想要Loss低，就要“啃硬骨头”。</p><p>当时很多one-stage算法都是Anchor-based算法。</p><h2 id="端到端"><a href="#端到端" class="headerlink" title="端到端"></a>端到端</h2><p>之前的算法都需要NMS来解决冗余框问题。因为在预测不同框的时候没有信息传递。后面的模型用LSTM、Transformer这些模型来完成信息的交流。</p><p>后面还有比较新的Pix2Seq、GLIP等这种特别的模型。</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol><li><a href="https://www.bilibili.com/video/BV1kC4y1N7Nt/?share_source=copy_web&amp;vd_source=00fb209a30d8e075044dc2abea8890c7">【入门级目标检测发展概述及概念简介】</a>（超棒！目标检测小白也能听懂！）</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学海泛舟 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Deep Learning </tag>
+            
+            <tag> 目标检测 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>从策略梯度到GRPO</title>
       <link href="/post/4288241426.html"/>
       <url>/post/4288241426.html</url>

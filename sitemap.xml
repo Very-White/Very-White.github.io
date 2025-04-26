@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ran.ranruo.xyz/post/1892840876.html</loc>
+    
+    <lastmod>2025-04-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ran.ranruo.xyz/post/1580825926.html</loc>
     
     <lastmod>2025-04-26</lastmod>
@@ -302,6 +311,13 @@
   
   <url>
     <loc>https://ran.ranruo.xyz/tags/hexo/</loc>
+    <lastmod>2025-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ran.ranruo.xyz/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/</loc>
     <lastmod>2025-04-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
