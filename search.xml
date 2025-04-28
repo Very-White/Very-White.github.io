@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>目标检测论文阅读笔记（1）</title>
+      <link href="/post/654684277.html"/>
+      <url>/post/654684277.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h1><blockquote><p>参考视频：<a href="https://www.bilibili.com/video/BV1kC4y1N7Nt/?share_source=copy_web&amp;vd_source=00fb209a30d8e075044dc2abea8890c7">【入门级目标检测发展概述及概念简介】</a></p></blockquote><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/目标检测论文阅读笔记（1）/image-20250427221219580.png" alt="image-20250427221219580"></p><p>视觉定位+深度学习的经典论文。做法也是经典的2-Stage方法，<strong>先生成一系列的候选框，然后将候选框进行裁剪。之后将每个裁剪后图片通过CNN去预测类别，从而得到不同类别的检测框</strong>。</p><p>但主要问题是：</p><ol><li>直接裁剪图像，再送到CNN开销比较大。论文中2k张图片，假设裁剪后的图片是1KB，那2k张都是将近2MB了。<code>batch size</code>更大的时候这样裁剪更低效。所以之后的Fast R-CNN等优化方法都在特征上进行裁剪。在图片上裁剪的少之又少了。</li><li>RP总会有重叠的，之后难以避免要用到NMS（非极大值抑制）来去掉冗余框，<strong>也就避免不了NMS的缺点：耗时长和对人物重合效果不好</strong>。</li><li><strong>CNN的输出类别是固定的</strong>，所以类别是有限的，对新的类别又要重新训练。</li></ol><h1 id="RetinaNet"><a href="#RetinaNet" class="headerlink" title="RetinaNet"></a>RetinaNet</h1><blockquote><p>参考视频：<a href="https://www.bilibili.com/video/BV1kC4y1N7Nt/?share_source=copy_web&amp;vd_source=00fb209a30d8e075044dc2abea8890c7">【入门级目标检测发展概述及概念简介】</a></p></blockquote><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/目标检测论文阅读笔记（1）/image-20250427223358856.png" alt="image-20250427223358856"></p><p>像论文中所说：当时在生成候选框（RP）阶段，很多2-Stage方法可以通过一些算法，迅速将候选物体位置的数量缩小到少数（例如，1-2k），过滤掉大多数背景样本。但是1-Stage方法就没法过滤，因为一阶段方法不生成RP，它必须处理更大数量的候选对象位置，这些位置通常是在图像中规则采样得到的（比如基于Anchor）。</p><p>所以文章提出了<strong>Focal Loss</strong>，目的是调整难分辨的样本的权重更高，易分辨的样本的权重变低，如果模型想要Loss低，就要在难分辨的样本上（也就是非背景样本上）做对，对模型提出了更高的要求。（就不能浑水摸鱼了）</p><p>相对于这个Loss，模型就显得没那么重要了，后面也没看有人用过。</p><h1 id="DERT"><a href="#DERT" class="headerlink" title="DERT"></a>DERT</h1><blockquote><p>参考视频：<a href="https://www.bilibili.com/video/BV1Pm411D7Ej/?share_source=copy_web&amp;vd_source=00fb209a30d8e075044dc2abea8890c7">【一个视频看懂为什么DETR不需要NMS|目标检测相关】</a></p></blockquote><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/目标检测论文阅读笔记（1）/DETR_framework.jpg" alt="DETR 代码解读 - Shihan’s homepage"></p><p>DERT是几乎第一个端到端的，不需要任何后处理的模型。其先用CNN提取图像特征，然后将图像特征加上位置编码（transformer需要）后送入encoder，让特征中包含全局的信息。然后用可学习的Query，希望不同的Query关注不同的区域，然后每个Qurey得到的结果会经过全连接层生成类别和检测框。</p><p>在DERT之前的模型总是离不开后处理方法，也就是大部分离不开NMS。因为检测的框可能会重复。DERT用可学习的Query使得不同的Query只关注不同的部分，因此还给Query加了位置编码。而且transformer decoder在生成输出的时候，第二个Query也可以看到之前的Query，以避免生成同一个框。</p><p>encoder的作用是使图像特征中包含全局特征，自回归的decoder的作用是让Query间能相互交流，不同Query也被设计成负责不同的位置。</p><h1 id="GLIP"><a href="#GLIP" class="headerlink" title="GLIP"></a>GLIP</h1><blockquote><p>参考：</p><ol><li><a href="https://zhuanlan.zhihu.com/p/633352647">博客</a></li><li><a href="https://www.bilibili.com/video/BV1FV4y1p7Lm/?spm_id_from=333.1007.top_right_bar_window_history.content.click">视频</a></li><li><a href="https://www.bilibili.com/video/BV1SD4y157mT/?spm_id_from=333.1007.top_right_bar_window_history.content.click">视频2</a></li></ol></blockquote><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/目标检测论文阅读笔记（1）/OHBOJOQ7ACQCK.png" alt="img"></p><p>GLIP将目标检测和视觉定位的任务统一了起来。它认为目标检测就是不给出提示词的视觉定位任务。所以它将不同的类别串成一个句子，就像这里将Person，Bicycle等概念串在一起，就变成了目标检测任务。</p><p>想法比较简单，将文本通过文本编码器编码成向量，将图片也通过视觉编码器编码成向量，并在其中做了Cross Attention融合。下面的视觉编码器还负责出框。然后用RP的特征向量和文本的特征向量计算相似度。希望RP的内容和其真实的标签对应的文本特征向量尽可能相似，而和不相关的文本特征向量尽可能远。这部分是计算Alignment Loss。然后RP框还有一个Localization Loss（是IoU的Loss）。</p><h1 id="GroundingDINO"><a href="#GroundingDINO" class="headerlink" title="GroundingDINO"></a>GroundingDINO</h1><blockquote><p>参考文章：<a href="https://zhuanlan.zhihu.com/p/627646794">十分钟解读Grounding DINO</a></p></blockquote><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/目标检测论文阅读笔记（1）/image-20250428160155776.png" alt="image-20250428160155776"></p><p>感觉基础思想和CLIP差不多，都是算文本特征和图像特征，然后两个Loss：Contrastive loss、Localization loss。区别在于特征提取的时候更复杂，做特征的增强和混合等做的更多。</p><hr><p>碎碎念：本来是在做Grounding方向的，结果读了几篇目标检测的论文，读完之后才发现有点不对劲😣</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 在文献里迷路的日子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Deep Learning </tag>
+            
+            <tag> 目标检测 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>目标检测入门</title>
       <link href="/post/1892840876.html"/>
       <url>/post/1892840876.html</url>
@@ -13,7 +40,7 @@
       
       <categories>
           
-          <category> 学海泛舟 </category>
+          <category> 在文献里迷路的日子 </category>
           
       </categories>
       
@@ -40,7 +67,7 @@
       
       <categories>
           
-          <category> 学海泛舟 </category>
+          <category> 在文献里迷路的日子 </category>
           
       </categories>
       
@@ -96,7 +123,7 @@
       
       <categories>
           
-          <category> 学海泛舟 </category>
+          <category> 在文献里迷路的日子 </category>
           
       </categories>
       
@@ -265,7 +292,7 @@
       
       <categories>
           
-          <category> 学海泛舟 </category>
+          <category> 在文献里迷路的日子 </category>
           
       </categories>
       
