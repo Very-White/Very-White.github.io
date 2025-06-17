@@ -1,0 +1,1060 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>并行算法笔记 | 小白的博客</title><meta name="author" content="白"><meta name="copyright" content="白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基础概念并发计算、并行计算与分布式计算    特性 并发计算 并行计算 分布式计算     任务执行方式 交替执行 同时执行 分布执行   资源管理 共享资源 独立资源 分散资源   主要目标 提高响应性 提高性能 提高可扩展性和容错性   典型应用 操作系统、Web服务器 科学计算、图像处理 云计算、分布式数据库     冯·诺依曼架构主存：存储指令和数据的集合，每个位置有地址和内容。 CPU：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并行算法笔记">
+<meta property="og:url" content="https://ran.ranruo.xyz/post/1014047471.html">
+<meta property="og:site_name" content="小白的博客">
+<meta property="og:description" content="基础概念并发计算、并行计算与分布式计算    特性 并发计算 并行计算 分布式计算     任务执行方式 交替执行 同时执行 分布执行   资源管理 共享资源 独立资源 分散资源   主要目标 提高响应性 提高性能 提高可扩展性和容错性   典型应用 操作系统、Web服务器 科学计算、图像处理 云计算、分布式数据库     冯·诺依曼架构主存：存储指令和数据的集合，每个位置有地址和内容。 CPU：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/head_protrait.jpg">
+<meta property="article:published_time" content="2025-06-17T10:04:18.000Z">
+<meta property="article:modified_time" content="2025-06-17T10:04:19.201Z">
+<meta property="article:author" content="白">
+<meta property="article:tag" content="课程笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/head_protrait.jpg"><link rel="shortcut icon" href="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/favicon1.png"><link rel="canonical" href="https://ran.ranruo.xyz/post/1014047471.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '并行算法笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-06-17 10:04:19'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my_css.css"><meta name="baidu-site-verification" content="codeva-fpDe68QFkn" /><meta name="msvalidate.01" content="0055280C3BFCE7DE0E722CDE364A6393" /><link rel="stylesheet" href="/css/font.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/head_protrait.jpg" onerror="onerror=null;src='https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/background3.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="小白的博客"><span class="site-name">小白的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">并行算法笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-17T10:04:18.000Z" title="发表于 2025-06-17 10:04:18">2025-06-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-17T10:04:19.201Z" title="更新于 2025-06-17 10:04:19">2025-06-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%88%91%E9%87%8D%E7%94%9F%E4%BA%86%EF%BC%8C%E9%87%8D%E7%94%9F%E5%9C%A8%E8%80%83%E8%AF%95%E5%89%8D%E4%B8%80%E5%A4%A9/">我重生了，重生在考试前一天</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="并行算法笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><h2 id="并发计算、并行计算与分布式计算"><a href="#并发计算、并行计算与分布式计算" class="headerlink" title="并发计算、并行计算与分布式计算"></a>并发计算、并行计算与分布式计算</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>并发计算</th>
+<th>并行计算</th>
+<th>分布式计算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>任务执行方式</td>
+<td>交替执行</td>
+<td>同时执行</td>
+<td>分布执行</td>
+</tr>
+<tr>
+<td>资源管理</td>
+<td>共享资源</td>
+<td>独立资源</td>
+<td>分散资源</td>
+</tr>
+<tr>
+<td>主要目标</td>
+<td>提高响应性</td>
+<td>提高性能</td>
+<td>提高可扩展性和容错性</td>
+</tr>
+<tr>
+<td>典型应用</td>
+<td>操作系统、Web服务器</td>
+<td>科学计算、图像处理</td>
+<td>云计算、分布式数据库</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="冯·诺依曼架构"><a href="#冯·诺依曼架构" class="headerlink" title="冯·诺依曼架构"></a>冯·诺依曼架构</h2><p><strong>主存</strong>：存储指令和数据的集合，每个位置有地址和内容。</p>
+<p><strong>CPU</strong>：</p>
+<ul>
+<li><strong>控制单元</strong>：决定程序中哪条指令被执行。</li>
+<li><strong>算术逻辑单元（ALU）</strong>：执行实际指令。</li>
+</ul>
+<p><strong>关键术语</strong>：</p>
+<ul>
+<li><strong>寄存器</strong>：CPU中非常快的存储部分。</li>
+<li><strong>程序计数器</strong>：存储下一条指令的地址。</li>
+<li><strong>总线</strong>：连接CPU和内存的硬件。</li>
+</ul>
+<p><strong>瓶颈问题</strong>：内存访问速度远低于CPU处理速度，导致CPU等待数据。</p>
+<h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><p><strong>进程</strong>：正在执行的计算机程序的实例。</p>
+<ul>
+<li>组件：可执行程序、内存块、资源描述符、安全信息、进程状态。</li>
+</ul>
+<p><strong>多任务</strong>：通过时间片轮转，让单个处理器系统看起来同时运行多个程序。</p>
+<p><strong>线程</strong>：进程内的独立执行单元。</p>
+<ul>
+<li><strong>优势</strong>：当一个线程阻塞时，其他线程可以继续运行。</li>
+<li><strong>操作</strong>：<ul>
+<li><strong>创建线程</strong>：称为<code>forking</code>。</li>
+<li><strong>终止线程</strong>：称为<code>joining</code>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="缓存基础"><a href="#缓存基础" class="headerlink" title="缓存基础"></a>缓存基础</h2><p><strong>缓存</strong>：比普通内存更快访问的存储集合。</p>
+<p><strong>局部性原理</strong>：</p>
+<ul>
+<li><strong>空间局部性</strong>：访问一个位置后，可能会访问附近的位置。</li>
+<li><strong>时间局部性</strong>：最近访问的位置可能会再次被访问。</li>
+</ul>
+<h3 id="缓存级别"><a href="#缓存级别" class="headerlink" title="缓存级别"></a>缓存级别</h3><p><strong>L1缓存</strong>：最小且最快。</p>
+<p><strong>L2缓存</strong>：较大且较慢。</p>
+<p><strong>L3缓存</strong>：最大且最慢。</p>
+<h3 id="缓存命中与未命中"><a href="#缓存命中与未命中" class="headerlink" title="缓存命中与未命中"></a>缓存命中与未命中</h3><p><strong>缓存命中</strong>：数据在缓存中找到。</p>
+<p><strong>缓存未命中</strong>：数据不在缓存中，需要从主存中获取。</p>
+<h3 id="缓存更新策略"><a href="#缓存更新策略" class="headerlink" title="缓存更新策略"></a>缓存更新策略</h3><p><strong>写穿</strong>：在数据写入缓存时同时更新主存中的数据。</p>
+<p><strong>写回</strong>：将缓存中的数据标记为脏。当缓存行被新缓存行替换时，脏行会被写入主存。</p>
+<h3 id="缓存映射"><a href="#缓存映射" class="headerlink" title="缓存映射"></a>缓存映射</h3><p><strong>全相联映射</strong>：新行可以放在缓存的任何位置。</p>
+<p><strong>直接映射缓存</strong>：每个缓存行有唯一的缓存位置。</p>
+<p><strong>$n$路组相联映射</strong>：每个缓存行可以放在$n$个不同的缓存位置之一。</p>
+<h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p><strong>虚拟内存</strong>：作为二级存储的缓存，利用空间和时间局部性原理。</p>
+<ul>
+<li><strong>交换空间</strong>：存储不活动的部分。</li>
+<li><strong>页面</strong>：数据和指令的块，通常较大（4-16KB）。</li>
+</ul>
+<h2 id="并行"><a href="#并行" class="headerlink" title="并行"></a>并行</h2><h3 id="指令级并行（ILP）"><a href="#指令级并行（ILP）" class="headerlink" title="指令级并行（ILP）"></a>指令级并行（ILP）</h3><p><strong>指令级并行</strong>：通过多个处理器组件或功能单元同时执行指令来提高性能。</p>
+<ul>
+<li><strong>流水线</strong>：功能单元按阶段排列。</li>
+<li><strong>多发射</strong>：同时启动多个指令。</li>
+</ul>
+<h3 id="硬件多线程"><a href="#硬件多线程" class="headerlink" title="硬件多线程"></a>硬件多线程</h3><p><strong>硬件多线程</strong>：当当前执行的任务停滞时，系统继续执行其他任务。</p>
+<ul>
+<li><strong>细粒度多线程</strong>：每条指令后切换线程。</li>
+<li><strong>粗粒度多线程</strong>：仅在等待耗时操作完成时切换线程。</li>
+<li><strong>同时多线程（SMT）</strong>：允许多个线程使用多个功能单元。</li>
+</ul>
+<h2 id="程序、进程和线程"><a href="#程序、进程和线程" class="headerlink" title="程序、进程和线程"></a>程序、进程和线程</h2><ul>
+<li><strong>程序</strong>：存储在计算机上的代码。</li>
+<li><strong>进程</strong>：程序的运行实例，具有独立的内存地址空间。</li>
+<li><strong>线程</strong>：进程内的执行单元，共享堆但具有独立的栈。</li>
+</ul>
+<h2 id="CPU、核心和处理器"><a href="#CPU、核心和处理器" class="headerlink" title="CPU、核心和处理器"></a>CPU、核心和处理器</h2><ul>
+<li><strong>CPU</strong>：包含一个或多个核心。</li>
+<li><strong>核心</strong>：CPU的基本计算单元，可以运行单个程序上下文或多个上下文（如果支持硬件线程）。</li>
+<li><strong>多处理器系统</strong>：在多处理器系统中，多个 CPU（每个 CPU 可能有多个核心）协同工作</li>
+<li><strong>超线程技术</strong>：将一个物理核心模拟为两个逻辑核心，允许多个线程同时运行。</li>
+</ul>
+<h2 id="多处理器和多核CPU"><a href="#多处理器和多核CPU" class="headerlink" title="多处理器和多核CPU"></a>多处理器和多核CPU</h2><ul>
+<li><strong>多处理器系统</strong>：包含多个CPU，允许并行工作（SMP，对称多处理）。</li>
+<li><strong>多核CPU</strong>：单个CPU芯片上包含多个核心。</li>
+</ul>
+<h2 id="线程和核心的关系"><a href="#线程和核心的关系" class="headerlink" title="线程和核心的关系"></a>线程和核心的关系</h2><ul>
+<li><strong>单个进程</strong>：可以在多个核心上运行多个线程。</li>
+<li><strong>单个线程</strong>：不能同时在多个核心上运行，但可以通过指令流水线和乱序执行实现指令级并行。</li>
+</ul>
+<h1 id="并行计算机的分类"><a href="#并行计算机的分类" class="headerlink" title="并行计算机的分类"></a>并行计算机的分类</h1><h2 id="传统分类方法"><a href="#传统分类方法" class="headerlink" title="传统分类方法"></a>传统分类方法</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250226155037249.png" alt="image-20250226155037249"></p>
+<p>这样分类不能反映机器的系统结构特征</p>
+<h2 id="弗林分类法"><a href="#弗林分类法" class="headerlink" title="弗林分类法"></a>弗林分类法</h2><p>为了解决原有分类方法的缺点，1972年Michael J.Flynn提出了一种<strong>基于数据流和指令流</strong>的并行</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">指令流</th>
+<th style="text-align:center">数据流</th>
+<th style="text-align:center">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">SISD</td>
+<td style="text-align:center">1个</td>
+<td style="text-align:center">1个</td>
+<td style="text-align:center">传统冯诺依曼计算机</td>
+</tr>
+<tr>
+<td style="text-align:center">SIMD</td>
+<td style="text-align:center">1个</td>
+<td style="text-align:center">多个</td>
+<td style="text-align:center">向量计算机，阵列计算机</td>
+</tr>
+<tr>
+<td style="text-align:center">MISD</td>
+<td style="text-align:center">多个</td>
+<td style="text-align:center">1个</td>
+<td style="text-align:center">很少用</td>
+</tr>
+<tr>
+<td style="text-align:center">MIMD</td>
+<td style="text-align:center">多个</td>
+<td style="text-align:center">多个</td>
+<td style="text-align:center">多处理机，多计算机系统</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="SISD"><a href="#SISD" class="headerlink" title="SISD"></a>SISD</h3><p>SISD计算机是一种传统的串行计算机。它从硬件上就不支持任何并行化计算，所有的指令都是串行执行</p>
+<h3 id="SIMD"><a href="#SIMD" class="headerlink" title="SIMD"></a>SIMD</h3><p>SIMD计算机可以实现数据级并行，对多个不同的数据流并行执行相同的数据处理操作。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250226155309382.png" alt="image-20250226155309382"></p>
+<p>比如同时对$n$对数据（<code>x[i]</code>、<code>y[i]</code>）做加法。</p>
+<p>实例有阵列计算机，阵列计算机的基本思想是用<strong>一个单一的控制单元提供信号驱动多个处理单元同时运行</strong>。</p>
+<h4 id="和SIMT的区别"><a href="#和SIMT的区别" class="headerlink" title="和SIMT的区别"></a>和SIMT的区别</h4><p>SIMT用<strong>一条指令</strong>控制<strong>多个独立线程</strong>，每个线程可处理不同数据，甚至走不同逻辑分支（有的线程走<code>if</code>有的线程走<code>else</code>）。但是SIMD只能执行相同的操作，比如都执行加法，不能有不同的逻辑分支。</p>
+<h3 id="MIMD"><a href="#MIMD" class="headerlink" title="MIMD"></a>MIMD</h3><p>MIMD中的每个处理器都有自己的指令流，也可以和其他处理器共享指令流，对自己的数据进行处理</p>
+<h4 id="MIMD细化分类"><a href="#MIMD细化分类" class="headerlink" title="MIMD细化分类"></a>MIMD细化分类</h4><p>根据不同的CPU是如何组织和共享内存的， MIMD机器分为如下的两类：</p>
+<ul>
+<li>共享式内存（UMA）：<strong>共享式内存系统就是处理器之间共享内存</strong></li>
+<li>分布式内存（NUMA）：<strong>分布式内存系统（消息驱动）是处理器之间不共享内存</strong>，通过消息驱动来通信。分布式内存系统可以分为如下两类：<ul>
+<li>大规模并行处理器系统（MPP）：MPP系统是由成百上千台计算机组成的大规模并行计算机系统。MPP中一般每个节点可以认为是一个没有硬盘的计算机</li>
+<li>工作站机群系统（COW）：COW系统是由大量的家用计算机或者工作站通过商用网络连接在一起而构成的多计算机系统。</li>
+</ul>
+</li>
+</ul>
+<h1 id="互联网络"><a href="#互联网络" class="headerlink" title="互联网络"></a>互联网络</h1><p>互联网络（ICN）是一种可编程系统，用于在终端之间传输数据。分为：</p>
+<ul>
+<li><p>广域网</p>
+</li>
+<li><p>本地区域网络</p>
+</li>
+<li><p>系统区域网络</p>
+</li>
+<li>片上网络</li>
+</ul>
+<blockquote>
+<p>将不同计算的设备连接在一起</p>
+</blockquote>
+<h2 id="网络拓扑"><a href="#网络拓扑" class="headerlink" title="网络拓扑"></a>网络拓扑</h2><p>网络拓扑结构等同于网络形状，要确定消息从一个节点到另一个节点需要传输的距离。其中：</p>
+<ul>
+<li>直径：最大距离</li>
+<li>平均距离：所有距离之和/结点对数</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250305144652347.png" alt="image-20250305144652347"></p>
+<h2 id="共享内存互连和分布式内存互连"><a href="#共享内存互连和分布式内存互连" class="headerlink" title="共享内存互连和分布式内存互连"></a>共享内存互连和分布式内存互连</h2><h3 id="共享内存互连"><a href="#共享内存互连" class="headerlink" title="共享内存互连"></a>共享内存互连</h3><p>总线互连：一组并行通信线以及一些控制总线访问的硬件。随着连接到总线的设备数量增加，总线使用竞争加剧，性能下降。</p>
+<p>交换互联：使用交换机来控制连接设备间数据路由。</p>
+<h3 id="分布式存储互连"><a href="#分布式存储互连" class="headerlink" title="分布式存储互连"></a>分布式存储互连</h3><p>直接互连：每个交换机直接连接到一个进程或内存对，交换机相互连接。</p>
+<ul>
+<li><strong>Bisection width</strong>（二分宽度）：用于衡量一个网络或图在结构上的某种“宽度”或“连通性”。具体来说，它指的是将图的顶点集分成两个大小相等的子集时，需要移除的最少边数。</li>
+<li>带宽：链路输数据的速度</li>
+<li>二分带宽：指在将网络的节点集分成两个大小相等的子集时，这两个子集之间可以实现的最大的通信带宽。</li>
+</ul>
+<p>间接连接：交换机不能直接连接到处理器。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250305150333963.png" alt="image-20250305150333963"></p>
+<h1 id="并行软件"><a href="#并行软件" class="headerlink" title="并行软件"></a>并行软件</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><strong>SPMD（单程序多数据流）</strong>：单个可执行文件通过条件分支模拟多个不同程序的行为（如<code>if (I’m process i)</code>控制逻辑）</p>
+<p><strong>竞态条件（Race Condition）</strong>：多个线程同时修改共享变量导致不可预测结果</p>
+<p><strong>临界区（Critical Section）</strong>：需互斥访问的代码段，通过锁（<code>Lock/Unlock</code>）保护</p>
+<p><strong>忙等待（Busy-Waiting）</strong>：通过轮询标志位实现同步（如<code>while (!ok_for_1);</code>）</p>
+<h2 id="性能分析指标"><a href="#性能分析指标" class="headerlink" title="性能分析指标"></a>性能分析指标</h2><h3 id="加速比"><a href="#加速比" class="headerlink" title="加速比"></a>加速比</h3><p>并行时间（<code>T_parallel</code>）与串行时间（<code>T_serial</code>）的比值，理想为线性加速（<code>T_parallel = T_serial/p</code>）</p>
+<p><strong>实际加速比</strong>：需考虑开销（<code>T_parallel = T_serial/p + T_overhead</code>）</p>
+<h3 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h3><p>定义：加速比与核心数之比（<code>E = Speedup/p</code>），衡量资源利用率</p>
+<h3 id="Amdahl定律"><a href="#Amdahl定律" class="headerlink" title="Amdahl定律"></a>Amdahl定律</h3><p>程序仅有部分可并行化（如90%），加速比上限受限于串行部分（如最高加速比5倍）</p>
+<h3 id="时间类型"><a href="#时间类型" class="headerlink" title="时间类型"></a>时间类型</h3><p>CPU时间（计算耗时） vs. 墙钟时间（实际总耗时）</p>
+<h2 id="可扩展性"><a href="#可扩展性" class="headerlink" title="可扩展性"></a>可扩展性</h2><h3 id="强可拓展性"><a href="#强可拓展性" class="headerlink" title="强可拓展性"></a>强可拓展性</h3><p><strong>强可扩展性</strong>：在问题规模（即任务大小）固定的情况下，通过增加计算资源（如处理器数量）来缩短计算时间。</p>
+<p>理想情况：资源增加一倍，计算时间减半（线性加速）。</p>
+<h3 id="弱可拓展性"><a href="#弱可拓展性" class="headerlink" title="弱可拓展性"></a>弱可拓展性</h3><p><strong>弱可拓展性</strong>：在增加计算资源的同时，问题规模也按比例增加，目标是保持每个处理器的负载不变，计算时间基本稳定。</p>
+<p>理想情况：资源增加一倍，问题规模也增加一倍，计算时间保持不变。（效率不变）</p>
+<h2 id="Foster（福斯特）方法"><a href="#Foster（福斯特）方法" class="headerlink" title="Foster（福斯特）方法"></a>Foster（福斯特）方法</h2><ol>
+<li><strong>任务划分（Partitioning）</strong>：分解计算与数据为可并行任务</li>
+<li><strong>通信分析（Communication）</strong>：定义任务间必要的数据交换</li>
+<li><strong>任务聚合（Agglomeration）</strong>：合并任务以减少通信开销</li>
+<li><strong>映射（Mapping）</strong>：分配任务至进程/线程，均衡负载并最小化通信</li>
+</ol>
+<h1 id="MPI"><a href="#MPI" class="headerlink" title="MPI"></a>MPI</h1><h2 id="基础概念-1"><a href="#基础概念-1" class="headerlink" title="基础概念"></a>基础概念</h2><p>采用SPMD（单程序多数据）模式，所有进程执行同一程序，通过条件分支实现差异化操作。</p>
+<p>进程标识：非负整数<code>rank</code>（<code>0</code>到<code>p-1</code>），<code>p</code>为总进程数</p>
+<p>通信器（Communicator）：进程集合，默认使用<code>MPI_COMM_WORLD</code>包含所有进程。</p>
+<p>必须包含头文件<code>mpi.h</code>。</p>
+<h2 id="操作详解"><a href="#操作详解" class="headerlink" title="操作详解"></a>操作详解</h2><h3 id="编译与运行"><a href="#编译与运行" class="headerlink" title="编译与运行"></a>编译与运行</h3><p>通过以下指令进行编译：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mpicc -g -Wall -o mpi_hello mpi_hello.c</span><br></pre></td></tr></table></figure>
+<p>执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mpiexec -n &lt;number of processes&gt; &lt;executable&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="MPI-Init、MPI-Finalize"><a href="#MPI-Init、MPI-Finalize" class="headerlink" title="MPI_Init、MPI_Finalize"></a><code>MPI_Init</code>、<code>MPI_Finalize</code></h3><p><code>MPI_Init</code>是用来进行MPI初始化的，<code>MPI_Finalize</code>是用来在程序结束后做清理的</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&quot;mpi.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">mian</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">MPI_Init</span>(&amp;argc,&amp;argv);</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="built_in">MPI_Finalize</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="通信子"><a href="#通信子" class="headerlink" title="通信子"></a>通信子</h3><h4 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h4><p>通信子是一组可以互相发送消息的进程的集合。</p>
+<p>所有进程都包含在<code>MPI_COMM_WORLD</code>当中。</p>
+<h4 id="MPI-Comm-size、MPI-Comm-rank"><a href="#MPI-Comm-size、MPI-Comm-rank" class="headerlink" title="MPI_Comm_size、MPI_ Comm_rank"></a><code>MPI_Comm_size</code>、<code>MPI_ Comm_rank</code></h4><p><code>MPI_Comm_size</code>用来获取有多少个进程在这个通信子中，后者用来获得进程在通信子中的标识符。</p>
+<p>函数原型：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">MPI_Comm_size</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  MPI_Comm comm</span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">int</span>* comm_sz_p</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> MPI_ <span class="title">Comm_rank</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  MPI_Comm comm</span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">int</span>* my_rank_p</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>第一个参数是通信子，第二个参数用于获得结果，函数返回的<code>int</code>值代表操作有没有执行成功。</p>
+<h3 id="Send、Recv"><a href="#Send、Recv" class="headerlink" title="Send、Recv"></a><code>Send</code>、<code>Recv</code></h3><p><code>Send</code>、<code>Recv</code>属于点对点通信。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>函数</strong></th>
+<th style="text-align:center"><strong>功能</strong></th>
+<th style="text-align:center"><strong>特性</strong></th>
+<th style="text-align:center"><strong>使用场景</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>MPI_Send</code></td>
+<td style="text-align:center">发送消息</td>
+<td style="text-align:center">阻塞调用，发送完成后才能继续执行后续代码。</td>
+<td style="text-align:center">仅需发送数据时使用。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>MPI_Recv</code></td>
+<td style="text-align:center">接收消息</td>
+<td style="text-align:center">阻塞调用，接收到匹配的消息后才能继续执行后续代码。</td>
+<td style="text-align:center">仅需接收数据时使用。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>MPI_Sendrecv</code></td>
+<td style="text-align:center">同时发送和接收消息</td>
+<td style="text-align:center">阻塞调用，同时完成发送和接收操作，阻塞直到两者都完成。</td>
+<td style="text-align:center">需要同时发送和接收数据时使用，适合同步交换数据的场景，能减少通信延迟，提高效率。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>函数原型：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">MPI_Send</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">void</span>* msg_buf_p <span class="comment">//发送缓冲区</span></span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">int</span> msg_size <span class="comment">//缓冲区中MPI_Datatype值的个数(msg_buf_p的字节数/MPI_Datatype字节数)</span></span></span></span><br><span class="line"><span class="params"><span class="function">  MPI_Datatype msg_type, <span class="comment">//MPI数据类型</span></span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">int</span> dest, <span class="comment">//目标进程</span></span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">int</span> tag, <span class="comment">//表示该通信的标识符</span></span></span></span><br><span class="line"><span class="params"><span class="function">  MPI_Comm communicator <span class="comment">//通信子</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MPI_Recv</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">void</span>* msg_buf_p, <span class="comment">//接受缓冲区</span></span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">int</span> buf_size, <span class="comment">//接收缓冲区长度</span></span></span></span><br><span class="line"><span class="params"><span class="function">  MPI_Datatype buf_type, <span class="comment">//数据类型</span></span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">int</span> source, <span class="comment">//源进程</span></span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">int</span> tag <span class="comment">//表示该通信的标识符</span></span></span></span><br><span class="line"><span class="params"><span class="function">	MPI_Comm communicator, <span class="comment">//通信子</span></span></span></span><br><span class="line"><span class="params"><span class="function">  MPI_Status* status_P <span class="comment">//通信是否成功</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="Gather、Reduce、Broadcast、Scatter"><a href="#Gather、Reduce、Broadcast、Scatter" class="headerlink" title="Gather、Reduce、Broadcast、Scatter"></a><code>Gather</code>、<code>Reduce</code>、<code>Broadcast</code>、<code>Scatter</code></h3><p><code>Gather</code>、<code>Reduce</code>、<code>Broadcast</code>、<code>Scatter</code>属于集合通信，通信子中的所有进程必须调用相同函数（如<code>MPI_Reduce</code>、<code>MPI_Bcast</code>），不使用<code>tag</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">功能描述</th>
+<th style="text-align:center">数据流向</th>
+<th style="text-align:center">应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>Gather</code></td>
+<td style="text-align:center">收集多个进程的数据到单个进程</td>
+<td style="text-align:center">多个进程 → 单个进程（根进程）</td>
+<td style="text-align:center">目标进程获得所有进程的数据</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Reduce</code></td>
+<td style="text-align:center">对多个进程的数据进行运算</td>
+<td style="text-align:center">多个进程 → 单个进程（根进程）</td>
+<td style="text-align:center">目标进程获得归约后的结果</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Scatter</code></td>
+<td style="text-align:center">将单个进程的数据分散到多个进程</td>
+<td style="text-align:center">单个进程（根进程） → 多个进程</td>
+<td style="text-align:center">数据分发，每个进程接收数据的一部分</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Broadcast</code></td>
+<td style="text-align:center">将单个进程的数据广播到所有进程</td>
+<td style="text-align:center">单个进程（根进程） → 所有进程</td>
+<td style="text-align:center">数据同步，所有进程接收相同的数据</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>AllReduce</code></td>
+<td style="text-align:center">对所有进程的数据进行归约运算，并将结果返回给所有进程</td>
+<td style="text-align:center">所有进程 → 所有进程</td>
+<td style="text-align:center">分布式训练中同步模型参数梯度（如梯度平均）、多节点数据聚合后共享结果</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Allgather</code></td>
+<td style="text-align:center">收集所有进程的数据，并将完整数据副本分发给所有进程</td>
+<td style="text-align:center">所有进程 → 所有进程</td>
+<td style="text-align:center">构建全局视图、数据共享（如并行排序、分布式矩阵计算）、多节点数据汇总后全局共享</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">MPI_Reduce</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span>* input_data_p,    <span class="comment">/* 输入数据指针，指向当前进程的数据 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span>* output_data_p,   <span class="comment">/* 输出数据指针，仅在目标进程中有效 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> count,             <span class="comment">/* 数据元素个数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Datatype datatype, <span class="comment">/* 数据类型 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Op <span class="keyword">operator</span>,       <span class="comment">/* 归约操作符 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> dest_process,      <span class="comment">/* 目标进程排名 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Comm comm          <span class="comment">/* 通信域 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MPI_Allreduce</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span>* input_data_p,    <span class="comment">/* 输入数据指针，指向当前进程的输入缓冲区 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span>* output_data_p,   <span class="comment">/* 输出数据指针，指向当前进程的输出缓冲区 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> count,             <span class="comment">/* 数据元素个数，表示每个进程处理的数据项数量 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Datatype datatype, <span class="comment">/* 数据类型，如 MPI_INT、MPI_DOUBLE 等 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Op <span class="keyword">operator</span>,       <span class="comment">/* 归约操作符，如 MPI_SUM、MPI_PROD、MPI_MAX 等 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Comm comm          <span class="comment">/* 通信域，指定参与此操作的进程组 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MPI_Bcast</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span>* data_p,      <span class="comment">/* 指向要广播的数据的指针，输入/输出参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> count,         <span class="comment">/* 要广播的数据项数量，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Datatype datatype, <span class="comment">/* 数据项的MPI数据类型，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> source_proc,   <span class="comment">/* 发送广播数据的源进程的rank，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Comm comm      <span class="comment">/* 通信域，指定广播操作的范围，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MPI_Scatter</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span> *send_buf_p,      <span class="comment">/* 发送缓冲区指针，包含要分散的数据，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> send_count,        <span class="comment">/* 发送到每个进程的数据项数量，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Datatype send_type, <span class="comment">/* 发送数据的数据类型，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span> *recv_buf_p,      <span class="comment">/* 接收缓冲区指针，存储接收到的数据，输出参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> recv_count,        <span class="comment">/* 从源进程接收的数据项数量，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Datatype recv_type, <span class="comment">/* 接收数据的数据类型，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> src_proc,          <span class="comment">/* 源进程的rank，数据发送方，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Comm comm          <span class="comment">/* 通信域，指定散射操作的范围，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MPI_Gather</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span> *send_buf_p,      <span class="comment">/* 发送缓冲区指针，包含要收集的数据，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> send_count,        <span class="comment">/* 发送到接收进程的数据项数量，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Datatype send_type, <span class="comment">/* 发送数据的数据类型，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span> *recv_buf_p,      <span class="comment">/* 接收缓冲区指针，存储收集的数据，输出参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> recv_count,        <span class="comment">/* 从每个进程接收的数据项数量，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Datatype recv_type, <span class="comment">/* 接收数据的数据类型，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> dest_proc,         <span class="comment">/* 目标进程的rank，数据收集的目的地，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Comm comm          <span class="comment">/* 通信域，指定收集操作的范围，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MPI_Allgather</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span> *send_buf_p,      <span class="comment">/* 发送缓冲区指针，包含要收集的数据，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> send_count,        <span class="comment">/* 发送到每个进程的数据项数量，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Datatype send_type, <span class="comment">/* 发送数据的数据类型，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span> *recv_buf_p,      <span class="comment">/* 接收缓冲区指针，存储所有进程收集的数据，输出参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> recv_count,        <span class="comment">/* 从每个进程接收的数据项数量，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Datatype recv_type, <span class="comment">/* 接收数据的数据类型，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    MPI_Comm comm          <span class="comment">/* 通信域，指定收集操作的范围，输入参数 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><code>Allreduce</code>规约有树形和蝶形之分：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250604225828375.png" alt="image-20250604225828375"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250604225841303.png" alt="image-20250604225841303"></p>
+<h2 id="高级特性"><a href="#高级特性" class="headerlink" title="高级特性"></a>高级特性</h2><h3 id="创建自己的数据类型"><a href="#创建自己的数据类型" class="headerlink" title="创建自己的数据类型"></a>创建自己的数据类型</h3><p>可以用MPI做数据的聚合。创建流程：<code>MPI_Type_create_struct</code> → <code>MPI_Type_commit</code> → <code>MPI_Type_free</code></p>
+<h3 id="计时"><a href="#计时" class="headerlink" title="计时"></a>计时</h3><p><code>MPI_Wtime()</code>可以返回自过去某个时间点以来经过的秒数。</p>
+<blockquote>
+<p>返回两个<code>MPI_Wtime</code>之间的秒数。</p>
+</blockquote>
+<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p><code>MPI_Barrier</code>：同步所有进程计时起点。</p>
+<p>确保在通信子中的每个进程开始调用它之前，其他调用它的进程都在这里阻塞。</p>
+<h2 id="MPI-Safety"><a href="#MPI-Safety" class="headerlink" title="MPI Safety"></a>MPI Safety</h2><p>MPI 安全性（MPI Safety）主要关注在多线程环境中正确使用 MPI 函数，避免竞争条件和数据不一致等问题。</p>
+<blockquote>
+<p>比如所有进程都调用<code>Send</code>却没人<code>Recv</code>就会死锁。</p>
+</blockquote>
+<h1 id="Pthreads编程"><a href="#Pthreads编程" class="headerlink" title="Pthreads编程"></a>Pthreads编程</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>POSIX线程标准，提供Unix-like系统的多线程API</p>
+<h2 id="操作详解-1"><a href="#操作详解-1" class="headerlink" title="操作详解"></a>操作详解</h2><h3 id="编译与运行-1"><a href="#编译与运行-1" class="headerlink" title="编译与运行"></a>编译与运行</h3><p>编译：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -g -Wall -o pth_hello pth_hello. c -lpthread</span><br></pre></td></tr></table></figure>
+<p>运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./pth_hello &lt;number of threads&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="线程创建"><a href="#线程创建" class="headerlink" title="线程创建"></a>线程创建</h3><p>使用<code>pthread_create(thread_p, attr_p, start_routine, arg_p)</code>函数可以创建线程。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">pthread_create</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">pthread_t</span>* thread_p,       <span class="comment">/* 输出参数：指向存储新线程ID的变量 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> <span class="type">pthread_attr_t</span>* attr_p, <span class="comment">/* 输入参数：线程属性（NULL表示默认属性） */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span>* (*start_routine)(<span class="type">void</span>*), <span class="comment">/* 输入参数：线程入口函数指针 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">void</span>* arg_p                <span class="comment">/* 输入参数：传递给start_routine的参数（void*类型） */</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><code>pthread_t</code>为线程标识符，具有系统特定的不透明属性。</p>
+<p>线程函数原型为<code>void* thread_function(void* args_p)</code>，支持参数传递。</p>
+<h3 id="线程终止"><a href="#线程终止" class="headerlink" title="线程终止"></a>线程终止</h3><p>使用<code>pthread_join</code>阻塞等待指定线程结束：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">pthread_join</span><span class="params">(<span class="type">pthread_t</span> thread, <span class="type">void</span>** retval)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><code>thread</code>：待等待的线程 ID（由 <code>pthread_create()</code> 返回）。</p>
+<p><code>retval</code>：输出参数，指向线程返回值的指针（类型为 <code>void**</code>）。若无需获取返回值，可传 <code>NULL</code>。</p>
+<h3 id="同步机制"><a href="#同步机制" class="headerlink" title="同步机制"></a>同步机制</h3><h4 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h4><p>POSIX线程标准包括一个特殊的类型用于互斥锁：<code>pthread_mutex_t</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">pthread_mutex_init</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">pthread_mutex_t</span>* mutex_p,         <span class="comment">/* 输出参数：指向要初始化的互斥锁对象 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> <span class="type">pthread_mutexattr_t</span>* attr_p <span class="comment">/* 输入参数：指向互斥锁属性对象（NULL表示默认属性） */</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>核心操作：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pthread_mutex_lock</span>(mutex_p)  <span class="comment">// 获取锁</span></span><br><span class="line"><span class="built_in">pthread_mutex_unlock</span>(mutex_p)  <span class="comment">// 释放锁</span></span><br><span class="line"><span class="built_in">pthread_mutex_destroy</span>(mutex_p)  <span class="comment">// 销毁锁</span></span><br></pre></td></tr></table></figure>
+<h4 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h4><p>互斥锁没法控制访问的顺序。这时候可以使用信号量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;semaphore.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">sem_init</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">sem_t</span>* semaphore_p,       <span class="comment">/* 输出参数：指向要初始化的信号量对象 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> shared,               <span class="comment">/* 输入参数：共享选项（0=线程间共享，非0=进程间共享） */</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">unsigned</span> <span class="type">int</span> initial_val  <span class="comment">/* 输入参数：信号量的初始值 */</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>核心操作：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">sem_destroy</span><span class="params">(<span class="type">sem_t</span>* semaphore_p)</span></span>; <span class="comment">/* 输入/输出：指向要销毁的信号量对象 */</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">sem_post</span><span class="params">(<span class="type">sem_t</span>* semaphore_p)</span></span>;    <span class="comment">/* 输入/输出：指向要增加计数的信号量对象 */</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">sem_wait</span><span class="params">(<span class="type">sem_t</span>* semaphore_p)</span></span>;    <span class="comment">/* 输入/输出：指向要等待的信号量对象 */</span></span><br></pre></td></tr></table></figure>
+<p><code>sem_wait</code>可以用来阻塞当前线程，直到信号量的值大于0，解除阻塞。解除阻塞后，<code>sem</code>的值-1，表示公共资源被执行减少了。</p>
+<p><code>sem_post</code>用于增加信号量的值，信号量+1。当有线程阻塞在这个信号量上时，调用这个函数会使其中的一个线程不再阻塞，选择机制由线程的调度策略决定。</p>
+<h4 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h4><p>条件变量用于等待某个条件成立（通常与互斥锁配合使用），而信号量、限制对资源的并发访问数量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pthread_cond_wait</span>(</span><br><span class="line">    <span class="type">pthread_cond_t</span>* cond,    <span class="comment">/* 输入/输出：指向要等待的条件变量 */</span></span><br><span class="line">    <span class="type">pthread_mutex_t</span>* mutex   <span class="comment">/* 输入/输出：指向与条件变量关联的互斥锁 */</span></span><br><span class="line">);  <span class="comment">// 原子操作：释放mutex锁，并阻塞当前线程直到条件变量cond被唤醒；唤醒后自动重新获取mutex锁</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">pthread_cond_signal</span>(</span><br><span class="line">    <span class="type">pthread_cond_t</span>* cond     <span class="comment">/* 输入/输出：指向要唤醒的条件变量 */</span></span><br><span class="line">);  <span class="comment">// 唤醒至少一个在cond条件变量上等待的线程（若有多个线程等待，唤醒策略由实现决定）</span></span><br></pre></td></tr></table></figure>
+<h4 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h4><p>允许多读单写模式，提升读密集型操作效率。</p>
+<p>两种锁类型：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pthread_rwlock_rdlock</span>(</span><br><span class="line">    <span class="type">pthread_rwlock_t</span>* rwlock  <span class="comment">/* 输入/输出：指向读写锁对象 */</span></span><br><span class="line">);  <span class="comment">// 加读锁：允许多个线程同时获取读锁（共享锁），但写锁被独占时会阻塞</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">pthread_rwlock_wrlock</span>(</span><br><span class="line">    <span class="type">pthread_rwlock_t</span>* rwlock  <span class="comment">/* 输入/输出：指向读写锁对象 */</span></span><br><span class="line">);  <span class="comment">// 加写锁：写锁具有排他性，同一时间只能有一个线程获取写锁，且此时不能有其他读锁或写锁</span></span><br></pre></td></tr></table></figure>
+<h2 id="缓存一致性"><a href="#缓存一致性" class="headerlink" title="缓存一致性"></a>缓存一致性</h2><p>Cache coherence（缓存一致性）问题是在多处理器系统中出现的一个问题。</p>
+<p>当多个核心同时访问同一数据时，就会产生缓存一致性问题。</p>
+<p><strong>缓存一致性问题的本质是由于每个核心的缓存是独立的。如果一个核心修改了某些数据，并将其写入其自己的缓存行， 那么其他核心的缓存行可能仍然包含旧的数据。</strong></p>
+<p>如果这些其他核心继续基于这个旧数据执行操作，就会导致错误的结果。</p>
+<h2 id="伪共享-False-Sharing"><a href="#伪共享-False-Sharing" class="headerlink" title="伪共享(False Sharing)"></a>伪共享(False Sharing)</h2><p>False-sharing是一种在多核处理器系统中出现的性能问题。它发生在多个线程访问看似不同的变量，但实际上这些变量位于同一个缓存行时。</p>
+<p><strong>在多核处理器中，每个核心都有自己的缓存，但是，当一个线程更新了一个变量，它可能会导致整个缓存行被刷新到主内存，这会影响到访问该缓存行中其他变量的其他线程。</strong> </p>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>一段代码是线程安全的，如果它可以由多个线程同时执行而不引起问题。</p>
+<h3 id="静态变量的问题"><a href="#静态变量的问题" class="headerlink" title="静态变量的问题"></a>静态变量的问题</h3><p>静态变量（包括全局静态变量和局部静态变量）存储于程序的<strong>静态存储区</strong>，生命周期贯穿程序运行始终，仅在程序启动时初始化一次。</p>
+<p>在多线程环境中，所有线程共享进程的静态存储区。若多个线程同时读写静态变量且未采取同步措施，会引发<strong>数据竞争（Data Race）</strong>，导致数据污染（即数据状态不可预期）。</p>
+<p>以下函数因内部使用<strong>静态存储类变量</strong>或<strong>共享全局状态</strong>，在多线程环境下存在数据污染风险：<code>strtok</code>、<code>random</code>、<code>localtime</code>。</p>
+<p>解决方案是用可重入函数（如<code>strtok_r</code>），它们是线程安全的。</p>
+<h1 id="OpenMP"><a href="#OpenMP" class="headerlink" title="OpenMP"></a>OpenMP</h1><h2 id="基础概念-2"><a href="#基础概念-2" class="headerlink" title="基础概念"></a>基础概念</h2><p>基于编译指导指令的共享内存并行编程API，通过多线程实现并行化。</p>
+<p>使用预处理指令<code>#pragma</code>扩展C语言功能，非OpenMP编译器将忽略这些指令。</p>
+<p>假设所有线程可直接访问共享内存，视系统为多核CPU集合</p>
+<h2 id="操作详解-2"><a href="#操作详解-2" class="headerlink" title="操作详解"></a>操作详解</h2><h3 id="编译和运行"><a href="#编译和运行" class="headerlink" title="编译和运行"></a>编译和运行</h3><p>编译：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -g -Wall -fopenmp -o omp_hello omp_hello. c / omp_hello 4</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以使用_OPENMP宏检测编译器是否支持OpenMP</p>
+</blockquote>
+<h3 id="线程管理"><a href="#线程管理" class="headerlink" title="线程管理"></a>线程管理</h3><p>OpenMP通过<code>#pragma omp parallel</code>创建并行区域。可以加入<code>num_threads</code>子句指定线程数量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> omp parallel [子句列表]</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 并行执行的代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;omp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="keyword">pragma</span> omp parallel</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Hello from thread %d, nthreads %d\n&quot;</span>, </span><br><span class="line">               <span class="built_in">omp_get_thread_num</span>(), <span class="built_in">omp_get_num_threads</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>加入<code>num_threads</code>子句之后：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;omp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="keyword">pragma</span> omp parallel num_threads(2)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Thread %d of %d\n&quot;</span>, </span><br><span class="line">               <span class="built_in">omp_get_thread_num</span>(), <span class="built_in">omp_get_num_threads</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主线程（master）与从线程（slave）构成线程组（team）。</p>
+<h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><ol>
+<li>共享作用域（shared）：默认作用域，所有线程可访问</li>
+<li>私有作用域（private）：线程私有存储空间</li>
+</ol>
+<p>在 OpenMP 中，<strong><code>default</code> 子句</strong>用于显式指定并行区域（如 <code>#pragma omp parallel</code> 或 <code>#pragma omp for</code> 等指令）内变量的默认作用域规则。它的核心目的是强制程序员明确声明并行区域中使用的外部变量的作用域，避免因隐式规则导致的意外行为（如变量共享引发的竞态条件）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> omp parallel [子句列表] default(none|shared)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>default(none)</code></strong>：禁用隐式作用域，强制显式声明所有外部变量的作用域。</li>
+<li><strong><code>default(shared)</code></strong>：恢复隐式规则（外部变量默认 <code>shared</code>，与不使用 <code>default</code> 子句时行为一致）。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;omp.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> x = <span class="number">10</span>; <span class="comment">// 全局变量（外部变量）</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> y = <span class="number">20</span>; <span class="comment">// 局部变量（外部变量，相对于并行区域）</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">#<span class="keyword">pragma</span> omp parallel default(none) shared(x) private(y) <span class="comment">// 必须显式声明 x 和 y 的作用域</span></span></span><br><span class="line">    &#123;</span><br><span class="line">        x = <span class="built_in">omp_get_thread_num</span>(); <span class="comment">// x 是 shared，所有线程可见</span></span><br><span class="line">        y = <span class="built_in">omp_get_thread_num</span>(); <span class="comment">// y 是 private，每个线程有独立副本</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Thread %d: x = %d, y = %d\n&quot;</span>, <span class="built_in">omp_get_thread_num</span>(), x, y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Main: x = %d, y = %d\n&quot;</span>, x, y); <span class="comment">// 输出最后一个线程修改后的 x，y 为初始值 20（因主线程未进入并行区域）</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="reduction子句"><a href="#reduction子句" class="headerlink" title="reduction子句"></a><code>reduction</code>子句</h3><p>支持<code>+</code>、<code>*</code>、<code>&amp;</code>等二元操作符的规约运算。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">reduction</span>(&lt;<span class="keyword">operator</span>&gt;: &lt;variable list&gt;)</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">pragma</span> omp parallel num_threads (thread_count) reduction(+:global_result)</span></span><br><span class="line">global_result += <span class="built_in">Local_trap</span>(<span class="type">double</span> a, <span class="type">double</span> b, <span class="type">int</span> n);</span><br></pre></td></tr></table></figure>
+<h3 id="pragma-omp-parallel-for"><a href="#pragma-omp-parallel-for" class="headerlink" title="#pragma omp parallel for"></a><code>#pragma omp parallel for</code></h3><p>后跟一个<code>for</code>循环语句。OpenMp自动将迭代分配给不同线程。循环内的语句需满足迭代独立性。</p>
+<h3 id="Barrier"><a href="#Barrier" class="headerlink" title="Barrier"></a>Barrier</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">pragma</span> omp barrier</span></span><br></pre></td></tr></table></figure>
+<p>可以让各个线程在某处同步它们的进度</p>
+<h2 id="互斥机制"><a href="#互斥机制" class="headerlink" title="互斥机制"></a>互斥机制</h2><h3 id="critical"><a href="#critical" class="headerlink" title="critical"></a><code>critical</code></h3><p><code># pragma omp critical</code>保护临界区，保证单线程访问。</p>
+<p><code>critical</code> 还可以命名。借助命名，可以区分不同的临界区，从而让同一时刻只有访问相同名称临界区的线程互斥执行，访问不同名称临界区的线程则能同时执行。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;omp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">0</span>, b = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#<span class="keyword">pragma</span> omp parallel num_threads(4)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 对a进行操作的临界区</span></span><br><span class="line">        <span class="meta">#<span class="keyword">pragma</span> omp critical (update_a)</span></span><br><span class="line">        &#123;</span><br><span class="line">            a++;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Thread %d incremented a to %d\n&quot;</span>, <span class="built_in">omp_get_thread_num</span>(), a);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 对b进行操作的临界区</span></span><br><span class="line">        <span class="meta">#<span class="keyword">pragma</span> omp critical (update_b)</span></span><br><span class="line">        &#123;</span><br><span class="line">            b++;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Thread %d incremented b to %d\n&quot;</span>, <span class="built_in">omp_get_thread_num</span>(), b);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 未命名的临界区</span></span><br><span class="line">        <span class="meta">#<span class="keyword">pragma</span> omp critical</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Thread %d is in unnamed critical section\n&quot;</span>, <span class="built_in">omp_get_thread_num</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Final values: a = %d, b = %d\n&quot;</span>, a, b);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="atomic"><a href="#atomic" class="headerlink" title="atomic"></a><code>atomic</code></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> omp atomic [clause]</span></span><br><span class="line">    expression;  <span class="comment">// 必须是单一赋值语句</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>子句（可选）：<ul>
+<li><code>read</code>：原子读取操作（C++11 及以上）。</li>
+<li><code>write</code>：原子写入操作（默认）。</li>
+<li><code>update</code>：原子更新操作（如自增、自减）。</li>
+<li><code>capture</code>：原子操作并捕获原值（如 <code>x = atomic_fetch_add(&amp;y, 1)</code>）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h3><p>OpenMP 提供了基础的互斥锁 API，基于 C 语言实现，包含以下函数：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数原型</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>void omp_init_lock(omp_lock_t *lock)</code></td>
+<td>初始化锁</td>
+</tr>
+<tr>
+<td><code>void omp_set_lock(omp_lock_t *lock)</code></td>
+<td>获取锁（阻塞）</td>
+</tr>
+<tr>
+<td><code>int omp_test_lock(omp_lock_t *lock)</code></td>
+<td>尝试获取锁（非阻塞，成功返回 1，失败返回 0）</td>
+</tr>
+<tr>
+<td><code>void omp_unset_lock(omp_lock_t *lock)</code></td>
+<td>释放锁</td>
+</tr>
+<tr>
+<td><code>void omp_destroy_lock(omp_lock_t *lock)</code></td>
+<td>销毁锁</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="调度策略"><a href="#调度策略" class="headerlink" title="调度策略"></a>调度策略</h2><p>在 OpenMP 中，<strong>调度策略（Scheduling）</strong> 用于控制循环迭代如何分配给并行线程。</p>
+<p>基本语法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> omp for schedule(类型[, 块大小])</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">    <span class="comment">// 循环体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>类型</strong>：指定调度算法（如 <code>static</code>、<code>dynamic</code>、<code>guided</code>、<code>runtime</code> 等）。</li>
+<li><strong>块大小</strong>（可选）：指定每个线程一次分配的连续迭代数量，仅部分调度类型需要。</li>
+</ul>
+<h3 id="主要调度策略"><a href="#主要调度策略" class="headerlink" title="主要调度策略"></a>主要调度策略</h3><h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><p>迭代被预先、平均地分配给各线程，分配模式在编译时确定。</p>
+<p>若未指定块大小，迭代将平均分割给线程（如线程 0 处理迭代 0~4，线程 1 处理 5~9）。</p>
+<p>若指定块大小 <code>chunk</code>，迭代将按块循环分配（如线程 0 处理块 0、3、6，线程 1 处理块 1、4、7）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> omp for schedule(static, 2) <span class="comment">// 2个迭代作为一个块分配给线程</span></span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="dynamic"><a href="#dynamic" class="headerlink" title="dynamic"></a>dynamic</h4><p>迭代在运行时动态分配，线程完成当前块后请求下一个块。</p>
+<p>块大小 <code>chunk</code> 控制每次分配的迭代数量（默认 <code>chunk=1</code>）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> omp parallel for schedule(dynamic, 5)</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">    <span class="comment">// 线程动态请求5个迭代的块</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="guided"><a href="#guided" class="headerlink" title="guided"></a>guided</h4><p>分配方式：块大小随时间递减，初始块大，后续块小。</p>
+<ul>
+<li>块大小计算公式：<code>max(chunk_size, 剩余迭代数/线程数)</code>。</li>
+</ul>
+<p>和dynamic调度的时候一样，每个线程也执行一个块，当一个线程完成一个块时，它请求另一个块。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250609113356477.png" alt="image-20250609113356477"></p>
+<h4 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">schedule</span>(<span class="keyword">auto</span>)</span><br></pre></td></tr></table></figure>
+<p>系统自己选择调度策略。</p>
+<h4 id="runtime"><a href="#runtime" class="headerlink" title="runtime"></a>runtime</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">schedule</span>(runtime)</span><br></pre></td></tr></table></figure>
+<p><strong>分配方式</strong>：调度策略在运行时由环境变量<code>OMP_SCHEDULE</code>决定</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> OMP_SCHEDULE=<span class="string">&quot;dynamic, 4&quot;</span></span><br></pre></td></tr></table></figure>
+<p>但其实还是在上述四种中做选择。</p>
+<h4 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250609114002132.png" alt="image-20250609114002132"></p>
+<h1 id="SIMD-1"><a href="#SIMD-1" class="headerlink" title="SIMD"></a>SIMD</h1><h2 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h2><p>3种SIMD变体：</p>
+<ul>
+<li><p>向量架构：通过专用向量寄存器组实现数据并行</p>
+</li>
+<li><p>多媒体SIMD指令集扩展：面向媒体处理的数据并行</p>
+</li>
+<li><p>图形处理器单元（GPU）：大规模并行处理单元的特殊形态</p>
+</li>
+</ul>
+<h2 id="向量架构"><a href="#向量架构" class="headerlink" title="向量架构"></a>向量架构</h2><p>在70年代-80年代，超级计算机=向量机。Cray-1是首台向量超级计算机（1976年）。</p>
+<p>优化技术：</p>
+<ul>
+<li><strong>向量链接（Chaining）</strong>：流水线级联技术（Cray-1首创），实现RAW依赖指令的零延迟衔接</li>
+<li><strong>分条带处理（Strip Mining）</strong>：通过<code>setvl</code>指令自动处理超长向量（循环分段执行）</li>
+<li><strong>掩码寄存器</strong>：通过谓词寄存器实现条件执行（如<code>vpne p0,v0,f0</code>设置非零元素掩码）</li>
+</ul>
+<h2 id="多媒体SIMD指令集拓展"><a href="#多媒体SIMD指令集拓展" class="headerlink" title="多媒体SIMD指令集拓展"></a>多媒体SIMD指令集拓展</h2><p>许多媒体应用程序运行在比32位字大小更窄的数据类型上。</p>
+<ul>
+<li><p>图形：8位颜色</p>
+</li>
+<li><p>音频样本：8-16位</p>
+</li>
+</ul>
+<p>通过在256位加法器内部分割进位链，处理器可以对短向量执行同时操作</p>
+<ul>
+<li>$32 \times 8$位操作数</li>
+<li>$16 \times 16$位操作数</li>
+<li>$8 \times 32$位操作数</li>
+</ul>
+<h2 id="GPU"><a href="#GPU" class="headerlink" title="GPU"></a>GPU</h2><h3 id="基本概念-2"><a href="#基本概念-2" class="headerlink" title="基本概念"></a>基本概念</h3><p>是异构计算模型，CPU作为主机（Host），GPU作为加速设备（Device）:</p>
+<ul>
+<li><p>异构应用程序由两部分组成：</p>
+<ul>
+<li>主机代码</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>设备代码</li>
+</ul>
+<ul>
+<li>主机代码在CPU上运行，设备代码在GPU上运行。GPU用于加速这部分数据并行的执行。被称为硬件加速器</li>
+</ul>
+<p>采用SIMT（单指令多线程）编程模型，统一所有GPU并行形式为CUDA线程。</p>
+<p>NVIDIA架构特征：</p>
+<ul>
+<li>类似向量机：支持数据级并行、散射-聚集传输、掩码寄存器</li>
+<li>关键差异：用多线程隐藏内存延迟，含大量功能单元而非深度流水线</li>
+</ul>
+<p>GPU上的线程非常轻量，现代NVIDIA GPU每个多处理器可以同时支持高达1536个活动线程。</p>
+<h1 id="CUDA"><a href="#CUDA" class="headerlink" title="CUDA"></a>CUDA</h1><h2 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h2><p>CUDA（Compute Unified Device Architecture）是NVIDIA推出的通用并行计算平台与编程模型，利用GPU并行计算引擎解决复杂计算问题。</p>
+<h2 id="CUDA平台组成"><a href="#CUDA平台组成" class="headerlink" title="CUDA平台组成"></a>CUDA平台组成</h2><p><strong>技术栈</strong>：</p>
+<ul>
+<li><strong>编程语言扩展</strong>：支持C/C++、Fortran、Python等语言的扩展语法4页5页。</li>
+<li><strong>工具链</strong>：包含编译器（nvcc）、调试器（cuda-gdb）、性能分析工具（nvprof）等8页。</li>
+<li><strong>加速库</strong>：提供数学运算库（cublas、cufft）、线性代数库（cusolver）、图像处理库（npp）等预优化模块</li>
+</ul>
+<h2 id="CUDA编程模型"><a href="#CUDA编程模型" class="headerlink" title="CUDA编程模型"></a>CUDA编程模型</h2><h3 id="概念-3"><a href="#概念-3" class="headerlink" title="概念"></a>概念</h3><p>编程模型：</p>
+<ul>
+<li>规定了程序组件如何共享信息和协调其活动。</li>
+<li>提供了特定计算架构的逻辑视图。</li>
+<li><p>通常，它体现在编程语言或编程环境中。</p>
+<p>从程序员的视角来看，可以从不同级别来观察并行计算：</p>
+</li>
+<li><p>作用域级别：如何分解数据和函数以解决问题</p>
+</li>
+<li><p>逻辑级别：如何组织你的并发线程</p>
+</li>
+<li>硬件级别：线程如何映射到核心可能有助于提高性能</li>
+</ul>
+<p>CUDA编程模型提供：</p>
+<ul>
+<li>通过层次结构组织GPU上线程的方法</li>
+<li>通过层次结构访问GPU内存的方法</li>
+</ul>
+<p>CUDA编程模型使您能够通过在C编程语言上添加一组小扩展来注释代码，从而在异构计算系统上执行应用程序。</p>
+<h3 id="核心架构"><a href="#核心架构" class="headerlink" title="核心架构"></a>核心架构</h3><p><strong>主机（Host）与设备（Device）</strong></p>
+<ul>
+<li><strong>Host</strong>：CPU及其内存（Host Memory），负责控制逻辑和轻量级计算9页20页。</li>
+<li><strong>Device</strong>：GPU及其内存（Device Memory），执行高并行计算任务9页10页。</li>
+<li>计算流程：Host将计算密集型任务卸载到Device执行，通过内存传输协调数据</li>
+</ul>
+<p><strong>应用程序的并行部分可以隔离成一个在设备上以许多不同线程执行的函数。这样的函数被编译成设备的指令集，得到的程序称为内核。</strong></p>
+<h3 id="API层次"><a href="#API层次" class="headerlink" title="API层次"></a>API层次</h3><ul>
+<li><strong>Driver API</strong>：底层接口，提供对GPU硬件的精细控制，编程复杂度高。</li>
+<li><strong>Runtime API</strong>：高层抽象接口，基于Driver API封装，简化开发流程。</li>
+</ul>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>一个典型的CUDA程序结构包括5个步骤：</p>
+<ol>
+<li><p>分配GPU内存。</p>
+</li>
+<li><p>将数据从CPU内存复制到GPU内存。</p>
+</li>
+<li><p>调用CUDA内核执行程序特定的计算。</p>
+</li>
+<li><p>将数据从GPU内存复制回CPU内存。</p>
+</li>
+<li><p>销毁GPU内存。</p>
+</li>
+</ol>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><h4 id="声明核函数"><a href="#声明核函数" class="headerlink" title="声明核函数"></a>声明核函数</h4><p>用<code>__global__</code>可以把函数标记为核函数。核函数能够被主机代码调用，并且会在 GPU 设备上执行的：</p>
+<ul>
+<li>核函数采用特殊的调用方式：<code>kernel_name&lt;&lt;&lt;gridDim, blockDim&gt;&gt;&gt;(args)</code>。</li>
+<li>所有被<code>__global__</code>标记的函数，其返回类型都必须是<code>void</code>。</li>
+<li>不支持可变数量参数</li>
+<li>不支持静态变量</li>
+<li>不支持函数指针</li>
+</ul>
+<blockquote>
+<p>一个<code>grid</code>由多个<code>block</code>组成，它代表了一次核函数调用所启动的所有线程。<code>grid</code>可以是一维、二维或三维的。</p>
+<p><code>gridDim</code>和<code>blockDim</code>都具备三维结构，可借助<code>.x</code>、<code>.y</code>、<code>.z</code>成员来访问。这意味着，它们能在三个维度上对线程块和线程进行组织，其定义方式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;dim3 gridDim(x, y, z);   // 网格维度（线程块的数量）</span><br><span class="line">&gt;dim3 blockDim(x, y, z);  // 块维度（线程的数量）</span><br></pre></td></tr></table></figure>
+<p>一个<code>block</code>由多个线程组成，同一<code>block</code>内的线程可以：</p>
+<ul>
+<li>通过<strong>共享内存</strong>快速交换数据。</li>
+<li>使用<code>__syncthreads()</code>实现线程同步。</li>
+</ul>
+<p>与C函数调用不同，所有CUDA内核启动都是异步的。在CUDA内核被调用后，控制权会立即返回给CPU。可以调用以下函数强制主机应用程序等待所有内核执行完成。<code>cudaDeviceSynchronize(void)</code></p>
+</blockquote>
+<h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><p>内存类型：</p>
+<ul>
+<li><strong>全局内存（Global Memory）</strong>：主机与设备间主要通信媒介，高延迟，所有线程可见。</li>
+<li><strong>共享内存（Shared Memory）</strong>：块（Block）内线程共享，低延迟访问。</li>
+<li><strong>寄存器（Registers）</strong>：线程私有，速度最快。</li>
+</ul>
+<p>函数：</p>
+<ul>
+<li><code>cudaMalloc</code>：分配设备全局内存。</li>
+<li><code>cudaMemcpy</code>：主机与设备间数据传输（方向包括<code>HostToDevice</code>、<code>DeviceToHost</code>等）。</li>
+<li><code>cudaFree</code>：释放设备内存</li>
+</ul>
+<h4 id="线程层次结构"><a href="#线程层次结构" class="headerlink" title="线程层次结构"></a>线程层次结构</h4><p><strong>网格（Grid）与线程块（Block）</strong></p>
+<ul>
+<li><strong>Grid</strong>：一个内核启动生成的所有线程集合，由多个Block组成。</li>
+<li><strong>Block</strong>：一组协作线程，共享数据且可同步执行（如共享内存），但不同Block间无通信。</li>
+</ul>
+<p>可以用<code>blockIdx</code>和<code>threadIdx</code>获得索引</p>
+<ul>
+<li><code>blockIdx</code>：Block在Grid中的索引。（三维向量，可以取其的三个坐标<code>blockIdx.x</code>、<code>blockIdx.y</code>、<code>blockIdx.z</code>）</li>
+<li><code>threadIdx</code>：线程在Block中的索引。（三维）</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__global__ <span class="type">void</span> <span class="title">sumArraysOnGPU</span><span class="params">(<span class="type">float</span> *A, <span class="type">float</span> *B, <span class="type">float</span> *C)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i = blockIdx.x * blockDim.x + threadIdx.x; <span class="comment">//blockIdx.x是线程块的索引，blockDim.x是x方向上每个块线程个数。threadIdx.x是块中线程的位置</span></span><br><span class="line">    C[i] = A[i] + B[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250615211142854.png" alt="image-20250615211142854"></p>
+<h4 id="函数声明符"><a href="#函数声明符" class="headerlink" title="函数声明符"></a>函数声明符</h4><p>函数类型限定符用于指定：</p>
+<ol>
+<li>函数是在主机上还是在设备上执行</li>
+<li>该函数是否可从主机或设备调用</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250615205131250.png" alt="image-20250615205131250"></p>
+<h4 id="分析执行时间"><a href="#分析执行时间" class="headerlink" title="分析执行时间"></a>分析执行时间</h4><p>可以通过调用<code>gettimeofday</code>系统调用来获取系统的挂钟时间，从而创建一个CPU计时器。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">double</span> <span class="title">cpuSecond</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">timeval</span> tp;</span><br><span class="line">    <span class="built_in">gettimeofday</span>(&amp;tp, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">return</span> ((<span class="type">double</span>)tp.tv_sec + (<span class="type">double</span>)tp.tv_usec*<span class="number">1.e-6</span>); <span class="comment">//tv_sec是秒数，tv_usec是微妙</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="性能分析工具"><a href="#性能分析工具" class="headerlink" title="性能分析工具"></a>性能分析工具</h3><p>nvprof是CUDA的命令行性能分析工具，它可以收集应用程序的CPU和GPU活动时间线信息，包括内核执行、内存传输以及CUDA API调用。</p>
+<p><strong>理论性能极限</strong>：计算设备的浮点性能（FLOPS）与内存带宽比值，判断瓶颈类型。</p>
+<blockquote>
+<h3 id="解释：理论性能极限"><a href="#解释：理论性能极限" class="headerlink" title="解释：理论性能极限"></a>解释：理论性能极限</h3><p>在计算密集型应用中，理解系统的理论性能极限对于优化性能至关重要。理论性能极限通常由两个关键因素决定：<strong>算术性能（Arithmetic Performance）</strong>和<strong>内存带宽（Memory Bandwidth）</strong>。我们需要确定我们的应用是受限于算术性能还是内存带宽，以便针对性地进行优化。</p>
+<h4 id="1-算术性能（Arithmetic-Performance）"><a href="#1-算术性能（Arithmetic-Performance）" class="headerlink" title="1. 算术性能（Arithmetic Performance）"></a>1. 算术性能（Arithmetic Performance）</h4><p>算术性能指的是处理器每秒能够执行的浮点运算次数（FLOPS）。对于GPU等并行计算设备，算术性能可以通过以下公式计算：</p>
+<script type="math/tex; mode=display">
+\text{Peak FLOPS} = \text{核心时钟频率} \times \text{GPU数量} \times \text{多处理器数量} \times \text{每个多处理器的FP32核心数} \times \text{每周期操作数}</script><p>以Tesla K10为例：</p>
+<ul>
+<li>核心时钟频率：745 MHz</li>
+<li>每板GPU数量：2</li>
+<li>每个GPU的多处理器数量：8</li>
+<li>每个多处理器的FP32核心数：192</li>
+<li>每周期操作数：2（假设每个核心每周期执行2次浮点运算）<br>计算如下：<script type="math/tex; mode=display">
+\text{Peak FLOPS} = 745 \text{ MHz} \times 2 \times (8 \times 192) \times 2 = 4.58 \text{ TFLOPS}</script><h4 id="2-内存带宽（Memory-Bandwidth）"><a href="#2-内存带宽（Memory-Bandwidth）" class="headerlink" title="2. 内存带宽（Memory Bandwidth）"></a>2. 内存带宽（Memory Bandwidth）</h4>内存带宽指的是内存系统每秒能够传输的数据量（GB/s）。对于GPU，内存带宽可以通过以下公式计算：<script type="math/tex; mode=display">
+\text{Peak Memory Bandwidth} = \text{GPU数量} \times \text{内存位宽} \times \text{内存时钟频率} \times \text{DDR倍数} / \text{每字节数据位数}</script></li>
+</ul>
+<p>以Tesla K10为例：</p>
+<ul>
+<li>GPU数量：2</li>
+<li>内存位宽：256 bit</li>
+<li>内存时钟频率：2500 MHz</li>
+<li>DDR倍数：2（双倍数据速率）</li>
+<li>每字节数据位数：8 bits/byte<br>计算如下：<script type="math/tex; mode=display">
+\text{Peak Memory Bandwidth} = 2 \times 256 \times 2500 \times 2 / 8 = 320 \text{ GB/s}</script></li>
+</ul>
+<h4 id="3-指令与字节的比率"><a href="#3-指令与字节的比率" class="headerlink" title="3. 指令与字节的比率"></a>3. 指令与字节的比率</h4><p>为了判断应用是受限于算术性能还是内存带宽，我们需要计算<strong>指令与字节的比率</strong>：</p>
+<script type="math/tex; mode=display">
+\text{Ratio} = \frac{\text{Peak FLOPS}}{\text{Peak Memory Bandwidth}}</script><p>以Tesla K10为例：</p>
+<script type="math/tex; mode=display">
+\text{Ratio} = \frac{4.58 \text{ TFLOPS}}{320 \text{ GB/s}} = 13.6 \text{ instructions:1 byte}</script><h4 id="4-性能瓶颈判断"><a href="#4-性能瓶颈判断" class="headerlink" title="4. 性能瓶颈判断"></a>4. 性能瓶颈判断</h4><ul>
+<li><strong>如果每字节访问的指令数超过13.6</strong>（即13.6 instructions:1 byte），则应用受限于算术性能。这意味着计算能力未得到充分利用，可以通过优化计算逻辑或增加计算量来提升性能。</li>
+<li><strong>如果每字节访问的指令数低于13.6</strong>，则应用受限于内存带宽。这意味着内存访问成为瓶颈，可以通过优化数据访问模式、减少内存访问次数或使用更高带宽的内存来提升性能。</li>
+<li>这个比率是硬件的理论极限：在理想情况下，GPU每传输1字节数据最多能执行13.6次浮点运算。</li>
+<li>如果应用的实际比率超过13.6，说明计算需求远高于数据传输能力，计算能力未被充分利用。</li>
+<li>如果实际比率低于13.6，说明数据传输需求远高于计算能力，内存访问成为瓶颈。</li>
+</ul>
+</blockquote>
+<h3 id="设备管理与查询"><a href="#设备管理与查询" class="headerlink" title="设备管理与查询"></a>设备管理与查询</h3><p>可以使用运行时API查询GPU信息  </p>
+<ul>
+<li>CUDA运行时API中提供了许多函数来帮助您管理设备。  </li>
+<li>GPU设备的属性通过<code>cudaDeviceProp</code>结构体返回</li>
+</ul>
+<p>比如<code>cudaGetDeviceProperties(cudaDeviceProp* prop, int device);</code></p>
+<p>还可以使用命令行工具<strong>nvidia-smi</strong>来查询 GPU 状态（如内存使用率、利用率）</p>
+<h3 id="多GPU管理"><a href="#多GPU管理" class="headerlink" title="多GPU管理"></a>多GPU管理</h3><p>可以<code>CUDA_VISIBLE_DEVICES</code>环境变量来设置可见的GPU。</p>
+<h2 id="CUDA执行模型"><a href="#CUDA执行模型" class="headerlink" title="CUDA执行模型"></a>CUDA执行模型</h2><h3 id="基础概念-3"><a href="#基础概念-3" class="headerlink" title="基础概念"></a>基础概念</h3><h4 id="流式处理器"><a href="#流式处理器" class="headerlink" title="流式处理器"></a>流式处理器</h4><p>GPU架构围绕可扩展的流式多处理器（SM）阵列构建而成。 通过复制这种架构构建模块（SM），实现了GPU硬件并行化。</p>
+<ul>
+<li>GPU中的每个流式多处理器(SM)都设计用于支持数百个线程的并发执行。</li>
+<li>当启动内核网格时，该内核网格的线程块会被分配到可用SM上执行。</li>
+<li>线程块一旦被调度到某个SM上，其线程将仅在分配的SM上并发执行。</li>
+<li>多个线程块可能被同时分配到同一个SM，并根据SM资源的可用性进行调度。</li>
+</ul>
+<p>SM示意图：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250615220203540.png" alt="SM示意图"></p>
+<blockquote>
+<p>一个SM可以处理多个Block，但同一时刻只能执行有限的Block。当一个Block中的所有线程执行完毕后，SM会调度其他Block继续执行。</p>
+</blockquote>
+<h4 id="Warp"><a href="#Warp" class="headerlink" title="Warp"></a>Warp</h4><p>CUDA采用单指令多线程(SIMT)架构来管理和执行线程组，每组32个线程称为Warp（线程束）。</p>
+<ul>
+<li>一个Warp中的所有线程同时执行相同的指令</li>
+<li><strong>每个线程拥有独立的指令地址计数器和寄存器状态</strong>，并针对自身数据执行当前指令</li>
+<li>每个流式多处理器(SM)会将分配给它的线程块划分为32线程的Warp，然后调度这些Warp执行。如果线程数不足32的，会填充一些不活跃的线程。</li>
+<li>SM通过Warp调度器动态切换活跃Warp，无上下文切换开销</li>
+<li>线程块内的Warp可以按任意顺序调度</li>
+<li>对于一维线程块，其唯一线程ID存储在CUDA内置变量<code>threadIdx.x</code>中，具有连续<code>threadIdx.x</code>值的线程会被分组为同一Warp</li>
+<li>活跃Warp分为三类：选中（执行中）、就绪（可执行）、停滞（等待资源）。当满足以下两个条件时，一个Warp即具备执行资格：<ul>
+<li>有32个CUDA核心可供执行任务</li>
+<li>当前指令的所有参数均已准备就绪</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>在软件层面，Block是线程组织的基本单位，而Warp是硬件执行的基本单位。一个Block中的线程会被SM分组为多个Warp，每个Warp包含32个线程。因此，Block和Warp的关系是：Block是Warp的容器，Warp是Block中线程的执行单位。</p>
+</blockquote>
+<p>SIMT允许同一Warp内线程独立执行路径（各自指令计数器、寄存器状态）。SIMD要求向量中的所有向量元素在统一的同步组中共同执行。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250615221217679.png" alt="image-20250615221217679"></p>
+<h5 id="资源分配"><a href="#资源分配" class="headerlink" title="资源分配"></a>资源分配</h5><p>每个线程独立占用一定数量的寄存器。一个warp包含32个线程，因此单个warp总寄存器消耗量=32×每个线程寄存器数。所以SM可驻留的warp数量上限=总寄存器数/(32×每个线程寄存器数)。</p>
+<h5 id="分支发散（Warp-Divergence）"><a href="#分支发散（Warp-Divergence）" class="headerlink" title="分支发散（Warp Divergence）"></a>分支发散（Warp Divergence）</h5><p>同一Warp内线程执行不同代码路径导致串行化，性能下降。虽说SIMT允许同一Warp内线程独立执行路径，但是一个Warp中的所有线程必须在<strong>同一周期</strong>执行<strong>相同的指令</strong>。</p>
+<blockquote>
+<p>当遇到分支时，GPU会顺序执行所有可能的分支路径，而不是并行执行。例如，如果Warp中一半线程进入<code>if</code>分支，另一半进入<code>else</code>分支，GPU会先执行<code>if</code>分支的指令，再执行<code>else</code>分支的指令。在执行某个分支时，不满足条件的线程会被“遮蔽”，即暂时不更新其状态，直到其分支被执行。</p>
+</blockquote>
+<p><strong>优化方法</strong>：</p>
+<ul>
+<li>调整分支条件为<strong>Warp粒度</strong>（如<code>(tid / warpSize) % 2 == 0</code>）。比如如果是第0个Warp则都执行A，如果是第一个Warp则都执行B。</li>
+<li>使用<strong>谓词化指令</strong>替代分支。谓词通常是一个布尔值（真/假，或1/0），用来表示某个条件是否成立。谓词化指令允许一条指令根据每个线程自身的谓词值来决定是否执行该指令，或者决定该指令对线程的影响。通过谓词，所有线程在同一周期内执行“相同的”指令（只是效果不同），避免了因分支导致的执行路径切换和延迟</li>
+</ul>
+<h5 id="延迟隐藏（Latency-Hiding）"><a href="#延迟隐藏（Latency-Hiding）" class="headerlink" title="延迟隐藏（Latency Hiding）"></a>延迟隐藏（Latency Hiding）</h5><p>指令执行的时候可能因为访问显存等因素有延迟（指令延迟），这时候SM可以切换其他Warp执行，利用多Warp并发执行掩盖指令延迟。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250616102333138.png" alt="image-20250616102333138"></p>
+<p>为了达到延迟隐藏所需要的Warp数=指令延迟*吞吐量。也就是如果想每个周期执行6个Warp， 每个Warp延迟是5，那至少要30个Warp才能做到。</p>
+<h5 id="占用率"><a href="#占用率" class="headerlink" title="占用率"></a>占用率</h5><p>占用率 = 活跃Warp数 / SM最大Warp数。</p>
+<h3 id="优化技术"><a href="#优化技术" class="headerlink" title="优化技术"></a>优化技术</h3><h4 id="循环展开"><a href="#循环展开" class="headerlink" title="循环展开"></a>循环展开</h4><p>可以减少分支与循环维护指令，提升指令级并行（这样线程的数目就少了，不需要频繁调度了）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250616104933191.png" alt="image-20250616104933191"></p>
+<h4 id="动态并行"><a href="#动态并行" class="headerlink" title="动态并行"></a>动态并行</h4><p> 此前，所有内核均需通过主机线程调用。GPU工作负载完全受CPU控制。CUDA动态并行技术允许直接在GPU上创建和同步新的GPU内核。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250616105328685.png" alt="image-20250616105328685"></p>
+<p>父网格由主机线程配置并启动，子网格则由父网格配置并启动。在父线程中设置屏障以显式与其子网格同步。</p>
+<p>但也有限制，比如最大嵌套深度24层</p>
+<h2 id="CUDA内存模型"><a href="#CUDA内存模型" class="headerlink" title="CUDA内存模型"></a>CUDA内存模型</h2><h3 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h3><h4 id="内存层次结构的优势"><a href="#内存层次结构的优势" class="headerlink" title="内存层次结构的优势"></a>内存层次结构的优势</h4><p>两种不同类型的局部性：</p>
+<ul>
+<li>时间局部性：如果一个数据位置被引用过，那么它在短时间内再次被引用的可能性更高</li>
+<li>空间局部性：如果某个内存位置被引用，附近的位置也很可能被引用。</li>
+</ul>
+<h4 id="层级结构"><a href="#层级结构" class="headerlink" title="层级结构"></a>层级结构</h4><p>分为可编程内存和不可编程内存：</p>
+<ul>
+<li><strong>可编程内存</strong>：程序员可显式控制数据存储位置，包括寄存器、共享内存、局部内存、常量内存、纹理内存和全局内存。</li>
+<li><strong>不可编程内存</strong>：如L1/L2缓存，由硬件自动管理，在CPU上，内存加载和存储操作均可被缓存。在GPU上，仅内存加载操作可被缓存，内存存储操作无法被缓存</li>
+</ul>
+<h4 id="核心内存类型"><a href="#核心内存类型" class="headerlink" title="核心内存类型"></a>核心内存类型</h4><p>寄存器：</p>
+<ul>
+<li>最快的内存空间，线程私有，生命周期与内核相同。</li>
+</ul>
+<p>本地内存：</p>
+<ul>
+<li>内核中符合寄存器使用条件但无法适配该内核所分配寄存器空间的变量，将溢出到本地内存。</li>
+<li><strong>溢出到本地内存的数值与全局内存实际位于同一物理位置</strong></li>
+</ul>
+<p>共享内存：</p>
+<ul>
+<li>内核中使用以下属性修饰的变量会被存储在共享内存中：<code>__shared__</code></li>
+<li>由于共享内存位于芯片上，其带宽远高于本地或全局内存，延迟也显著更低</li>
+<li>线程块内共享，但需同步（<code>__syncthreads()</code>）</li>
+<li>与L1缓存共享64KB片内存储，可动态配置分区比例（如48KB共享+16KB L1）</li>
+</ul>
+<p>全局内存：</p>
+<ul>
+<li>最大容量、高延迟，支持32/64/128字节粒度的事务。</li>
+<li>需优化对齐（32/128字节）和合并访问以减少事务次数</li>
+</ul>
+<p>只读内存：</p>
+<ul>
+<li>常量内存（Constant Memory）：静态声明，全局可见，适合同一线程束读取相同地址（如系数）。</li>
+<li>纹理内存（Texture Memory）：纹理存储器是一种通过<strong>专用只读缓存访问的全局内存类型</strong>。 针对2D空间局部性进行了优化，通过专用缓存提升性能</li>
+</ul>
+<h4 id="内存管理策略"><a href="#内存管理策略" class="headerlink" title="内存管理策略"></a>内存管理策略</h4><p>分配与传输：</p>
+<ul>
+<li><strong>设备内存分配</strong>：<code>cudaMalloc</code>分配全局内存，<code>cudaMemset</code>初始化，<code>cudaFree</code>释放</li>
+<li><strong>主机-设备传输</strong>：<ul>
+<li>使用<code>cudaMemcpy</code>指定方向（HostToDevice/DeviceToHost等）</li>
+<li><strong>固定内存（Pinned Memory）</strong>：<ul>
+<li>是一种在操作系统中被锁定的内存区域，不会因虚拟内存管理而被交换到磁盘上</li>
+<li>避免页锁定内存的多次拷贝，提升传输带宽</li>
+<li>分配方式：<code>cudaMallocHost</code>，需权衡分配成本与性能收益</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>零拷贝内存</strong>：</p>
+<ul>
+<li>主机与设备共享同一块物理内存，避免显式传输</li>
+<li>集成GPU（共享主存）性能更优，独立GPU仅适合小数据量</li>
+</ul>
+</li>
+<li><p><strong>统一内存</strong>：</p>
+<ul>
+<li>单指针访问，自动迁移数据，简化编程（<code>cudaMallocManaged</code>）</li>
+<li>与零拷贝内存对比：零拷贝数据驻留主机，统一内存透明迁移。统一内存创建了一个托管内存池，该内存池中的每次分配均可通过相同内存地址在CPU和GPU上访问，底层系统会自动在主机与设备之间迁移统一内存中的数据。</li>
+</ul>
+</li>
+</ul>
+<h3 id="内存访问模式"><a href="#内存访问模式" class="headerlink" title="内存访问模式"></a>内存访问模式</h3><p>最大化利用全局内存带宽是内核性能调优的基本步骤。  CUDA执行模型的显著特征之一是以线程束(Warp)为单位发出和执行指令。 内存操作同样以线程束为单位发出。  </p>
+<p>根据线程束内内存地址的分布情况，内存访问可分为不同模式：</p>
+<ul>
+<li>当设备内存事务的起始地址是所用缓存粒度的偶数倍时，称为对齐访问。其关注单个内存事务的起始地址是否匹配缓存粒度，影响单次访问的效率。</li>
+<li>当一个 warp（32 个线程）的所有线程访问连续的内存块时，称为合并访问。其关注多个线程的访问模式是否连续，影响批量访问的吞吐量。</li>
+</ul>
+<h4 id="数据布局优化"><a href="#数据布局优化" class="headerlink" title="数据布局优化"></a>数据布局优化</h4><p><strong>结构体数组（AoS） vs 数组结构体（SoA）</strong>：SoA布局更利于全局内存合并访问（预对齐连续数据）。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/并行程序设计/image-20250616203011969.png" alt="image-20250616203011969"></p>
+<p>优势有：</p>
+<ol>
+<li>空间局部性，当访问相同属性的数据时（如所有粒子的<code>x</code>坐标），数据在内存中是连续的。不需要加载多个缓存行。</li>
+<li>结构体可能需要对齐到某个字节数，导致一些字节是无效的。如果是结构体的数组就有更多无效字节。</li>
+</ol>
+<h4 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h4><p>优化技术：</p>
+<ul>
+<li><strong>循环展开</strong>：增加独立内存操作以隐藏延迟。</li>
+<li><strong>执行配置优化</strong>：调整线程块/网格维度，提升并行度。</li>
+</ul>
+<h3 id="带宽与性能评估"><a href="#带宽与性能评估" class="headerlink" title="带宽与性能评估"></a>带宽与性能评估</h3><p>带宽指标：</p>
+<ul>
+<li><strong>理论带宽</strong>：硬件极限值（如显存频率×位宽）。</li>
+<li><strong>有效带宽</strong>：实测值，通过优化访问模式逼近理论值</li>
+</ul>
+<h2 id="奇偶转置排序"><a href="#奇偶转置排序" class="headerlink" title="奇偶转置排序"></a>奇偶转置排序</h2><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lemon_tree12138/article/details/50605563">https://blog.csdn.net/lemon_tree12138/article/details/50605563</a></p>
+</blockquote>
+<p>奇偶排序（Odd-Even Sort），也称为奇偶交换排序，是一种基于比较的排序算法。它是一种稳定的排序算法，但时间复杂度较高，通常不用于实际的大规模数据排序。奇偶排序的主要思想是通过一系列的奇偶交换步骤来将数组排序。</p>
+<p>奇偶排序的过程如下：</p>
+<ol>
+<li>选取所有奇数列的元素与其右侧相邻的元素进行比较，将较小的元素排序在前面；</li>
+<li>选取所有偶数列的元素与其右侧相邻的元素进行比较，将较小的元素排序在前面；</li>
+<li>重复前面两步，直到所有序列有序为止。</li>
+</ol>
+<h3 id="相对于冒泡排序"><a href="#相对于冒泡排序" class="headerlink" title="相对于冒泡排序"></a>相对于冒泡排序</h3><p>在奇偶排序中，奇数步骤和偶数步骤的比较和交换操作是独立的。在奇数步骤中，所有奇数索引的元素与其后继元素进行比较和交换；在偶数步骤中，所有偶数索引的元素与其后继元素进行比较和交换。这些操作可以同时进行，因为它们不会相互影响。</p>
+<p>而在冒泡排序中，每一轮排序都需要从数组的开始到结束依次进行比较和交换，每个元素的位置都可能依赖于前一个元素的位置，这使得并行化变得更加复杂。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ran.ranruo.xyz">白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ran.ranruo.xyz/post/1014047471.html">https://ran.ranruo.xyz/post/1014047471.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ran.ranruo.xyz" target="_blank">小白的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a></div><div class="post_share"><div class="social-share" data-image="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/head_protrait.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/294358179.html" title="编译原理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">编译原理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/3254563453.html" title="人工智能"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-14</div><div class="title">人工智能</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/head_protrait.jpg" onerror="this.onerror=null;this.src='https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">白</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">愿我们在清醒的现实再会</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E8%AE%A1%E7%AE%97%E3%80%81%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A1%E7%AE%97"><span class="toc-number">1.1.</span> <span class="toc-text">并发计算、并行计算与分布式计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%AF%C2%B7%E8%AF%BA%E4%BE%9D%E6%9B%BC%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">冯·诺依曼架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">进程与线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E5%9F%BA%E7%A1%80"><span class="toc-number">1.4.</span> <span class="toc-text">缓存基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%BA%A7%E5%88%AB"><span class="toc-number">1.4.1.</span> <span class="toc-text">缓存级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E4%B8%8E%E6%9C%AA%E5%91%BD%E4%B8%AD"><span class="toc-number">1.4.2.</span> <span class="toc-text">缓存命中与未命中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5"><span class="toc-number">1.4.3.</span> <span class="toc-text">缓存更新策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E6%98%A0%E5%B0%84"><span class="toc-number">1.4.4.</span> <span class="toc-text">缓存映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="toc-number">1.4.5.</span> <span class="toc-text">虚拟内存</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C"><span class="toc-number">1.5.</span> <span class="toc-text">并行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%EF%BC%88ILP%EF%BC%89"><span class="toc-number">1.5.1.</span> <span class="toc-text">指令级并行（ILP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.5.2.</span> <span class="toc-text">硬件多线程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E3%80%81%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.6.</span> <span class="toc-text">程序、进程和线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CPU%E3%80%81%E6%A0%B8%E5%BF%83%E5%92%8C%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-number">1.7.</span> <span class="toc-text">CPU、核心和处理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%A4%84%E7%90%86%E5%99%A8%E5%92%8C%E5%A4%9A%E6%A0%B8CPU"><span class="toc-number">1.8.</span> <span class="toc-text">多处理器和多核CPU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%92%8C%E6%A0%B8%E5%BF%83%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.9.</span> <span class="toc-text">线程和核心的关系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text">并行计算机的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">传统分类方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%97%E6%9E%97%E5%88%86%E7%B1%BB%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">弗林分类法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SISD"><span class="toc-number">2.2.1.</span> <span class="toc-text">SISD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SIMD"><span class="toc-number">2.2.2.</span> <span class="toc-text">SIMD</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%92%8CSIMT%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">和SIMT的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MIMD"><span class="toc-number">2.2.3.</span> <span class="toc-text">MIMD</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MIMD%E7%BB%86%E5%8C%96%E5%88%86%E7%B1%BB"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">MIMD细化分类</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E7%BB%9C"><span class="toc-number">3.</span> <span class="toc-text">互联网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91"><span class="toc-number">3.1.</span> <span class="toc-text">网络拓扑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E4%BA%92%E8%BF%9E%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%86%85%E5%AD%98%E4%BA%92%E8%BF%9E"><span class="toc-number">3.2.</span> <span class="toc-text">共享内存互连和分布式内存互连</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E4%BA%92%E8%BF%9E"><span class="toc-number">3.2.1.</span> <span class="toc-text">共享内存互连</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E4%BA%92%E8%BF%9E"><span class="toc-number">3.2.2.</span> <span class="toc-text">分布式存储互连</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E8%BD%AF%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">并行软件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">4.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E6%8C%87%E6%A0%87"><span class="toc-number">4.2.</span> <span class="toc-text">性能分析指标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E6%AF%94"><span class="toc-number">4.2.1.</span> <span class="toc-text">加速比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E7%8E%87"><span class="toc-number">4.2.2.</span> <span class="toc-text">效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Amdahl%E5%AE%9A%E5%BE%8B"><span class="toc-number">4.2.3.</span> <span class="toc-text">Amdahl定律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.2.4.</span> <span class="toc-text">时间类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7"><span class="toc-number">4.3.</span> <span class="toc-text">可扩展性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%BA%E5%8F%AF%E6%8B%93%E5%B1%95%E6%80%A7"><span class="toc-number">4.3.1.</span> <span class="toc-text">强可拓展性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%B1%E5%8F%AF%E6%8B%93%E5%B1%95%E6%80%A7"><span class="toc-number">4.3.2.</span> <span class="toc-text">弱可拓展性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Foster%EF%BC%88%E7%A6%8F%E6%96%AF%E7%89%B9%EF%BC%89%E6%96%B9%E6%B3%95"><span class="toc-number">4.4.</span> <span class="toc-text">Foster（福斯特）方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MPI"><span class="toc-number">5.</span> <span class="toc-text">MPI</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5-1"><span class="toc-number">5.1.</span> <span class="toc-text">基础概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E8%AF%A6%E8%A7%A3"><span class="toc-number">5.2.</span> <span class="toc-text">操作详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C"><span class="toc-number">5.2.1.</span> <span class="toc-text">编译与运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MPI-Init%E3%80%81MPI-Finalize"><span class="toc-number">5.2.2.</span> <span class="toc-text">MPI_Init、MPI_Finalize</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E5%AD%90"><span class="toc-number">5.2.3.</span> <span class="toc-text">通信子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="toc-number">5.2.3.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MPI-Comm-size%E3%80%81MPI-Comm-rank"><span class="toc-number">5.2.3.2.</span> <span class="toc-text">MPI_Comm_size、MPI_ Comm_rank</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Send%E3%80%81Recv"><span class="toc-number">5.2.4.</span> <span class="toc-text">Send、Recv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gather%E3%80%81Reduce%E3%80%81Broadcast%E3%80%81Scatter"><span class="toc-number">5.2.5.</span> <span class="toc-text">Gather、Reduce、Broadcast、Scatter</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="toc-number">5.3.</span> <span class="toc-text">高级特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">5.3.1.</span> <span class="toc-text">创建自己的数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E6%97%B6"><span class="toc-number">5.3.2.</span> <span class="toc-text">计时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5"><span class="toc-number">5.3.3.</span> <span class="toc-text">同步</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MPI-Safety"><span class="toc-number">5.4.</span> <span class="toc-text">MPI Safety</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pthreads%E7%BC%96%E7%A8%8B"><span class="toc-number">6.</span> <span class="toc-text">Pthreads编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">6.1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E8%AF%A6%E8%A7%A3-1"><span class="toc-number">6.2.</span> <span class="toc-text">操作详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C-1"><span class="toc-number">6.2.1.</span> <span class="toc-text">编译与运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%88%9B%E5%BB%BA"><span class="toc-number">6.2.2.</span> <span class="toc-text">线程创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%BB%88%E6%AD%A2"><span class="toc-number">6.2.3.</span> <span class="toc-text">线程终止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="toc-number">6.2.4.</span> <span class="toc-text">同步机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%92%E6%96%A5%E9%94%81"><span class="toc-number">6.2.4.1.</span> <span class="toc-text">互斥锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="toc-number">6.2.4.2.</span> <span class="toc-text">信号量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F"><span class="toc-number">6.2.4.3.</span> <span class="toc-text">条件变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E5%86%99%E9%94%81"><span class="toc-number">6.2.4.4.</span> <span class="toc-text">读写锁</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-number">6.3.</span> <span class="toc-text">缓存一致性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E5%85%B1%E4%BA%AB-False-Sharing"><span class="toc-number">6.4.</span> <span class="toc-text">伪共享(False Sharing)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="toc-number">6.5.</span> <span class="toc-text">线程安全</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">6.5.1.</span> <span class="toc-text">静态变量的问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OpenMP"><span class="toc-number">7.</span> <span class="toc-text">OpenMP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5-2"><span class="toc-number">7.1.</span> <span class="toc-text">基础概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E8%AF%A6%E8%A7%A3-2"><span class="toc-number">7.2.</span> <span class="toc-text">操作详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%92%8C%E8%BF%90%E8%A1%8C"><span class="toc-number">7.2.1.</span> <span class="toc-text">编译和运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-number">7.2.2.</span> <span class="toc-text">线程管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">7.2.3.</span> <span class="toc-text">变量作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reduction%E5%AD%90%E5%8F%A5"><span class="toc-number">7.2.4.</span> <span class="toc-text">reduction子句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pragma-omp-parallel-for"><span class="toc-number">7.2.5.</span> <span class="toc-text">#pragma omp parallel for</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Barrier"><span class="toc-number">7.2.6.</span> <span class="toc-text">Barrier</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%92%E6%96%A5%E6%9C%BA%E5%88%B6"><span class="toc-number">7.3.</span> <span class="toc-text">互斥机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#critical"><span class="toc-number">7.3.1.</span> <span class="toc-text">critical</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#atomic"><span class="toc-number">7.3.2.</span> <span class="toc-text">atomic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81"><span class="toc-number">7.3.3.</span> <span class="toc-text">锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5"><span class="toc-number">7.4.</span> <span class="toc-text">调度策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5"><span class="toc-number">7.4.1.</span> <span class="toc-text">主要调度策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#static"><span class="toc-number">7.4.1.1.</span> <span class="toc-text">static</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dynamic"><span class="toc-number">7.4.1.2.</span> <span class="toc-text">dynamic</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#guided"><span class="toc-number">7.4.1.3.</span> <span class="toc-text">guided</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#auto"><span class="toc-number">7.4.1.4.</span> <span class="toc-text">auto</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#runtime"><span class="toc-number">7.4.1.5.</span> <span class="toc-text">runtime</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94"><span class="toc-number">7.4.1.6.</span> <span class="toc-text">对比</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SIMD-1"><span class="toc-number">8.</span> <span class="toc-text">SIMD</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-1"><span class="toc-number">8.1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E6%9E%B6%E6%9E%84"><span class="toc-number">8.2.</span> <span class="toc-text">向量架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%AA%92%E4%BD%93SIMD%E6%8C%87%E4%BB%A4%E9%9B%86%E6%8B%93%E5%B1%95"><span class="toc-number">8.3.</span> <span class="toc-text">多媒体SIMD指令集拓展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GPU"><span class="toc-number">8.4.</span> <span class="toc-text">GPU</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-2"><span class="toc-number">8.4.1.</span> <span class="toc-text">基本概念</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CUDA"><span class="toc-number">9.</span> <span class="toc-text">CUDA</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">9.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CUDA%E5%B9%B3%E5%8F%B0%E7%BB%84%E6%88%90"><span class="toc-number">9.2.</span> <span class="toc-text">CUDA平台组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CUDA%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">9.3.</span> <span class="toc-text">CUDA编程模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-3"><span class="toc-number">9.3.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84"><span class="toc-number">9.3.2.</span> <span class="toc-text">核心架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API%E5%B1%82%E6%AC%A1"><span class="toc-number">9.3.3.</span> <span class="toc-text">API层次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">9.3.4.</span> <span class="toc-text">流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">9.3.5.</span> <span class="toc-text">语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E6%A0%B8%E5%87%BD%E6%95%B0"><span class="toc-number">9.3.5.1.</span> <span class="toc-text">声明核函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">9.3.5.2.</span> <span class="toc-text">内存管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-number">9.3.5.3.</span> <span class="toc-text">线程层次结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E%E7%AC%A6"><span class="toc-number">9.3.5.4.</span> <span class="toc-text">函数声明符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4"><span class="toc-number">9.3.5.5.</span> <span class="toc-text">分析执行时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7"><span class="toc-number">9.3.6.</span> <span class="toc-text">性能分析工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%87%8A%EF%BC%9A%E7%90%86%E8%AE%BA%E6%80%A7%E8%83%BD%E6%9E%81%E9%99%90"><span class="toc-number">9.3.7.</span> <span class="toc-text">解释：理论性能极限</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%AE%97%E6%9C%AF%E6%80%A7%E8%83%BD%EF%BC%88Arithmetic-Performance%EF%BC%89"><span class="toc-number">9.3.7.1.</span> <span class="toc-text">1. 算术性能（Arithmetic Performance）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%86%85%E5%AD%98%E5%B8%A6%E5%AE%BD%EF%BC%88Memory-Bandwidth%EF%BC%89"><span class="toc-number">9.3.7.2.</span> <span class="toc-text">2. 内存带宽（Memory Bandwidth）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%8C%87%E4%BB%A4%E4%B8%8E%E5%AD%97%E8%8A%82%E7%9A%84%E6%AF%94%E7%8E%87"><span class="toc-number">9.3.7.3.</span> <span class="toc-text">3. 指令与字节的比率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88%E5%88%A4%E6%96%AD"><span class="toc-number">9.3.7.4.</span> <span class="toc-text">4. 性能瓶颈判断</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E4%B8%8E%E6%9F%A5%E8%AF%A2"><span class="toc-number">9.3.8.</span> <span class="toc-text">设备管理与查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9AGPU%E7%AE%A1%E7%90%86"><span class="toc-number">9.3.9.</span> <span class="toc-text">多GPU管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CUDA%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B"><span class="toc-number">9.4.</span> <span class="toc-text">CUDA执行模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5-3"><span class="toc-number">9.4.1.</span> <span class="toc-text">基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%E5%BC%8F%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-number">9.4.1.1.</span> <span class="toc-text">流式处理器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Warp"><span class="toc-number">9.4.1.2.</span> <span class="toc-text">Warp</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E5%88%86%E9%85%8D"><span class="toc-number">9.4.1.2.1.</span> <span class="toc-text">资源分配</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E5%8F%91%E6%95%A3%EF%BC%88Warp-Divergence%EF%BC%89"><span class="toc-number">9.4.1.2.2.</span> <span class="toc-text">分支发散（Warp Divergence）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BB%B6%E8%BF%9F%E9%9A%90%E8%97%8F%EF%BC%88Latency-Hiding%EF%BC%89"><span class="toc-number">9.4.1.2.3.</span> <span class="toc-text">延迟隐藏（Latency Hiding）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%A0%E7%94%A8%E7%8E%87"><span class="toc-number">9.4.1.2.4.</span> <span class="toc-text">占用率</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E6%8A%80%E6%9C%AF"><span class="toc-number">9.4.2.</span> <span class="toc-text">优化技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E5%B1%95%E5%BC%80"><span class="toc-number">9.4.2.1.</span> <span class="toc-text">循环展开</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%B9%B6%E8%A1%8C"><span class="toc-number">9.4.2.2.</span> <span class="toc-text">动态并行</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CUDA%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="toc-number">9.5.</span> <span class="toc-text">CUDA内存模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="toc-number">9.5.1.</span> <span class="toc-text">内存模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-number">9.5.1.1.</span> <span class="toc-text">内存层次结构的优势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84"><span class="toc-number">9.5.1.2.</span> <span class="toc-text">层级结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%86%85%E5%AD%98%E7%B1%BB%E5%9E%8B"><span class="toc-number">9.5.1.3.</span> <span class="toc-text">核心内存类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%AD%96%E7%95%A5"><span class="toc-number">9.5.1.4.</span> <span class="toc-text">内存管理策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%BC%8F"><span class="toc-number">9.5.2.</span> <span class="toc-text">内存访问模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B8%83%E5%B1%80%E4%BC%98%E5%8C%96"><span class="toc-number">9.5.2.1.</span> <span class="toc-text">数据布局优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">9.5.2.2.</span> <span class="toc-text">性能优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%A6%E5%AE%BD%E4%B8%8E%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0"><span class="toc-number">9.5.3.</span> <span class="toc-text">带宽与性能评估</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%87%E5%81%B6%E8%BD%AC%E7%BD%AE%E6%8E%92%E5%BA%8F"><span class="toc-number">9.6.</span> <span class="toc-text">奇偶转置排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E4%BA%8E%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="toc-number">9.6.1.</span> <span class="toc-text">相对于冒泡排序</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/1014047471.html" title="并行算法笔记">并行算法笔记</a><time datetime="2025-06-17T10:04:18.000Z" title="发表于 2025-06-17 10:04:18">2025-06-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/294358179.html" title="编译原理">编译原理</a><time datetime="2025-06-14T10:03:19.000Z" title="发表于 2025-06-14 10:03:19">2025-06-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/123456789.html" title="s1:Simple test-time scaling为什么有效？">s1:Simple test-time scaling为什么有效？</a><time datetime="2025-05-12T07:00:02.000Z" title="发表于 2025-05-12 07:00:02">2025-05-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/654684277.html" title="目标检测论文阅读笔记（1）">目标检测论文阅读笔记（1）</a><time datetime="2025-04-28T09:00:55.000Z" title="发表于 2025-04-28 09:00:55">2025-04-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/1892840876.html" title="目标检测入门">目标检测入门</a><time datetime="2025-04-26T16:00:02.000Z" title="发表于 2025-04-26 16:00:02">2025-04-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By 白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
