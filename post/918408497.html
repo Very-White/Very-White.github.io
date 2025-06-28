@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Transformer炼丹小记--大即是好 | 小白的博客</title><meta name="author" content="白"><meta name="copyright" content="白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言记一次人工神经网络课程大作业。  代码仓库在此：https:&#x2F;&#x2F;github.com&#x2F;Very-White&#x2F;2025_final_project 。 模型权重在此：https:&#x2F;&#x2F;www.modelscope.cn&#x2F;models&#x2F;SuperBaiBaiBai&#x2F;zh-en-transformer 。  训练小记在此之前，我以为凭借自己的炼丹经验，训练一个Transformer是轻而易举的事情。没">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Transformer炼丹小记--大即是好">
+<meta property="og:url" content="https://ran.ranruo.xyz/post/918408497.html">
+<meta property="og:site_name" content="小白的博客">
+<meta property="og:description" content="前言记一次人工神经网络课程大作业。  代码仓库在此：https:&#x2F;&#x2F;github.com&#x2F;Very-White&#x2F;2025_final_project 。 模型权重在此：https:&#x2F;&#x2F;www.modelscope.cn&#x2F;models&#x2F;SuperBaiBaiBai&#x2F;zh-en-transformer 。  训练小记在此之前，我以为凭借自己的炼丹经验，训练一个Transformer是轻而易举的事情。没">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/head_protrait.jpg">
+<meta property="article:published_time" content="2025-06-28T14:05:55.000Z">
+<meta property="article:modified_time" content="2025-06-28T14:05:55.561Z">
+<meta property="article:author" content="白">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/head_protrait.jpg"><link rel="shortcut icon" href="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/favicon1.png"><link rel="canonical" href="https://ran.ranruo.xyz/post/918408497.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Transformer炼丹小记--大即是好',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-06-28 14:05:55'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my_css.css"><meta name="baidu-site-verification" content="codeva-fpDe68QFkn" /><meta name="msvalidate.01" content="0055280C3BFCE7DE0E722CDE364A6393" /><link rel="stylesheet" href="/css/font.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/head_protrait.jpg" onerror="onerror=null;src='https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/background3.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="小白的博客"><span class="site-name">小白的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Transformer炼丹小记--大即是好</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-28T14:05:55.000Z" title="发表于 2025-06-28 14:05:55">2025-06-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-28T14:05:55.561Z" title="更新于 2025-06-28 14:05:55">2025-06-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E6%B5%B7%E6%B3%9B%E8%88%9F/">学海泛舟</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Transformer炼丹小记--大即是好"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>记一次人工神经网络课程大作业。</p>
+<blockquote>
+<p>代码仓库在此：<a target="_blank" rel="noopener" href="https://github.com/Very-White/2025_final_project">https://github.com/Very-White/2025_final_project</a> 。</p>
+<p>模型权重在此：<a target="_blank" rel="noopener" href="https://www.modelscope.cn/models/SuperBaiBaiBai/zh-en-transformer">https://www.modelscope.cn/models/SuperBaiBaiBai/zh-en-transformer</a> 。</p>
+</blockquote>
+<h1 id="训练小记"><a href="#训练小记" class="headerlink" title="训练小记"></a>训练小记</h1><p>在此之前，我以为凭借自己的炼丹经验，训练一个Transformer是轻而易举的事情。没想到为训练一个好的模型耗费了那么多精力，不过也学习到了很多训练技巧。</p>
+<p>刚开始，我简单用预先提供的脚本进行训练，里面没有warmup，数据集很小（一个是10k，一个是100k），没有梯度检查点，甚至是将数据集全部加载进内存的。结果马上就过拟合了：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628203946531.png" alt="image-20250628203946531"></p>
+<p><code>val_loss</code>在下降一点后急速攀升，导致我一度以为是我超参数设置错了。于是我调整超参数再训练了几次，但效果不佳，仍旧过拟合。根据之前对Transformer的了解（从李沐老师视频中学习的），我知道Transformer的预设更少，所以需要用大的数据集才能训练好。于是我换用了当时我觉得比较大的100k数据集（10倍诶！可是10k数据集的10倍）。结果效果也没好多少：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628204326022.png" alt="image-20250628204326022"></p>
+<p><code>val_loss</code>也是下降了一点之后就开始飙升。虽然最低的<code>val_loss</code>比之前的<code>val_loss</code>小了1，但是这时候的BLEU分数只有0.09，是百分制的0.09，基本就相当于瞎猜！</p>
+<p>我依旧不死心，我觉得可能是模型太大，调调超参数说不定就好了，比如加大点<code>dropout</code>、减小点<code>emb_size</code>等等。如果是CNN，这些方法可能就奏效了，但是Transformer不行。用Optuna调了几次参，依旧过拟合：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628204912557.png" alt="image-20250628204912557"></p>
+<p>于是我本着小数据集上验证方法有效性，大数据集上拓展规模的想法，现在小数据集上找好超参数，再在大数据集上训练。结果用Optuna调了足足五十次，没有一次是有效的。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628205054018.png" alt="image-20250628205054018"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628205100658.png" alt="image-20250628205100658"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628205107888.png" alt="image-20250628205107888"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628205113746.png" alt="image-20250628205113746"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628205120762.png" alt="image-20250628205120762"></p>
+<p>没有一组超参数可以在10k数据集上不过拟合的。我也是服了Transformer了，无奈之下，既然10k、100k都没有好效果，那干脆就用论文里的百万规模数据集来训练。于是我搜了一个500万平行语料的数据集：translation2019zh。但大数据集的使用没我想象的那么简单。</p>
+<p>刚开始我只是改改数据集加载方式，从所有数据集加载进内存改成流式加载器。但我发现，模型变得很大，层数要减到很小才训练的动。这时我还不知道，我预处理出来的词表有100w~200w的大小。于是，我将Transformer减到4层，<code>emb_size</code>减到128，才勉强训练了起来。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628205818871.png" alt="image-20250628205818871"></p>
+<p>但效果非常显著，过拟合消失了，<code>val_loss</code>降到7了！但坏消息是此时的模型还是比较笨，BLEU分数才0.9（虽然是之前的十倍），经常胡乱输出。</p>
+<p>于是我去搜索前人经验，并找到了OpenAI的Scaling Law论文，从中知道了Transformer模型训练最重要的就是模型要大、数据集要大、训练时间要长，并且除了<code>batch_size</code>之外的超参数对模型性能影响有限。我现在有大数据集了，但模型还不够大，才4层。</p>
+<p>但是什么导致我的显存占用那么高呢？我刚开始以为是优化器、中间值。所以我增加了梯度检查点、混合精度训练，并及时清理显存。做了这些，我成功的将<code>emb_size</code>从128拓展到了196。但我还是很困惑，明明Transformer论文中用到的显卡只有16G的内存，不及如今3090的24G内存，为什么他们能训练<code>emb_size</code>为1024的模型而不爆显存呢？带着困惑，我对加大后的模型进行了训练：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628210711310.png" alt="image-20250628210711310"></p>
+<p>好消息是<code>val_loss</code>低了0.28左右，此时的BLEU分数也来到了1.5左右，坏消息是，模型还是胡乱输出，并且<code>val_loss</code>还是很高。在对模型的显存占用进行了计算后，我发现假设词表是3万，那模型最多就占用80多M的显存。但是为什么模型训练时显存占用了80%呢。</p>
+<p>抱着疑问，我用Pytorch提供的工具对显存占用进行了查看。这不看不知道，一看吓一跳。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628210938020.png" alt="image-20250628210938020"></p>
+<p>模型占用了4G的显存。但理论上我的模型只有20M的参数，怎么算都算不出那么大的占用。久久思索未果，我觉得进行调试，看看为什么占用那么大。唯一有可能出问题的就是词表大小，而我此前还没有进行确认过。打完断点调试发现，我的中文词表有100w，英文词表有200w，是我预估的10倍。难怪显存占用那么大。</p>
+<p>之后发现，是我预处理的时候将很多只出现了一次的<code>token</code>也加入了词表中，导致词表过大。于是我重新设置了阈值以减小词表。令我啼笑皆非的是，词表大小减小到30w之后，显存占用变成了2G。难怪之前的效果一直不好。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628211246977.png" alt="image-20250628211246977"></p>
+<p>减小了词表之后，我就可以增大<code>emb_size</code>了，甚至我将模型调到了这样，还没有爆显存：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ------------- 模型结构 ----------------</span></span><br><span class="line"><span class="attr">model:</span></span><br><span class="line">  <span class="attr">enc_layers:</span> <span class="number">10</span>         <span class="comment"># Transformer Encoder 层数</span></span><br><span class="line">  <span class="attr">dec_layers:</span> <span class="number">10</span>          <span class="comment"># Transformer Decoder 层数</span></span><br><span class="line">  <span class="attr">emb_size:</span> <span class="number">1024</span>         <span class="comment"># 词向量 / 隐层维度</span></span><br><span class="line">  <span class="attr">nhead:</span> <span class="number">16</span>               <span class="comment"># Multi-Head Attention 头数</span></span><br><span class="line">  <span class="attr">ffn_dim:</span> <span class="number">4096</span>           <span class="comment"># Feed-Forward 隐层</span></span><br><span class="line">  <span class="attr">dropout:</span> <span class="number">0.1</span>           <span class="comment"># Dropout 概率</span></span><br></pre></td></tr></table></figure>
+<p>太好了，是大模型，我的实验有救了！我拿这个加大后的模型进行了训练（还加了warmup，这很重要！），效果出奇的好：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628211621588.png" alt="image-20250628211621588"></p>
+<p><code>val_loss</code>直接降低到了原来的$\frac12$。感受一下翻译效果，也超级棒：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/Transformer炼丹小记/image-20250628211724924.png" alt="image-20250628211724924"></p>
+<p>如果有更大或更多的卡，或许效果能更好，但是我已经不打算再卷了，圆满了！</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>炼丹真是件高深的事情，小小Transformer也有那么要注意的细节。不过通过Transformer，我也学到了很多，比如混合精度训练、梯度检查点、查看模型显存占用、自动调参。</p>
+<p>最后感慨一下，《Attention Is All You Need》这篇论文已经家喻户晓，Transformer也已经成为各种神经网络的重要组件了。甚至哪里的面试都会问你Transformer的QKV是怎么做矩阵乘法的。</p>
+<p>不过如何训练Transformer的资料并不多，也没什么人总结哪些是坑，哪些技巧需要用到。老师上课也就老调重弹，讲讲QKV，讲讲Attention，讲讲Mask，但是像Scaling Law或Warmup却不怎么提及，仅仅教室里学到的还是太浅表了呀。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ran.ranruo.xyz">白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ran.ranruo.xyz/post/918408497.html">https://ran.ranruo.xyz/post/918408497.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ran.ranruo.xyz" target="_blank">小白的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/Deep-Learning/">Deep Learning</a></div><div class="post_share"><div class="social-share" data-image="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/head_protrait.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/1014047471.html" title="并行算法笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">并行算法笔记</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/1070898293.html" title="解决DeepSpeed offload时找不到动态库的问题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="title">解决DeepSpeed offload时找不到动态库的问题</div></div></a></div><div><a href="/post/1176275894.html" title="Pycharm设置运行配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-12</div><div class="title">Pycharm设置运行配置</div></div></a></div><div><a href="/post/3576418838.html" title="Pycharm配Jupyter NoteBook"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-23</div><div class="title">Pycharm配Jupyter NoteBook</div></div></a></div><div><a href="/post/772417664.html" title="Python与操作系统交互"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-07</div><div class="title">Python与操作系统交互</div></div></a></div><div><a href="/post/969045566.html" title="Pytorch笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-15</div><div class="title">Pytorch笔记</div></div></a></div><div><a href="/post/3715959065.html" title="在Pycharm中重命名项目"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-04</div><div class="title">在Pycharm中重命名项目</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/head_protrait.jpg" onerror="this.onerror=null;this.src='https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">白</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">愿我们在清醒的现实再会</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%B0%8F%E8%AE%B0"><span class="toc-number">2.</span> <span class="toc-text">训练小记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/918408497.html" title="Transformer炼丹小记--大即是好">Transformer炼丹小记--大即是好</a><time datetime="2025-06-28T14:05:55.000Z" title="发表于 2025-06-28 14:05:55">2025-06-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/1014047471.html" title="并行算法笔记">并行算法笔记</a><time datetime="2025-06-17T10:04:18.000Z" title="发表于 2025-06-17 10:04:18">2025-06-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/294358179.html" title="编译原理">编译原理</a><time datetime="2025-06-14T10:03:19.000Z" title="发表于 2025-06-14 10:03:19">2025-06-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/123456789.html" title="s1:Simple test-time scaling为什么有效？">s1:Simple test-time scaling为什么有效？</a><time datetime="2025-05-12T07:00:02.000Z" title="发表于 2025-05-12 07:00:02">2025-05-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/654684277.html" title="目标检测论文阅读笔记（1）">目标检测论文阅读笔记（1）</a><time datetime="2025-04-28T09:00:55.000Z" title="发表于 2025-04-28 09:00:55">2025-04-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By 白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
