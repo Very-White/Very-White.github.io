@@ -4,13 +4,27 @@
   
     
     <entry>
-      <title>视觉定位阅读笔记 （1）</title>
-      <link href="/post/2859160389.html"/>
-      <url>/post/2859160389.html</url>
+      <title>视觉定位阅读笔记（1）</title>
+      <link href="/post/2865967650.html"/>
+      <url>/post/2865967650.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h1 id="CogVLM"><a href="#CogVLM" class="headerlink" title="CogVLM"></a>CogVLM</h1><blockquote><p><a href="https://zhuanlan.zhihu.com/p/668806245">参考博客</a></p></blockquote><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/视觉定位阅读笔记（1）/640.png" alt="图片"></p><p>恐怖的性能……都快把Benchmark刷爆了。</p><p>作者在文章里说之前将图像融入进语言模型的时候都做的是“浅对齐”，比如LLaVA是通过将图像经过编码器编码成特征向量后，再通过一个线性层就得到了词向量空间中的向量了。</p><p>作者说这会有问题，因为视觉特征并不一定能完美转换为文本特征。就比如某个图像很难用语言描述，那这个图像的特征向量经过线性层转换为词向量之后，和之前大模型预训练的时候学习的词向量的分布完全不一样。此时大模型就好像遇到了全新的句子，它的效果自然会差。如果强行训练，可能对图片的理解力好了，但是原有的文本理解能力就下降了。</p><p>所以作者就想在不破坏语言能力的情况下增强图像理解的能力。作者的做法比较简单，既然直接转为词向量不太好，而且大模型学了新的还容易忘了旧的。那就保持原有的结构不变，让图像特征和文本特征分开来处理。从论文的架构图中可以清晰看到：</p><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/视觉定位阅读笔记（1）/image-20250430152634248.png" alt="image-20250430152634248"></p><p>首先是把图像通过视觉编码器（ViT,Visual Transformer）编码成特征向量，然后和文本编码成的特征向量拼接起来。然后在进入Transformer的Muti-head Attention之前会有一个投影的过程，这时候图片向量和文本向量分开来投影。然后再拼接起来，送入Attention模块。然后在Attention之后的全连接层也是图像的特征向量和文本的特征向量分开来做的。在原有的文本特征处理不变的情况下新增了图像的处理模块，在数学公式中可以更清晰的看出。</p><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/视觉定位阅读笔记（1）/image-20250430154108810.png" alt="image-20250430154108810"></p><p>虽然想法简单，但是效果还挺不错的。深度学习真神奇呢。</p><h1 id="LLaVA-Grounding"><a href="#LLaVA-Grounding" class="headerlink" title="LLaVA-Grounding"></a>LLaVA-Grounding</h1><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/视觉定位阅读笔记（1）/image-20250512155355717.png" alt="image-20250512155355717"></p><p>模型架构比较简单，先用CLIP将图像$X_v$提取为视觉特征 $Z_v, H_v$。然后文本的prompt也被编码成特征$H_q,X_q$。然后作者还加了个接受用户绘图的视觉交互模块，也就是右下角的那个模块。将用户绘图过的图片给转为特征 $Z_p, H_p$。然后将这些特征全给大语言模型，让其生成，估计是生成要进行定位的物体。然后将大模型的回答和图像一起送到Grounding模块里进行定位。最后输出BBox。</p><h1 id="Groma"><a href="#Groma" class="headerlink" title="Groma"></a>Groma</h1><blockquote><p><a href="https://blog.csdn.net/amusi1994/article/details/139338256">参考博客</a></p></blockquote><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/视觉定位阅读笔记（1）/image-20250602154631034.png" alt="image-20250602154631034"></p><p>论文用一个传统的Region Proposal来生成一系列的bbox，然后将这些Region通过一个图像编码器进行编码。这些编码后的向量就可以在大模型回答的时候进行引用。在做Grounding任务的时候，大模型就不需要自己去定位框了，大模型只需要去找框。</p><blockquote><p>遗憾的是这篇论文效果也不差，但是没看到投到哪个顶会去。</p></blockquote><h1 id="LLM-Optic"><a href="#LLM-Optic" class="headerlink" title="LLM-Optic"></a>LLM-Optic</h1><p><img src="https://xiao--bai.oss-cn-guangzhou.aliyuncs.com/视觉定位阅读笔记（1）/image-20250602155108256.png" alt="image-20250602155108256"></p><p>这篇文章用大模型+GroundingDino在不需要微调的情况下就在Grounding数据集上的准确率提升了10%。传统视觉定位模型有两个问题，一是直接把文本给GroundingDino（传统的视觉定位模型），它不能准确的理解要找的物体；二是置信度有时候不准确，有时置信度低的框反而是准确的。论文就提出了两个方法：</p><ol><li>在用户输入文本的时候，让大模型提取要查找的物体</li><li>GroundingDino输出几个框，然后让视觉大模型去选择哪个框是正确的。</li></ol><p>文章中并没有进行微调，相当于做一个插件。可以与不同的视觉定位模型结合，提升它们的准确率。</p><blockquote><p>可惜的是，这篇文章也没有发表在任何顶会上。</p></blockquote><h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>这是第一篇视觉定位相关的论文阅读笔记，说不定也是唯一一篇。</p>]]></content>
       
       
+      <categories>
+          
+          <category> 在文献里迷路的日子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Deep Learning </tag>
+            
+            <tag> 视觉定位 </tag>
+            
+        </tags>
       
     </entry>
     

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://ran.ranruo.xyz/post/2859160389.html</loc>
+    <loc>https://ran.ranruo.xyz/post/2865967650.html</loc>
     
     <lastmod>2025-07-29</lastmod>
     
@@ -372,6 +372,13 @@
   
   <url>
     <loc>https://ran.ranruo.xyz/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/</loc>
+    <lastmod>2025-07-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ran.ranruo.xyz/tags/%E8%A7%86%E8%A7%89%E5%AE%9A%E4%BD%8D/</loc>
     <lastmod>2025-07-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
